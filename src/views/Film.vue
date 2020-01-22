@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Poster from '../components/Poster'
+import Poster from '../components/Poster/Poster'
 export default {
   name: 'Film',
   props: ['id'],
