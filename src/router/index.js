@@ -13,10 +13,16 @@ const routes = [
   {
     path: '/film/:id',
     name: 'film',
-    props: true,
+    props: castIdRouteParamForFilmComponent,
     component: () => import(/* webpackChunkName: "film" */ '../views/Film.vue')
   },
 ]
+
+function castIdRouteParamForFilmComponent(route) {
+  return {
+    id: Number(route.params.id),
+  };
+}
 
 const router = new VueRouter({
   mode: 'history',

@@ -3,13 +3,16 @@
         <div id="nav">
             <router-link to="/">Home</router-link>
             |
-            <router-link to="/film">Film</router-link>
+            <router-link to="/film/11111">Film</router-link>
         </div>
         <router-view/>
     </div>
 </template>
 
 <style lang="scss">
+    body {
+        padding: 10%;
+    }
     #app {
         display: flex;
         flex-wrap: wrap;

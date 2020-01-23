@@ -1,10 +1,10 @@
 <template>
     <div class="poster">
         <div class="poster-image">
-            <img src="http://posters.kinoafisha.ru/12/11111-001.jpg" alt="Постер фильма">
+            <img :src=posterImgUrl alt="Постер фильма">
         </div>
         <div id="action-elements-layer">
-            <div id="rate">
+            <div id="rate" class="rate-5">
                 5
             </div>
             <div id="bottom-section">
@@ -28,7 +28,19 @@
 <script>
 export default {
   name: 'Poster',
-  props: ['id'],
+  props: {
+    id: {
+      type: Number,
+      required: true,
+    },
+  },
+  computed: {
+    posterImgUrl: function () {
+      let id = this.id
+      let thousand = Math.trunc(id / 1000) + 1 // какая тысяча. используется в URL.
+      return 'http://posters.kinoafisha.ru/' + thousand + '/' + id + '-001.jpg'
+    },
+  },
 }
 </script>
 

@@ -14,5 +14,7 @@ export default {
 </script>
 
 <style scoped>
-
+.Film {
+    max-width: 20em;
+}
 </style>
