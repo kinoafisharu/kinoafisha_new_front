@@ -5,6 +5,7 @@
 </template>
 
 <script>
+// Пока это просто заглушка для главной страницы (views/Home.vue)
 export default {
   name: 'MainPageComponent',
   props: {

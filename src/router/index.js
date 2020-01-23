@@ -13,11 +13,13 @@ const routes = [
   {
     path: '/film/:id',
     name: 'film',
-    props: castIdRouteParamForFilmComponent,
+    props: castIdRouteParamForFilmComponent, // id кастится к целочисленному,
+                                          // т.к. это требуется компонентом.
     component: () => import(/* webpackChunkName: "film" */ '../views/Film.vue')
   },
 ]
 
+// Приводит параметр к целочисленному виду.
 function castIdRouteParamForFilmComponent(route) {
   return {
     id: Number(route.params.id),

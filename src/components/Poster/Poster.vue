@@ -29,13 +29,13 @@
 export default {
   name: 'Poster',
   props: {
-    id: {
+    id: { // id фильма, параметр передается через URL.
       type: Number,
       required: true,
     },
   },
   computed: {
-    posterImgUrl: function () {
+    posterImgUrl: function () { // Собирает нужный URL постера по id фильма
       let id = this.id
       let thousand = Math.trunc(id / 1000) + 1 // какая тысяча. используется в URL.
       return 'http://posters.kinoafisha.ru/' + thousand + '/' + id + '-001.jpg'

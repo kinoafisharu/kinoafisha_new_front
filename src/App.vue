@@ -10,6 +10,7 @@
 </template>
 
 <style lang="scss">
+    // базовые стили, который применяются глобально
     body {
         padding: 10%;
     }
