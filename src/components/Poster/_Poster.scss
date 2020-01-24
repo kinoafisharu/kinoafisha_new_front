@@ -31,19 +31,19 @@
     justify-content: space-between;
 
     .rate-5 {
-      background: forestgreen;
+      background: rgba(forestgreen, 0.9);
     }
 
     .rate-4 {
-      background: blue;
+      background: rgba(blue, 0.9);
     }
 
     .rate-3 {
-      background: yellow;
+      background: rgba(yellow, 0.9);
     }
 
     .rate-2 {
-      background: red;
+      background: rgba(red, 0.9);
     }
 
     .rate {
@@ -55,7 +55,7 @@
       align-self: flex-start;
       margin-top: 10%;
       font-size: 4em;
-      opacity: 90%;
+      //opacity: 90%;
     }
 
 
