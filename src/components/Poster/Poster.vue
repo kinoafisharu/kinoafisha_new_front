@@ -4,7 +4,7 @@
             <img :src=posterImgUrl alt="Постер фильма">
         </div>
         <div id="action-elements-layer">
-            <div id="rate" class="rate-5">
+            <div id="rate-5" class="rate">
                 5
             </div>
             <div id="bottom-section">
