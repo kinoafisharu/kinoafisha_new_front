@@ -9,11 +9,11 @@
             </div>
             <div id="bottom-section">
                 <div class="rate-button" id="like">
-                    <img src="../../assets/like.svg" alt="like">
+                    <img src="../../assets/like.png" alt="like">
                     <span>3</span>
                 </div>
                 <div class="rate-button" id="dislike">
-                    <img src="../../assets/like.svg" alt="dislike">
+                    <img src="../../assets/like.png" alt="dislike">
                     <span>4</span>
                 </div>
 
