@@ -1,22 +1,27 @@
+// usually for mobile
+@media (orientation: portrait) {
+    .poster {
+        width: inherit;
+      }
+    .poster-image {
+        width: inherit;
+    }
+}
+// desktop is always landscape
+@media (orientation: landscape) {
+    .poster {
+      height: inherit;
+    }
+    .poster-image {
+      height: inherit;
+    }
+}
+
 .poster {
   position: relative;
-  height: 100%;
+
   .poster-image {
     z-index: 1;
-    height: 100%;
-
-    @media (orientation: portrait) and (max-width: 599px) {
-      img {
-        width: 100%;
-      }
-    }
-    @media (orientation: landscape) {
-      img {
-        width: auto;
-        height: 100%;
-      }
-    }
-
   }
 
   #action-elements-layer {
@@ -30,19 +35,15 @@
     justify-content: space-between;
 
     $rate-opacity: 0.85;
-
     .rate-5 {
       background: rgba(forestgreen, $rate-opacity);
     }
-
     .rate-4 {
       background: rgba(blue, $rate-opacity);
     }
-
     .rate-3 {
       background: rgba(yellow, $rate-opacity);
     }
-
     .rate-2 {
       background: rgba(red, $rate-opacity);
     }
