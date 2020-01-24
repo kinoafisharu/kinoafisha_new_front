@@ -5,18 +5,17 @@
     z-index: 1;
     height: 100%;
 
-    @media (max-width: 599px) {
+    @media (orientation: portrait) and (max-width: 599px) {
       img {
         width: 100%;
       }
     }
-    @media (min-width: 600px) {
+    @media (orientation: landscape) {
       img {
         width: auto;
         height: 100%;
       }
     }
-
 
   }
 
@@ -30,20 +29,22 @@
     flex-direction: column;
     justify-content: space-between;
 
+    $rate-opacity: 0.85;
+
     .rate-5 {
-      background: rgba(forestgreen, 0.85);
+      background: rgba(forestgreen, $rate-opacity);
     }
 
     .rate-4 {
-      background: rgba(blue, 0.85);
+      background: rgba(blue, $rate-opacity);
     }
 
     .rate-3 {
-      background: rgba(yellow, 0.85);
+      background: rgba(yellow, $rate-opacity);
     }
 
     .rate-2 {
-      background: rgba(red, 0.85);
+      background: rgba(red, $rate-opacity);
     }
 
     .rate {
@@ -55,7 +56,6 @@
       align-self: flex-start;
       margin-top: 10%;
       font-size: 4em;
-      //opacity: 90%;
     }
 
 
@@ -63,12 +63,9 @@
       padding: 2%;
       margin-bottom: 5%;
       background: rgba(white, 0.5);
-
-      //margin: 10%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-
 
       .rate-button {
         display: flex;
@@ -89,7 +86,7 @@
 
       #dislike {
         img {
-          transform: rotate(0.5turn);
+          transform: rotate(0.5turn); // Делаем палец вниз за счет поворота.
         }
       }
 

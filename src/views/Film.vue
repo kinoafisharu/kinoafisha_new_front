@@ -14,14 +14,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
-    @media (max-width: 599px) {
+    // Mobile portrait
+    @media (orientation: portrait) and (max-width: 599px) {
         .Film {
             width: 100%;
         }
     }
-    @media (min-width: 600px) {
+
+    // Desktop landscape
+    @media (orientation: landscape) {
         .Film {
             width: auto;
             height: 100%;
