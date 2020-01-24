@@ -1,20 +1,17 @@
 <template>
     <div id="app">
-        <div id="nav">
-            <router-link to="/">Home</router-link>
-            |
-            <router-link to="/film/11111">Film</router-link>
-        </div>
         <router-view/>
     </div>
 </template>
 
 <style lang="scss">
-    // базовые стили, который применяются глобально
+    // базовые стили, которые применяются глобально
     body {
-        padding: 10%;
+        margin: 0;
     }
+
     #app {
+        margin: 0;
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
@@ -26,16 +23,4 @@
         color: #2c3e50;
     }
 
-    #nav {
-        padding: 30px;
-
-        a {
-            font-weight: bold;
-            color: #2c3e50;
-
-            &.router-link-exact-active {
-                color: #42b983;
-            }
-        }
-    }
 </style>
