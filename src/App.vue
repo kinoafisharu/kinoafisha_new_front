@@ -8,6 +8,12 @@
     // базовые стили, которые применяются глобально
     body {
         margin: 0;
+        height: 100%;
+    }
+
+    html {
+        height: 100%;
+
     }
 
     #app {
@@ -21,6 +27,7 @@
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
         color: #2c3e50;
+        height: 100%;
     }
 
 </style>

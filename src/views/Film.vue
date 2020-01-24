@@ -6,6 +6,7 @@
 
 <script>
 import Poster from '../components/Poster/Poster'
+
 export default {
   name: 'Film',
   props: ['id'],
@@ -15,4 +16,16 @@ export default {
 
 <style scoped>
 
+    @media (max-width: 599px) {
+        .Film {
+            width: 100%;
+        }
+    }
+    @media (min-width: 600px) {
+        .Film {
+            width: auto;
+            height: 100%;
+            align-self: flex-start;
+        }
+    }
 </style>

@@ -1,13 +1,23 @@
 .poster {
   position: relative;
-
+  height: 100%;
   .poster-image {
     z-index: 1;
+    height: 100%;
 
-    img {
-      //max-width: 100%;
-      //border-radius: 10pt;
+    @media (max-width: 599px) {
+      img {
+        width: 100%;
+      }
     }
+    @media (min-width: 600px) {
+      img {
+        width: auto;
+        height: 100%;
+      }
+    }
+
+
   }
 
   #action-elements-layer {
@@ -23,12 +33,15 @@
     #rate-5 {
       background: forestgreen;
     }
+
     #rate-4 {
       background: blue;
     }
+
     #rate-3 {
       background: yellow;
     }
+
     #rate-2 {
       background: red;
     }
@@ -36,8 +49,8 @@
     .rate {
       border-top-right-radius: 35%;
       border-bottom-right-radius: 35%;
-      padding-left: 15%;
-      padding-right: 15%;
+      padding-left: 10%;
+      padding-right: 10%;
       color: black;
       align-self: flex-start;
       margin-top: 10%;
@@ -60,12 +73,13 @@
         display: flex;
         justify-content: space-evenly;
         align-items: center;
-        font-size: 16pt;
+        font-size: 25pt;
 
         img {
           width: 45%;
           height: 45%;
         }
+
         img:active {
           width: 50%;
           height: 50%;
