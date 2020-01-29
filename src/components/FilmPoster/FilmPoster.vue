@@ -19,27 +19,27 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Poster",
-  props: {
-    id: {
-      // id фильма, параметр передается через URL.
-      type: Number,
-      required: true
-    }
-  },
-  computed: {
-    posterImgUrl: function() {
-      // Собирает нужный URL постера по id фильма
-      let id = this.id;
-      let thousand = Math.trunc(id / 1000) + 1; // какая тысяча. используется в URL.
-      return "http://posters.kinoafisha.ru/" + thousand + "/" + id + "-001.jpg";
-    }
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator"
+
+@Component
+export default class FilmPoster extends Vue {
+  @Prop({
+    required: true,
+    type: Number,
+    validator: (id: number) => id > 0
+  })
+  private id!: number
+
+  // Собирает нужный URL постера по id фильма
+  get posterImgUrl(): string {
+    let id = this.id
+    let thousand = Math.trunc(id / 1000) + 1 // какая тысяча. используется в URL.
+    return "http://posters.kinoafisha.ru/" + thousand + "/" + id + "-001.jpg"
   }
-};
+}
 </script>
 
 <style scoped lang="scss">
-@import "Poster";
+@import "FilmPoster";
 </style>

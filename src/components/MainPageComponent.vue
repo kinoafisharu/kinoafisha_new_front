@@ -1,16 +1,17 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <router-link to="/film/11111">Film</router-link>
   </div>
 </template>
 
-<script>
-// Пока это просто заглушка для главной страницы (views/Home.vue)
-export default {
-  name: 'MainPageComponent',
-  props: {
-    msg: String
-  }
+<script lang="ts">
+// Пока это просто заглушка для главной страницы (views/HomeView.vue)
+import { Component, Prop, Vue } from "vue-property-decorator"
+
+@Component
+export default class HelloWorld extends Vue {
+  @Prop() private msg!: string
 }
 </script>
 
