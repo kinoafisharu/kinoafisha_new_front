@@ -1,7 +1,8 @@
-import express from 'express'
-import serveStatic from "serve-static"
-import path from 'path'
-import history from "connect-history-api-fallback"
+const express = require('express')
+const serveStatic = require('serve-static')
+const path = require('path')
+
+let history = require('connect-history-api-fallback')
 
 let app = express()
 app.use(history()) // HTML5 History Mode middleware
