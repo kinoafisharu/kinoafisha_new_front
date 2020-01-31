@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter, {Route, RouteConfig, RouterOptions} from 'vue-router'
-import Home from '../views/HomeView.vue'
-import FilmView from "@/views/FilmView.vue"
+import Home from '@/views/HomeView.vue'
 
 Vue.use(VueRouter)
 
@@ -16,7 +15,7 @@ const routes: RouteConfig[] = [
     name: 'FilmView',
     props: castIdRouteParamForFilmComponent, // id кастится к целочисленному,
     // т.к. это требуется компонентом.
-    component: () => import('../views/FilmView.vue')
+    component: () => import('@/views/FilmView.vue')
   },
 ]
 
