@@ -5,7 +5,7 @@ import FilmView from "@/views/FilmView.vue"
 
 Vue.use(VueRouter)
 
-const routes = [
+const routes: RouteConfig[] = [
   {
     path: '/',
     name: 'home',
@@ -18,7 +18,7 @@ const routes = [
     // т.к. это требуется компонентом.
     component: () => import('../views/FilmView.vue')
   },
-] as RouteConfig[]
+]
 
 // Приводит параметр к целочисленному виду.
 function castIdRouteParamForFilmComponent(route: Route) {
