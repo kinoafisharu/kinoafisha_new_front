@@ -1,24 +1,19 @@
-# kinoafisha
+# KinoAfisha.ru - Frontend Part
 
-## Project setup
-```
-npm install
-```
+# Технологии:
+Vue.js, TypeScript, Vuex, Vue-Router, SCSS
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+# Структура проекта:
+В главный блок встраивается RouterView, который, в зависимости от URL, показывает нужный Vue-компонент из папки views. 
+Все пути прописаны в папке router и подгружаются 'лениво'.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+# Описание логики работы Views:
+1) HomeView: пока не делает ничего. Просто заглушка с ссылкой на 
+2) FilmView: Отображает фильм, в зависимости от id переданного из параметрах GET-запроса в Prop этого компонента. FilmView использует компонент components/FilmPoster в который передает параметр ID для отображения постера с экшн-элементами.
 
-### Lints and fixes files
-```
-npm run lint
-```
+# Описание логики работы @/components
+FilmPoster сам собирает ссылку на постер с помощью специального правила (исходя из структуры папок на сервере)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# Папка API:
+1) base.ts -- объявляет и экспортирует главный объект Axios с BASE URL и добавляет интресептор для запросов, который подставляет параметр ?format=json для удобства.
+2) film.ts -- импортирует главный Axios объект из base.ts и реализует методы по пути /api/film/
