@@ -7,7 +7,7 @@ Vue.js, TypeScript, Vuex, Vue-Router, SCSS
 ## Структура проекта
 
 Проект представляет собой фронтэнд-платформу для создания киноприложений с использованием базы данных [Киноинфо](http://kinoinfo.ru/) и его [API](http://kinoinfo.ru/api/).
-Приложение №1 - [kinoafisha.ru](http://kinoafisha.ru/), папка для кода приложения: ```ххххххх```
+Приложение №1 - [kinoafisha.ru](http://kinoafisha.ru/), [код приложения](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/src/views).
 
 В папке [public](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/public) расположены ...
 
