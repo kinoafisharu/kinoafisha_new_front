@@ -4,7 +4,7 @@
 
 Vue.js, TypeScript, Vuex, Vue-Router, SCSS
 
-## Структура проекта
+## Структура проекта (использовать: https://www.internet-technologies.ru/articles/razrabotka-masshtabnogo-prilozheniya-vue-js.html#header-7)
 
 (ниже - черновик структуры папок и файлов, не соответствует нашему проекту)
 
