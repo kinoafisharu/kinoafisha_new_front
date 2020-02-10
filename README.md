@@ -6,6 +6,22 @@ Vue.js, TypeScript, Vuex, Vue-Router, SCSS
 
 ## Структура проекта
 
+(ниже - черновик структуры папок и файлов, не соответствует нашему проекту)
+├── index.html
+├── main.js
+├── api
+│   └── ... # абстракции для выполнения запросов к API
+├── components
+│   ├── App.vue
+│   └── ...
+└── store
+    ├── index.js          # здесь мы собираем модули и экспортируем хранилище
+    ├── actions.js        # корневые действия
+    ├── mutations.js      # корневые мутации
+    └── modules
+        ├── cart.js       # модуль корзины
+        └── products.js   # модуль товаров
+
 Проект представляет собой фронтэнд-платформу для создания киноприложений с использованием базы данных [Киноинфо](http://kinoinfo.ru/) и его [API](http://kinoinfo.ru/api/).
 Приложение №1 - [kinoafisha.ru](http://kinoafisha.ru/), [код приложения](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/src/views).
 
