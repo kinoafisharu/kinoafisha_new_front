@@ -2,7 +2,7 @@
 
 ## Технологии
 
-Vue.js, TypeScript, Vuex, Vue-Router, SCSS
+Vue.js, TypeScript (заменить на CofeeScript), Vuex, Vue-Router, SCSS
 
 ## Структура проекта (использовать: https://www.internet-technologies.ru/articles/razrabotka-masshtabnogo-prilozheniya-vue-js.html#header-7)
 
@@ -38,10 +38,10 @@ Vue.js, TypeScript, Vuex, Vue-Router, SCSS
         
 
 
-Проект представляет собой фронтэнд-платформу для создания киноприложений с использованием базы данных [Киноинфо](http://kinoinfo.ru/) и его [API](http://kinoinfo.ru/api/).
-Приложение №1 - [kinoafisha.ru](http://kinoafisha.ru/), [код приложения](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/src/views).
+Проект представляет собой фронтэнд-платформу для создания виджетов с использованием базы данных [Киноинфо](http://kinoinfo.ru/) и его [API](http://kinoinfo.ru/api/).
+1. Набор виджетов для Киноафиши - [kinoafisha.ru](http://kinoafisha.ru/), [код приложения](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/src/views).
 
-В папке [public](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/public) расположены ...
+В папке [public](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/public) расположены (кто знает, зачем нужна Паблик - впишите ее назначение)...
 
 В папке ```хххх``` расположен RouterView, который по полученному URL вызывает нужный Vue-компонент приложения из папки ```kinoafisha/views``` ?.
 
@@ -49,13 +49,13 @@ Vue.js, TypeScript, Vuex, Vue-Router, SCSS
 
 ## Логика работы Views
 
-1) [HomeView](https://github.com/kinoafisharu/kinoafisha_new_front/blob/master/src/views/HomeView.vue): Главная. Должна будет выдавать "панель управления" приложением. Сейчас просто заглушка с ссылкой на FilmView.
+1) [HomeView](https://github.com/kinoafisharu/kinoafisha_new_front/blob/master/src/views/HomeView.vue): Админка виджетов. Должна будет выдавать "панель управления" набором виджетов. Сейчас просто заглушка с ссылкой на FilmView.
 
-[Просмотреть главную](https://kinoafisha-vue-dev.herokuapp.com/)
+[Просмотреть админку](https://kinoafisha-vue-dev.herokuapp.com/)
 
 2) [FilmView](https://github.com/kinoafisharu/kinoafisha_new_front/blob/master/src/views/FilmView.vue) (заменить на ProductView): Отображает объект класса Product (здесь: фильм), по входящим данным,  получаемым от API. Использует компонент [components/FilmPoster](https://github.com/kinoafisharu/kinoafisha_new_front/blob/master/src/components/FilmPoster/FilmPoster.vue).
 
-[Просмотреть Фильм](https://kinoafisha-vue-dev.herokuapp.com/film/11111)
+[Просмотреть прототип виджета Фильм](https://kinoafisha-vue-dev.herokuapp.com/film/11111)
 
 ## Логика работы [@/components](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/src/components) (родительские компоненты)
 
