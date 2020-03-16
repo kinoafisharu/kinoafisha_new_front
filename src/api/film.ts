@@ -3,7 +3,7 @@ import { FilmModel } from "@/film-model"
 
 export const getFilmById = async (id: number) => {
   let response = await service.get<FilmModel[]>(
-    '/film',
+    'http://kinoinfo.ru/api/film',
     { params: { id } }
   )
   console.log(response)
@@ -12,7 +12,7 @@ export const getFilmById = async (id: number) => {
 
 export const getFilmsScheduleByСity = async (city: string) => {
   let response = await service.get<FilmModel[]>(
-    '/film', //todo schedule/?city=Казань
+    'http://kinoinfo.ru/api/film', //todo schedule/?city=Казань
     { params: { city } }
   )
   let films = response.data.map(film=>{
