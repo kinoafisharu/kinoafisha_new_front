@@ -15,6 +15,7 @@ export interface FilmModel {
   release: string;
   runtime: number;
   original: string;
+  poster : string;
 }
 
 export interface Rating {
