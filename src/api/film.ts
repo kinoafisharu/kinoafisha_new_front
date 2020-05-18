@@ -5,7 +5,6 @@ import { BriefFilm } from "@/film-model"
 
 export const getListOfFilms = async () => {
   let response = await service.get('https://new-new-api.herokuapp.com/films')
-  console.log(response)
   return response.data
 }
 
@@ -14,7 +13,6 @@ export const getFilmById = async (id: number) => {
     'https://new-new-api.herokuapp.com/',
     { params: { id } }
   )
-  console.log(response)
   return response.data[0]
 }
 
@@ -28,7 +26,6 @@ export const getFilmsScheduleByСity = async (city: string) => {
     film.poster="http://posters.kinoafisha.ru/" + thousand + "/" + film.id + "-000.jpg" //TODO тут или "-001.jpg"
     return film
   })
-  console.log(films)
   return films
 }
 
