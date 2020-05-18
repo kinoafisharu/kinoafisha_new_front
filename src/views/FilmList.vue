@@ -16,7 +16,7 @@ import Axios, { AxiosResponse } from "axios"
 import { getListOfFilms } from "@/api/film"
 import { FilmList } from "@/film-model"
 
-
+@component({})
 export default class FilmListedView extends Vue {
     private filmList!: FilmList
     private dataReady = false
