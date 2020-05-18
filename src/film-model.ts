@@ -43,6 +43,7 @@ export interface FilmModel {
   kid: number;
   generated: number;
   generated_dtime: string; // to change in api
+  poster: string;
 }
 
 export interface Rating {
