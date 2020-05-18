@@ -11,12 +11,12 @@
 </template>
 
 <script lang='ts'>
-import { Vue } from "vue-property-decorator"
+import { Vue, Component } from "vue-property-decorator"
 import Axios, { AxiosResponse } from "axios"
 import { getListOfFilms } from "@/api/film"
 import { FilmList } from "@/film-model"
 
-@component({})
+@Component({})
 export default class FilmListedView extends Vue {
     private filmList!: FilmList
     private dataReady = false
