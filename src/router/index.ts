@@ -11,7 +11,13 @@ const routes: RouteConfig[] = [
     component: Home
   },
   {
-    path: '/film/:id',
+    path: '/films/',
+    name: 'FilmList',
+    component: () => import ('@/views/FilmList.vue')
+    
+  },
+  {
+    path: '/films/:id',  // changed for new api
     name: 'FilmView',
     props: castIdRouteParamForFilmComponent, // id кастится к целочисленному,
     // т.к. это требуется компонентом.

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const service = axios.create({
-    baseURL: 'http://kinoinfo.ru/api/', // url = base url + request url
+    baseURL: 'https://new-new-api.herokuapp.com/?format=json', // url = base url + request url
     timeout: 5000,
     // withCredentials: true // send cookies when cross-domain requests
 })
