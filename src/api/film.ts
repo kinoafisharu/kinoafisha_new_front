@@ -6,7 +6,7 @@ import { FilmList } from "@/film-model"
 
 export const getListOfFilms = async () => {
   let response = await service.get<FilmList[]>('https://new-new-api.herokuapp.com/films/?format=json')
-  return response.data['results']
+  return response.data
 }
 
 export const getFilmById = async (id: number) => {
