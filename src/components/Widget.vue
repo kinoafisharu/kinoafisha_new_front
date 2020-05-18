@@ -4,13 +4,13 @@
       :width="modal_width" :height="height" :margin_left="modal_container_ml"
       :show_close_btn="!poster_right">
       <div slot="body" class="descriptions">
-        <p class="film_name"><b>{{name}}</b></p>
-        <p class="film_origin_name">{{original}}</p>
+        //<p class="film_name"><b>{{name}}</b></p>
+        //<p class="film_origin_name">{{original}}</p>
         <p class="pd"><a class="first"><b>Год выпуска : </b></a><a class="second"> {{year}}</a></p>
-        <p class="pd"><a class="first"><b>Жанр :        </b></a><a class="second"> {{genres}}</a></p>
-        <p class="pd"><a class="first"><b>Актеры :      </b></a><a class="second">{{persons}}</a></p>
-        <p class=""><a><b>Описание :</b></a></p>
-        <p class=""><a>{{description}}</a></p>
+        //<p class="pd"><a class="first"><b>Жанр :        </b></a><a class="second"> {{genres}}</a></p>
+        //<p class="pd"><a class="first"><b>Актеры :      </b></a><a class="second">{{persons}}</a></p>
+        //<p class=""><a><b>Описание :</b></a></p>
+        //<p class=""><a>{{description}}</a></p>
       </div>
     </Modal>
     <swiper :options="swiperOption"
@@ -59,12 +59,12 @@ export default {
         }
       },
       showModal : false,
-      name : "",
+     // name : "",
       year : "",
-      original : "",
-      description : "",
-      genres : "",
-      persons : "",
+     // original : "",
+     // description : "",
+     // genres : "",
+     // persons : "",
       was_updated : false
     }
   },
