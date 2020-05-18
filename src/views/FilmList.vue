@@ -1,7 +1,7 @@
 
 <template>
     <div>
-        <ul id="FilmList" v-if = "dataReady">
+        <ul id="FilmListed" v-if = "dataReady">
           <li v-for="item in filmList" :key="item.id">
             {{ item.id }}
             {{ item.year }}
@@ -19,7 +19,7 @@ import { getListOfFilms } from "@/api/film"
 import { FilmList } from "@/film-model"
 
 
-export default class FilmList extends Vue {
+export default class FilmListedView extends Vue {
     private filmList!: FilmList
     private dataReady = false
     
