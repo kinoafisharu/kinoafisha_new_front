@@ -1,7 +1,7 @@
 import service from '@/api/base.ts'
 import { FilmModel } from "@/film-model"
 import { BriefFilm } from "@/film-model"
-import { FilmList } from "@film-model"
+import { FilmList } from "@/film-model"
 
 
 export const getListOfFilms = async () => {
