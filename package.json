@@ -12,7 +12,6 @@
   "engines": {
     "node": "12.16.3"
   },
-  },
   "dependencies": {
     "axios": "^0.19.2",
     "connect-history-api-fallback": "^1.6.0",
