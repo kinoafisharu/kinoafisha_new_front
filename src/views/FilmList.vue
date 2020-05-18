@@ -1,15 +1,13 @@
 
 <template>
-    <div>
-        <ul id="FilmListed" v-if = "dataReady">
-          <li v-for="item in filmList" :key="item.id">
-            {{ item.id }}
-            {{ item.year }}
-            {{ item.kid }}
-            {{ item.imdb_id}}
-          </li>
-        </ul>
-    </div>
+       <ul id="FilmListed" v-if = "dataReady">
+         <li v-for="item in filmList" :key="item.id">
+           {{ item.id }}
+           {{ item.year }}
+           {{ item.kid }}
+           {{ item.imdb_id}}
+         </li>
+       </ul>
 </template>
 
 <script lang='ts'>
