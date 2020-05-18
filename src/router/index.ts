@@ -23,12 +23,6 @@ const routes: RouteConfig[] = [
     // т.к. это требуется компонентом.
     component: () => import('@/views/FilmView.vue')
   },
-  {
-    path: '/widget',
-    name: 'widget',
-    props: castWidgetProps,
-    component: () => import('@/views/WidgetView.vue')
-  }
 ]
 
 // Приводит параметр к целочисленному виду.
@@ -38,12 +32,6 @@ function castIdRouteParamForFilmComponent(route: Route) {
   }
 }
 
-function castWidgetProps(route: Route) {
-  console.log(route)
-  return {
-    //width: Number(route.query.width || 300),
-    //height: Number(route.query.height || 400)
-  }
 }
 const router = new VueRouter({
   mode: 'history',
