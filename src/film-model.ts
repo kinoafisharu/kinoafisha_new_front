@@ -19,7 +19,7 @@ export interface FilmModelOldApi {
 }
 
 export interface FilmList {
-  item: any[];
+  [index: number]: string;
 }
 
 export interface BriefFilm {
