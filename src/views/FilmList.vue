@@ -1,6 +1,6 @@
 
 <template>
-       <ul id="FilmListed" v-if = "dataReady">
+       <ul id="FilmListedView" v-if = "dataReady">
          <li v-for="item in filmList" :key="item.id">
            {{ item.id }}
            {{ item.year }}
