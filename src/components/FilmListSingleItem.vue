@@ -1,9 +1,8 @@
 <template>
 
   <li>
-    <p>{{film.id}}</p>
-    <p>{{film.imdb_id}}</p>
-    <router-link :to="{ name: 'filmdetail', params: { id:film.id }}">See it here</router-link>
+    <p>{{film.id}} {{film.year}}</p>
+    <router-link :to="{ name: 'filmdetail', params: { id:film.id }}">{{film.imdb_id}}</router-link>
   </li>
 
 </template>
