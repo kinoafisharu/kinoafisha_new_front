@@ -5,7 +5,8 @@
     <p>====| {{film.year}} |====</p>
     <a :href="'{{url('ttps://www.imdb.com/title/tt')}}' + film.imdb_id">Go to imdb</a> 
     <p> ----------------------------------------- </p>
-    <a :href="'{{url('http://kinoinfo.ru/film')}}/' + film.kid">Go to kinoinfo</a> 
+    <a :href="'{{url('http://kinoinfo.ru/film')}}/' + film.kid">Go to kinoinfo</a>
+    <p> ----------------------------------------- </p>
   </li>
 
 </template>
