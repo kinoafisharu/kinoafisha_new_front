@@ -3,9 +3,13 @@
   <li>
     <router-link :to="{ name: 'filmdetail', params: { id:film.id }}">{{film.id}}</router-link>
     <p>====| {{film.year}} |====</p>
-    <a :href="'https://www.imdb.com/title/tt' + film.imdb_id">Go to imdb</a> 
+    <template v-if="film.imdb_id">
+      <a :href="'https://www.imdb.com/title/tt' + film.imdb_id">Go to imdb</a>
+    </template>
     <p> ----------------------------------------- </p>
-    <a :href="'http://kinoinfo.ru/film/' + film.kid">Go to kinoinfo</a>
+    <template v-if ="film.kid">
+      <a :href="'http://kinoinfo.ru/film/' + film.kid">Go to kinoinfo</a>
+    </template>
     <p> ----------------------------------------- </p>
   </li>
 
@@ -18,8 +22,12 @@
     props: {
       film: {
         type: Object,
-        id: String,
+        id: Number,
         imdb_id: String,
+        kid: String,
+        year: String,
+        genres: Object,
+        names: Object,
       }
     }
   }

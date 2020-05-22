@@ -1,6 +1,7 @@
 
 <template>
-    <div class="poster">
+  <div class = 'postercontainer'>
+    <div v-if = 'this.kid' class="poster">
         <img :src="posterImgUrl" class="poster-image" alt="Постер фильма" />
         <div id="action-elements-layer">
            <div class="rate rate-5">5</div>
@@ -18,22 +19,28 @@
            </div>
        </div>
    </div>
+   <div v-else>
+     <h1>This film doesn't have a poster yet!</h1>
+   </div>
+ </div>
 </template>
 
 <script>
 
   export default {
-    props: {
-      id: String,
-    },
+    props: ['kid',],
     computed : {
         posterImgUrl() {
-         let id = Number(this.id)
-         let thousand = Math.trunc(id / 1000) + 1 // какая тысяча. используется в URL.
-         console.log("http://posters.kinoafisha.ru/" + thousand + "/" + id + "-001.jpg")
-         return (
-             "http://posters.kinoafisha.ru/" + thousand + "/" + id + "-001.jpg"
-         );
+          if (this.kid) {
+             let kid = this.kid
+             let thousand = Math.trunc(Number(kid) / 1000) + 1 // какая тысяча. используется в URL.
+             console.log("http://posters.kinoafisha.ru/" + thousand + "/" + kid + "-001.jpg")
+             return (
+                 "http://posters.kinoafisha.ru/" + thousand + "/" + kid + "-001.jpg"
+             );
+          } else {
+            return null
+          }
        },
     }
   }
@@ -60,6 +67,12 @@
     }
 }
 
+.postercontainer {
+  width: 20%;
+  height: 40%;
+  position: relative;
+}
+
 .poster {
     position: relative;
 
@@ -71,8 +84,8 @@
         position: absolute;
         z-index: 2;
         top: 0;
-        width: 100%;
-        height: 100%;
+        width: 183%;
+        height: 103%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
