@@ -8,7 +8,10 @@
   import FilmDetail from "@/components/FilmDetail.vue"
   export default {
     name: 'filmdetailview',
-    props: ['id'],
+    //id receieved from router
+    props: {
+      id: String,
+    },
     components:{
       FilmDetail
     }
