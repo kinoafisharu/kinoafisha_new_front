@@ -341,8 +341,8 @@ export default {
 }
 
 .postercontainer {
-    width: 37%;
-    height: 100%;
+    width: inherit;
+    height: inherit;
     display: flex;
     position: relative;
     margin: 0 auto;
