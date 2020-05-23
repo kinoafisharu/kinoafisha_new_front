@@ -2,12 +2,18 @@
 <template>
 <div class = 'postercontainer'>
 <div class="poster">
+
+  <!-- POSTER IMAGE -->
   <img class="poster-image" :src="imgsrc" :style="{ width: height*0.7 + 'px', height: height + 'px'}">
+  
+  <!-- BLOCK OF ACTION ELEMENTS (HEIGHT AND WIDTH IS EQUAL TO POSTER) -->
   <div id="action-elements-layer">
     <div class = 'rate' :class="'rate_color_'+1">
       <a>{{Math.round(ratecalced)}}</a>
       <a class="star">★</a>
     </div>
+    
+    <!-- BOTTOM OF ACTION LAYER -->
     <div id="bottom-section">
       <div v-if="show_info" class="info-place">
         <img id="icon-info" src="@/assets/info.png" alt="info" @click="show_info_modal" />
@@ -22,6 +28,8 @@
       </div>
       <a id="age-restriction">{{agelimits}} </a>
     </div>
+    
+    <!-- LIKE SECTION (SHOWN WHEN LIKE BUTTON CLICKED) -->
     <div id="like-section" v-if="show_like_section" :style="{background: bottom_section_bg }">
       <div class="like-button" @click="give_like('cinema')">
         <img class="" src="@/assets/film.png" />
@@ -36,7 +44,8 @@
         <span>смотрел, рекомендую</span>
       </div>
     </div>
-
+    
+    <!-- DISLIKE SECTION (SAME AS LIKE) -->
     <div id="dislike-section" v-if="show_dislike_section" :style="{background: bottom_section_bg }">
       <div class="like-button" @click="give_dislike('uninteresting')">
         <img class="" src="@/assets/sad.png" />
@@ -74,17 +83,21 @@ export default {
     }
   },
   methods: {
+    // SHOW LIKE SECTION
     mshow_like_section: function() {
       this.show_like_section = !this.show_like_section
       this.show_dislike_section = false
     },
+    // SHOW DISLIKE SECTION, CLOSE LIKE SECTION
     mshow_dislike_section: function() {
       this.show_like_section = false
       this.show_dislike_section = !this.show_dislike_section
     },
+    // MODAL INFO SHOW
     show_info_modal: function() {
       this.onPosterClick(this.id)
     },
+    
     give_like: function(reason) {
       this.show_like_section = !this.show_like_section
       if (this.like_given) return //нельзя дать много лайков одному фильму
@@ -92,6 +105,7 @@ export default {
       this.like_given = true
       //todo Like2Server
     },
+    
     give_dislike: function(reason) {
       this.show_dislike_section = !this.show_dislike_section
       if (this.dislike_given) return //нельзя дать много дизлайков одному фильму
