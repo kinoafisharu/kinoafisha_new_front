@@ -33,6 +33,9 @@
      };
    },
     mounted() {
+    
+      //getting film details by id got from props
+      
       let id = String(this.id) + '/'
       service.get('films/' + id, {params: {format: 'json'} })
       .then(response => {this.film = response.data})
