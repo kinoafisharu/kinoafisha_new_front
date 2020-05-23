@@ -1,8 +1,9 @@
 <template>
-  <div class = 'filmdetail'>
-      <FilmPoster v-if = "film !== null" :kid = 'film.kid'/>
-      <p v-else-if = 'loading === true'>loading...</p>
-      <p v-if = 'errored === true'> ERROR occured in FilmDetail component </p>
+  <div class = 'poster-and-info-block'>
+          <FilmPoster v-if = "film !== null" :kid = 'film.kid' :rate = '5' :agelimits = '14'/>
+          <p v-else-if = 'loading === true'>loading...</p>
+          <p v-if = 'errored === true'> ERROR occured in FilmDetail component </p>
+          <FilmInfo/>
   </div>
 </template>
 
@@ -11,9 +12,11 @@
   //import getFilmById from "@/api/films.js"
   import service from "@/api/base.js"
   import FilmPoster from "@/components/FilmPoster.vue"
+  import FilmInfo from "@/components/FilmInfo.vue"
   export default {
     name: 'filmdetail',
     components: {
+      FilmInfo,
       FilmPoster
     },
     //id received from router CHAIN |- DetailView - FilmDetail - FilmPoster
@@ -44,4 +47,8 @@
 </script>
 
 <style>
+#poster-and-info-block {
+
+}
+
 </style>
