@@ -1,14 +1,12 @@
-import service from "@/api/base.js"
+import axios from 'axios'
 
 
-export const getFilmById =  (id) => {
-  service.get(
-    'films/',
-    { params: { id } }
-  )
-  .then(
-    response => {
-      return response.data
+const Is404Image = (url) => { axios.get(url)
+  .catch((error) => {
+    if (error.response) {
+      return error.response.status
     }
-  )
+  });
 }
+
+export default Is404Image
