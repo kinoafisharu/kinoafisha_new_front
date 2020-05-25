@@ -1,6 +1,6 @@
 <template>
   <div class = 'poster-and-info-block'>
-          <FilmPoster v-if = "film !== null" :kid = 'film.kid' :rate = '5' :agelimits = '14'/>
+          <FilmPoster v-if = "film !== null" :kid = 'film.kid' :rate = 'film.imdb_rate' :agelimits = '14'/>
           <p v-else-if = 'loading === true'>loading...</p>
           <p v-if = 'errored === true'> ERROR occured in FilmDetail component </p>
           <FilmInfo/>
@@ -33,9 +33,6 @@
      };
    },
     mounted() {
-    
-      //getting film details by id got from props
-      
       let id = String(this.id) + '/'
       service.get('films/' + id, {params: {format: 'json'} })
       .then(response => {this.film = response.data})

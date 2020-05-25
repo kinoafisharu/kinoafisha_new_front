@@ -2,18 +2,16 @@
 <template>
 <div class = 'postercontainer'>
 <div class="poster">
-
-  <!-- POSTER IMAGE -->
-  <img class="poster-image" :src="imgsrc" :style="{ width: height*0.7 + 'px', height: height + 'px'}">
-  
-  <!-- BLOCK OF ACTION ELEMENTS (HEIGHT AND WIDTH IS EQUAL TO POSTER) -->
+  <!-- Отображение постера елемента если такой есть -->
+  <img v-if = 'imgsrc' class="poster-image" :src="imgsrc" :style="{ width: height*0.7 + 'px', height: height + 'px'}">
+  <h1 v-else>This element doesn't have an image yet</h1>
   <div id="action-elements-layer">
-    <div class = 'rate' :class="'rate_color_'+1">
-      <a>{{Math.round(ratecalced)}}</a>
-      <a class="star">★</a>
+    <div class = 'rate' :class="'rate_color_'+ ratecalced">
+
+      <!-- Отображение рейтинга если такой есть -->
+      <a>{{ratecalced}}</a>
+      <a v-if = 'ratecalced' class="star">★</a>
     </div>
-    
-    <!-- BOTTOM OF ACTION LAYER -->
     <div id="bottom-section">
       <div v-if="show_info" class="info-place">
         <img id="icon-info" src="@/assets/info.png" alt="info" @click="show_info_modal" />
@@ -28,8 +26,6 @@
       </div>
       <a id="age-restriction">{{agelimits}} </a>
     </div>
-    
-    <!-- LIKE SECTION (SHOWN WHEN LIKE BUTTON CLICKED) -->
     <div id="like-section" v-if="show_like_section" :style="{background: bottom_section_bg }">
       <div class="like-button" @click="give_like('cinema')">
         <img class="" src="@/assets/film.png" />
@@ -44,8 +40,7 @@
         <span>смотрел, рекомендую</span>
       </div>
     </div>
-    
-    <!-- DISLIKE SECTION (SAME AS LIKE) -->
+
     <div id="dislike-section" v-if="show_dislike_section" :style="{background: bottom_section_bg }">
       <div class="like-button" @click="give_dislike('uninteresting')">
         <img class="" src="@/assets/sad.png" />
@@ -83,21 +78,17 @@ export default {
     }
   },
   methods: {
-    // SHOW LIKE SECTION
     mshow_like_section: function() {
       this.show_like_section = !this.show_like_section
       this.show_dislike_section = false
     },
-    // SHOW DISLIKE SECTION, CLOSE LIKE SECTION
     mshow_dislike_section: function() {
       this.show_like_section = false
       this.show_dislike_section = !this.show_dislike_section
     },
-    // MODAL INFO SHOW
     show_info_modal: function() {
       this.onPosterClick(this.id)
     },
-    
     give_like: function(reason) {
       this.show_like_section = !this.show_like_section
       if (this.like_given) return //нельзя дать много лайков одному фильму
@@ -105,7 +96,6 @@ export default {
       this.like_given = true
       //todo Like2Server
     },
-    
     give_dislike: function(reason) {
       this.show_dislike_section = !this.show_dislike_section
       if (this.dislike_given) return //нельзя дать много дизлайков одному фильму
@@ -143,7 +133,10 @@ export default {
       //todo тысячи записвать как 3100->3.1k
     },
     ratecalced: function() {
-      return this.rate
+      let r = this.rate
+      let rc = Math.round(r/2 + 1)
+      if (rc > 5) rc = 5; else if (rc == 1) rc = 2;
+      if (r == 0) return r; else return rc;
     },
   }
 }
@@ -155,16 +148,19 @@ export default {
 
     .poster {
         width: inherit;
+        height: inherit;
+        display: flex;
+        text-align: center;
     }
 
     .poster-image {
         width: inherit;
+        height: inherit;
         flex: 1;
     }
     img {
       max-width: 100%;
       max-height: 100%;
-      vertical-align: top;
     }
 }
 
@@ -174,6 +170,7 @@ export default {
         height: inherit;
         width: inherit;
         display: flex;
+        text-align: center;
     }
 
     .poster-image {
@@ -255,7 +252,7 @@ export default {
 }
 
 .rate_color_2 {
-    background: rgba(238, 130, 238, 0.8) !important;
+    background: rgba(94, 2, 2, 0.8) !important;
     color: #5C124A;
 }
 
