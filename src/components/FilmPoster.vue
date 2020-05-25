@@ -134,7 +134,7 @@ export default {
     },
     ratecalced: function() {
       let r = this.rate
-      let rc = Math.round(r/2 + 1)
+      let rc = Math.round(r/2)
       if (rc > 5) rc = 5; else if (rc == 1) rc = 2;
       if (r == 0) return r; else return rc;
     },
