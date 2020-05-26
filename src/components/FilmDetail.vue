@@ -44,7 +44,7 @@
 
   },
   methods : {
-    nextFilm: () => (this.id = this.id ++);
+    nextFilm: () => (this.id = this.id ++)
   }
 }
 </script>
