@@ -379,7 +379,7 @@ export default {
             font-size: 4.0em;
             padding-bottom: 1%;
             padding-top: 1%;
-            color: white;
+            color: black;
             font-weight: bold;
         }
 
