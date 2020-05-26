@@ -1,6 +1,6 @@
 <template>
   <div class = 'poster-and-info-block'>
-          <FilmPoster v-if = "film !== null" :kid = 'film.kid' :rate = 'film.imdb_rate' :agelimits = '14' :filmlikes = 'film.likes'/>
+          <FilmPoster v-if = "film !== null" :kid = 'film.kid' :rate = 'film.imdb_rate' :agelimits = '14' :filmlikes = 'film.likes' @click = 'nextFilm'/>
           <p v-else-if = 'loading === true'>loading...</p>
           <p v-if = 'errored === true'> ERROR occured in FilmDetail component </p>
           <FilmInfo/>
@@ -42,6 +42,9 @@
       .finally(() => this.loading = false)
       })
 }
+  },
+  methods : {
+    nextFilm: () => (this.id = this.id ++)
   }
 
 </script>
