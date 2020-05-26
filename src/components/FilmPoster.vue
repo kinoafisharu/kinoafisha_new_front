@@ -18,7 +18,7 @@
       </div>
       <div class="rate-button">
         <img class="icon" src="@/assets/like.png" alt="like" @click="mshow_like_section" />
-        <span>{{full_likes}}</span>
+        <span>{{filmlikes}}</span>
       </div>
       <div class="rate-button">
         <img class="icon rotated" src="@/assets/like.png" alt="dislike" @click="mshow_dislike_section" />
@@ -66,6 +66,7 @@ export default {
     onPosterClick: Function,
     agelimits: String,
     rate: Number,
+    filmlikes: number,
   },
   data() {
     return {
