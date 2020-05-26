@@ -66,7 +66,7 @@ export default {
     onPosterClick: Function,
     agelimits: String,
     rate: Number,
-    filmlikes: number,
+    filmlikes: Number,
   },
   data() {
     return {
