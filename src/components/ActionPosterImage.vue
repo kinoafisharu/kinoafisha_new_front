@@ -471,7 +471,7 @@ export default {
             }
             #age-restriction {
                 margin-left: 20%;
-                font-size: 3em;
+                font-size: 4em;
             }
         }
     }
