@@ -5,9 +5,9 @@
           <ActionPosterImage
           v-if = "film !== null"
           :kid = 'film.kid'
-          :limit = 'film.limit'
+          :limit = 'film.limits'
           :title = 'film.name[0].name'
-          :likes = 'film.likes'
+          :flikes = 'film.likes'
           :rate = 'film.imdb_rate'
           :description = 'film.description'
           :persons = 'film.persons'
