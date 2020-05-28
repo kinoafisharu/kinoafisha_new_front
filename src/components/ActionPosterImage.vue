@@ -18,8 +18,10 @@
 <div class="poster">
 
   <!-- Отображение постера елемента если такой есть -->
-  <img v-if = 'imgsrc' class="poster-image" :src="imgsrc" :style="{ width: width  + 'px', height: height + 'px'}">
-  <h1 v-else>This element doesn't have an image yet</h1>
+  <img v-if = 'imgsrc' class="poster-image" :src="imgsrc" :style="{ width: height * 0.7  + 'px', height: height + 'px'}">
+  <div v-else class = 'no-poster-block' :style="{ width: width  + 'px', height: height + 'px'}">
+    <h1>This element doesn't have an image yet</h1>
+  </div>
   <div id="action-elements-layer">
     <div class = 'rate' :class="'rate_color_'+ ratecalced">
 
@@ -178,7 +180,7 @@ export default {
     },
     ratecalced: function() {
       let r = this.rate
-      let rc = Math.round(r/2)
+      let rc = Math.round(r/2 + 0.5)
       if (rc > 5) rc = 5; else if (rc == 1) rc = 2;
       if (r == 0) return r; else return rc;
     },
@@ -189,8 +191,8 @@ export default {
 <style scoped lang='scss'>
 @media (orientation: portrait) {
     .postercontainer{
-      width: inherit;
-      height: inherit;
+      width: 100%;
+      max-height: 100%;
     }
     .poster {
         width: inherit;
@@ -199,21 +201,21 @@ export default {
         text-align: center;
     }
     .poster-image {
-        max-width: 100%;
-        max-height: 100%;
-        flex: 1;
+        width: 100%;
+        height: 100%;
+        display: flex;
     }
     img {
       max-width: 100%;
-      max-height: 100%;
+      max-height: 200%;
       vertical-align: top;
     }
 }
 // desktop is always landscape
 @media (orientation: landscape) {
     .postercontainer {
-      width: inherit;
-      height: inherit;
+      width: 100%;
+      height: 100%;
     }
     .poster {
         height: inherit;
@@ -222,13 +224,13 @@ export default {
         text-align: center;
     }
     .poster-image {
+        display: flex;
         max-width: 100%;
-        height: auto;
-        flex: 2;
+        max-height: 100%;
+        flex: 1;
     img {
       max-width: 100%;
       max-height: 100%;
-      vertical-align: top;
     }
     }
 }
@@ -242,7 +244,7 @@ export default {
         font-size: 0.7em;
     }
 }
-@media (max-height: 500px) {
+@media (max-height: 700px) {
     .rate {
         font-size: 3em !important;
     }
@@ -388,19 +390,17 @@ export default {
   background-color: rgba(12, 10, 26, 0.8);
   overflow-y: scroll;
 }
-.poster {
-    position: relative;
-    text-align: center;
-    flex: 1;
-    height: 100%;
-    .poster-image {
-        height: 100%;
-        width: 100%;
-        img {
-          width: 100%;
-          height: 100%;
-        }
-    }
+
+.no-poster-block {
+  justify-content: center;
+  display: flex;
+  h1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 1.5em;
+  }
+}
 
 
 
@@ -471,11 +471,11 @@ export default {
             }
             #age-restriction {
                 margin-left: 20%;
-                font-size: 4em;
+                font-size: 3em;
             }
         }
     }
-}
+
 
 .fade-enter-active, .fade-leave-active {
 transition: opacity .4s;
