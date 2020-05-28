@@ -18,10 +18,8 @@
 <div class="poster">
 
   <!-- Отображение постера елемента если такой есть -->
-  <img v-if = 'imgsrc' class="poster-image" :src="imgsrc" :style="{ width: height * 0.7  + 'px', height: height + 'px'}">
-  <div v-else class = 'no-poster-block' :style="{ width: width  + 'px', height: height + 'px'}">
-    <h1>This element doesn't have an image yet</h1>
-  </div>
+  <img v-if = 'imgsrc' class="poster-image" :src="imgsrc" :style="{ width: width  + 'px', height: height + 'px'}">
+  <h1 v-else>This element doesn't have an image yet</h1>
   <div id="action-elements-layer">
     <div class = 'rate' :class="'rate_color_'+ ratecalced">
 
@@ -101,7 +99,6 @@ export default {
   components: {
     FilmInfo,
   },
-
   data() {
     return {
       show_like_section: false,
@@ -180,7 +177,7 @@ export default {
     },
     ratecalced: function() {
       let r = this.rate
-      let rc = Math.round(r/2 + 0.5)
+      let rc = Math.round(r/2)
       if (rc > 5) rc = 5; else if (rc == 1) rc = 2;
       if (r == 0) return r; else return rc;
     },
@@ -189,6 +186,7 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+
 @media (orientation: portrait) {
     .postercontainer{
       width: 100%;
@@ -211,30 +209,28 @@ export default {
       vertical-align: top;
     }
 }
-// desktop is always landscape
-@media (orientation: landscape) {
+@media (orientation: landscape) and (min-width: 1000) {
     .postercontainer {
-      width: 100%;
+      width: 50%;
       height: 100%;
     }
     .poster {
-        height: inherit;
-        width: inherit;
-        display: flex;
+        height: 100%;
+        width: 100%;
+
         text-align: center;
     }
     .poster-image {
-        display: flex;
-        max-width: 100%;
-        max-height: 100%;
-        flex: 1;
+        width: 100%;
+        height: 100%;
+
     img {
-      max-width: 100%;
-      max-height: 100%;
+      width: 50%;
+      height: 100%;
+      vertical-align: top;
     }
     }
 }
-
 
 @media (max-height: 600px) {
     #like-section {
@@ -244,7 +240,7 @@ export default {
         font-size: 0.7em;
     }
 }
-@media (max-height: 700px) {
+@media (max-height: 800px) {
     .rate {
         font-size: 3em !important;
     }
@@ -263,7 +259,7 @@ export default {
         }
     }
 }
-@media (max-height: 250px) {
+@media (max-height: 300px) {
     .rate {
         font-size: 2em !important;
     }
@@ -328,7 +324,6 @@ export default {
         img {
             height: 60%;
             margin-right: 3%;
-
         }
         span {
             font-size: 0.75em;
@@ -375,7 +370,6 @@ export default {
         }
     }
 }
-
 .postercontainer {
     width: inherit;
     height: inherit;
@@ -390,20 +384,19 @@ export default {
   background-color: rgba(12, 10, 26, 0.8);
   overflow-y: scroll;
 }
-
-.no-poster-block {
-  justify-content: center;
-  display: flex;
-  h1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    font-size: 1.5em;
-  }
-}
-
-
-
+.poster {
+    position: relative;
+    text-align: center;
+    flex: 1;
+    height: 100%;
+    .poster-image {
+        height: 100%;
+        width: 100%;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+    }
     #action-elements-layer {
         position: absolute;
         z-index: 1;
@@ -471,12 +464,11 @@ export default {
             }
             #age-restriction {
                 margin-left: 20%;
-                font-size: 3em;
+                font-size: 4em;
             }
         }
     }
-
-
+}
 .fade-enter-active, .fade-leave-active {
 transition: opacity .4s;
 }
