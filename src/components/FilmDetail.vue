@@ -1,25 +1,38 @@
 <template>
-  <div class = 'poster-and-info-block'>
-          <FilmPoster v-if = "film !== null" :kid = 'film.kid' :rate = 'film.imdb_rate' :agelimits = '14' :filmlikes = 'film.likes' @click = 'nextFilm'/>
+  <div class = 'poster-block'>
+
+
+          <ActionPosterImage
+          v-if = "film !== null"
+          :kid = 'film.kid'
+          :limit = 'film.limit'
+          :title = 'film.name[0].name'
+          :likes = 'film.likes'
+          :rate = 'film.imdb_rate'
+          :description = 'film.description'
+          :persons = 'film.persons'
+          :year = 'film.year'
+          :country = 'film.country'
+          :votes = 'film.imdb_votes'
+          :release = 'film.release'
+          :genre = 'film.genre'
+          />
+
+
           <p v-else-if = 'loading === true'>loading...</p>
           <p v-if = 'errored === true'> ERROR occured in FilmDetail component </p>
-          <FilmInfo/>
   </div>
 </template>
 
 <script>
-  //experimental import
-  //import getFilmById from "@/api/films.js"
   import service from "@/api/base.js"
-  import FilmPoster from "@/components/FilmPoster.vue"
-  import FilmInfo from "@/components/FilmInfo.vue"
+  import ActionPosterImage from "@/components/ActionPosterImage.vue"
   export default {
     name: 'filmdetail',
     components: {
-      FilmInfo,
-      FilmPoster
+      ActionPosterImage
     },
-    //id received from router CHAIN |- DetailView - FilmDetail - FilmPoster
+    //id received from router CHAIN |- FIlmDetailView => FilmDetail => FilmPoster
     props: {
       id:String,
     },
@@ -32,6 +45,7 @@
        errored: false
      };
    },
+   //FETCH DATA FROM API USING GIVEN ID PROP
     mounted() {
       let id = String(this.id) + '/'
       service.get('films/' + id, {params: {format: 'json'} })
@@ -41,17 +55,15 @@
         this.errored = true
       .finally(() => this.loading = false)
       })
-
   },
-  methods : {
-    nextFilm: () => (this.id = this.id ++)
-  }
 }
+
 </script>
 
 <style>
-#poster-and-info-block {
-
+.poster-and-info-block {
+  width: inherit;
+  height: inherit;
 }
 
 </style>
