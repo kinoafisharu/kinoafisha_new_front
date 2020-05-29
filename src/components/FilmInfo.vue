@@ -9,7 +9,11 @@
           id = 'description' v-if = 'genre[2]'>{{genre[2].name}}, 
           {{year}}</p>
         </div>
-          
+    <div class = 'genre-block'>
+      <p id = 'description' v-if = 'genre[0]'>{{genre[0].name}} '/'
+      <p id = 'description' v-if = 'genre[1]'>{{genre[1].name}} '/'
+      <p id = 'description' v-if = 'genre[2]'>{{genre[2].name}} </p>
+    </div>   
     <p v-if = 'description' id = 'description'>{{description}}</p>
     <p v-else id = 'description'> Аннотации пока нет. </p>
   </div>
