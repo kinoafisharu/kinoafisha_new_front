@@ -374,6 +374,7 @@ export default {
   top: 0px;
   left: 0px;
   position: absolute;
+  height: 80%;
   background-color: rgba(12, 10, 26, 0.8);
   overflow-y: scroll;
 }
