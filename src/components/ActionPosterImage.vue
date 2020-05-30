@@ -1,3 +1,4 @@
+
 <template>
 <div class = 'postercontainer'>
 <transition name = 'fade'>
@@ -17,7 +18,7 @@
 <div class="poster">
 
   <!-- Отображение постера елемента если такой есть -->
-  <img v-if = 'imgsrc' class="poster-image" :src="imgsrc">
+  <img v-if = 'imgsrc' class="poster-image" :src="imgsrc" :style="{ width: width  + 'px', height: height + 'px'}">
   <h1 v-else>This element doesn't have an image yet</h1>
   <div id="action-elements-layer">
     <div class = 'rate' :class="'rate_color_'+ ratecalced">
@@ -176,7 +177,7 @@ export default {
     },
     ratecalced: function() {
       let r = this.rate
-      let rc = Math.round(r/2)
+      let rc = Math.round(r/2 + 0.6)
       if (rc > 5) rc = 5; else if (rc == 1) rc = 2;
       if (r == 0) return r; else return rc;
     },
@@ -186,33 +187,50 @@ export default {
 
 <style scoped lang='scss'>
 
-@media (orientation: portrait) and (max-width: 600px) {
+@media (orientation: portrait) {
     .postercontainer{
-      max-width: 100vw !important;
-      max-height: 100vh !important;
-      display: flex !important;
-      flex-direction: column !important;
-      position: relative !important;
+      width: 100%;
+      max-height: 100%;
     }
     .poster {
-        width: 100% !important;
-        height: 100% !important;
-        text-align: center !important;
+        width: inherit;
+        height: inherit;
+        display: flex;
+        text-align: center;
     }
     .poster-image {
-        max-width: 100% !important;
-        max-height: 100% !important;
+        width: 100%;
+        height: 100%;
+        display: flex;
     }
     img {
-      max-width: 100% !important;
-      max-height: 100% !important;
-      vertical-align: top !important;
+      max-width: 100%;
+      max-height: 200%;
+      vertical-align: top;
     }
 }
-@media (orientation: landscape) {
+@media (orientation: landscape) and (min-width: 1000) {
+    .postercontainer {
+      width: 50%;
+      height: 100%;
+    }
+    .poster {
+        height: 100%;
+        width: 100%;
 
+        text-align: center;
+    }
+    .poster-image {
+        width: 100%;
+        height: 100%;
+
+    img {
+      width: 50%;
+      height: 100%;
+      vertical-align: top;
+    }
+    }
 }
-
 
 @media (max-height: 600px) {
     #like-section {
@@ -255,24 +273,6 @@ export default {
         height: 8% !important;
     }
 }
-
-.postercontainer {
-    max-width: 25%;
-    max-height: 50%;
-    margin: 0 auto;
-    display: flex;
-    align-items: stretch;
-    position: relative;
-    .poster {
-      max-width: 100%;
-      max-height: 100%;
-      img {
-        display: flex;
-        flex-direction: column;
-      }
-    }
-}
-
 .star {
     font-size: 0.5em;
 }
@@ -370,7 +370,12 @@ export default {
         }
     }
 }
-
+.postercontainer {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    position: relative;
+}
 .modal-layer {
   z-index: 1;
   top: 0px;
@@ -396,7 +401,6 @@ export default {
         position: absolute;
         z-index: 1;
         top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
         display: flex;
