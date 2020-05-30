@@ -4,9 +4,9 @@
     <h1 v-else> Без названия </h1>
     <div v-for = 'country in country' :key = 'country.name'>
           <p id = 'description'>{{country.name}},
-              v-if = 'genre[0]'>{{genre[0].name}}, 
-              v-if = 'genre[1]'>{{genre[1].name}}, 
-              v-if = 'genre[2]'>{{genre[2].name}}, 
+                                {{genre[0].name}}, 
+                                {{genre[1].name}}, 
+                                {{genre[2].name}}, 
                                 {{year}}
           </p>
     </div>
