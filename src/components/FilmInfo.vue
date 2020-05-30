@@ -1,17 +1,39 @@
 <template>
+  <!-- Главный блок -->
   <div class = 'filminfo'>
-    <h1 v-if = 'title' id = 'title'>{{title}}</h1>
-    <h1 v-else> Без названия </h1>
-    <div v-for = 'country in country' :key = 'country.name'>
-          <p id = 'description'>{{country.name}},
-              v-if = 'genre[0]'>{{genre[0].name}}, 
-              v-if = 'genre[1]'>{{genre[1].name}}, 
-              v-if = 'genre[2]'>{{genre[2].name}}, 
-                                {{year}}
-          </p>
+
+    <!-- Блок заголовков -->
+    <div class = 'title-block'>
+      <h1 v-if = 'title' id = 'title'>{{title}}</h1>
+      <h1 v-else> This film doesnt have a title yet </h1>
+      <h2 v-if = 'year' id = 'year'>{{year}}</h2>
     </div>
-    <p v-if = 'description' id = 'description'>{{description}}</p>
-    <p v-else id = 'description'> Аннотации пока нет. </p>
+
+    <!-- Блок с жанрами, отображается с помощью цикла for -->
+    <div class = 'genre-block'>
+      <p v-for = 'gen in genre'
+          :key = 'gen.name'>
+
+      | {{gen.name}} |
+      </p>
+    </div>
+
+    <!-- Блок со странами, цикл for -->
+    <div>
+      <p v-for = 'count in country'
+          :key = 'count.name'>
+
+          {{count.name}}, {{count.name_en}}
+      </p>
+    </div>
+
+    <!-- Блок описания -->
+    <div class = 'description-block'>
+      <p v-if = 'description' id = 'description'>{{description}}</p>
+      <p v-else id = 'description'>This films doesn't have description yet, you can propose your version of description for this film by clicking the button below </p>
+      <p v-if = 'votes'>{{votes}}</p>
+    </div>
+
   </div>
 </template>
 
@@ -35,7 +57,7 @@
 </script>
 
 
-<style>
+<style scoped lang = 'scss'>
   .filminfo {
     width: inherit;
     height: inherit;
@@ -44,17 +66,23 @@
     top: 0px;
     z-index: 2;
     text-align: center;
+    p {
+      color: white;
+    }
+    h1 {
+      color: white;
+    }
+    h2 {
+      color: white;
+    }
+
   }
-  #title {
-    color: white;
+  .genre-block {
+    text-align: center;
+    p {
+      display: inline;
+    }
   }
-  #description {
-    color: white;
-  }
-  #votes {
-    color: white;
-  }
-  #year {
-    color: white;
-  }
+
+
 </style>
