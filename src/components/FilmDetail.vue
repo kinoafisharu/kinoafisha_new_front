@@ -61,9 +61,9 @@
 </script>
 
 <style>
-.poster-and-info-block {
-  width: inherit;
-  height: inherit;
+.poster-block {
+  width: 100%;
+  height: 100%;
 }
 
 </style>
