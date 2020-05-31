@@ -48,22 +48,22 @@
           <img class="icon rotated" src="@/assets/like.png" alt="dislike" @click="mshow_dislike_section" />
           <span>{{dataDislikes}}</span>
         </div>
-        <div class ="settings-button">
+        <div class ="settings-button" @click = 'show_settings_section_hover'>
           <img class ='icon-settigns' src="@/assets/settings.png" alt='settigns'/>
         </div>
-        <a id="age-restriction">{{limit}} </a>
+        <a v-if = 'show_age' id="age-restriction">{{age_restriction}} </a>
       </div>
       <transition name='fade'>
         <div id="like-section" v-if="show_like_section">
-          <div class="like-button" @click="give_like(1)">
+          <div class="button" @click="give_like(1)">
             <img class="" src="@/assets/film.png" />
             <span>Xочу посмотреть в кинотеатре</span>
           </div>
-          <div class="like-button" @click="give_like(2)">
+          <div class="button" @click="give_like(2)">
             <img class="" src="@/assets/computer.png" />
             <span>Xочу посмотреть дома</span>
           </div>
-          <div class="like-button" @click="give_like(3)">
+          <div class="button" @click="give_like(3)">
             <img class="" src="@/assets/like.png" />
             <span>Cмотрел, рекомендую</span>
           </div>
@@ -72,17 +72,24 @@
 
       <transition name='fade'>
         <div id="dislike-section" v-if="show_dislike_section">
-          <div class="like-button" @click="give_dislike(4)">
+          <div class="button" @click="give_dislike(4)">
             <img class="" src="@/assets/sad.png" />
             <span>фильм мне неинтересен</span>
           </div>
-          <div class="like-button" @click="give_dislike(5)">
+          <div class="button" @click="give_dislike(5)">
             <img class="rotated" src="@/assets/like.png" />
             <span>смотрел, не рекомендую</span>
           </div>
         </div>
       </transition>
-
+      <transition name ='fade'>
+        <div id="settings-section" v-if = 'show_settings_section'>
+          <div class = 'button' @click = 'age_toggler'>
+            <img src = '@/assets/cross.png'/>
+            <span>Отключить возрастное ограничение</span>
+          </div>
+        </div>
+      </transition>
     </div>
   </div>
 </div>
@@ -120,12 +127,14 @@ export default {
     return {
       show_like_section: false,
       show_dislike_section: false,
+      show_settings_section: false,
       show_settings: false,
       like_given: false,
       dataLikes: this.likes,
       dataDislikes: this.dislikes,
       dislike_given: false,
       show_info: false,
+      show_age: true,
     }
   },
   methods: {
@@ -144,6 +153,12 @@ export default {
     },
     show_settings_modal: function() {
       this.show_settings = !this.show_settings
+    },
+    show_settings_section_hover: function() {
+      this.show_settings_section = !this.show_settings_section
+    },
+    age_toggler: function() {
+      this.show_age = !this.show_age
     },
     /* Две функции голоса ниже почти одинаковые, берут целочисленное значение
      и на его основе отправляют нужный запрос по лайку или дизлайку в апи */
@@ -222,6 +237,12 @@ export default {
       if (r == 0) return r;
       else return rc;
     },
+    age_restriction: function() {
+      let numberPattern = /\d+/g;
+      let age = this.limit.match(numberPattern)[0] + '+'
+      return age
+
+    }
   }
 }
 </script>
@@ -277,7 +298,7 @@ export default {
     #like-section {
         width: 55% !important;
     }
-    .like-button {
+    .button {
         span {
             text-align: start !important;
             font-size: 0.7em !important;
@@ -286,6 +307,11 @@ export default {
     }
     .modal-layer {
       font-size: 0.81em !important;
+    }
+    .settings-button {
+      width: 33px !important;
+      height: 33px !important;
+
     }
 }
 @media (max-height: 300px) {
@@ -296,13 +322,21 @@ export default {
         font-size: 0.6em !important;
     }
     .rate-button {
-        font-size: 0.4em;
+        font-size: 0.7em;
+        span {
+          font-size: 1em;
+        }
     }
     #bottom-section {
         height: 8% !important;
     }
     .modal-layer {
       font-size: 0.5em !important;
+    }
+    .settings-button {
+      width: 15px !important;
+      height: 15px !important;
+
     }
 }
 
@@ -366,7 +400,7 @@ export default {
     padding: 1%;
     left: 16%;
     display: block;
-    .like-button {
+    .button {
         cursor: pointer;
         display: flex;
         height: 33%;
@@ -381,7 +415,7 @@ export default {
             color: white;
         }
     }
-    .like-button:hover {
+    .button:hover {
         span {
             font-size: 0.77em;
         }
@@ -398,7 +432,7 @@ export default {
     padding: 1%;
     left: 42%;
     display: block;
-    .like-button {
+    .button {
         cursor: pointer;
         display: flex;
         height: 53%;
@@ -413,7 +447,7 @@ export default {
             color: white;
         }
     }
-    .like-button:hover {
+    .button:hover {
         span {
             font-size: 0.77em;
         }
@@ -422,6 +456,31 @@ export default {
         }
     }
 }
+#settings-section {
+    position: absolute;
+    height: 6%;
+    width: 55%;
+    top: 82%;
+    padding: 1%;
+    left: 67%;
+    display: block;
+    .button {
+        cursor: pointer;
+        display: flex;
+        height: 100%;
+        margin-top: 1%;
+        img {
+            height: 60%;
+            margin-right: 3%;
+        }
+        span {
+            width:50%;
+            display: inline;
+            font-size: 1em;
+            color: white;
+        }
+    }
+  }
 
 .modal-layer {
     z-index: 3;
@@ -472,16 +531,16 @@ export default {
         .rate {
             cursor: pointer;
             display: flex;
-            border-top-right-radius: 35%;
-            border-bottom-right-radius: 35%;
+            border-top-right-radius: 38%;
+            border-bottom-right-radius: 38%;
             padding-left: 4%;
-            padding-right: 2%;
+            padding-right: 7%;
             color: black;
             align-self: flex-start;
             margin-top: 14%;
-            font-size: 3.0em;
+            font-size: 4em;
             padding-bottom: 1%;
-            padding-top: 1%;
+            padding-top: 4%;
             color: black;
             font-weight: bold;
         }
@@ -521,10 +580,13 @@ export default {
                 }
             }
             .settings-button {
-              display: flex;
-              width: 12%;
-              margin-left: 5%;
-              padding: 1%;
+              cursor: pointer;
+              display: inherit;
+              height: 23px;
+              width: 23px;
+              margin-left: 3%;
+
+
 
               img {
                 width: 100%;
