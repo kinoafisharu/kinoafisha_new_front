@@ -1,89 +1,104 @@
 <template>
-<div class = 'postercontainer'>
-<transition name = 'fade'>
-<div v-if = 'show_info' class = 'modal-layer'>
+<div class='postercontainer'>
 
-  <FilmInfo
-    :description = 'description'
-    :title = 'title'
-    :rate = 'rate'
-    :comment = 'comment'
-    :year = 'year'
-    :country = 'country'
-    :genre = 'genre'
-  />
-</div>
-</transition>
-<div class="poster">
 
-  <!-- Отображение постера елемента если такой есть -->
-  <img v-if = 'imgsrc' class="poster-image" :src="imgsrc" >
-  <h1 v-else>This element doesn't have an image yet</h1>
-  <div id="action-elements-layer">
-    <div class = 'rate' :class="'rate_color_'+ ratecalced">
+  <transition name='fade'>
+    <div v-if='show_info' class='modal-layer'>
+      <FilmInfo :description='description'
+                :title='title'
+                :rate='rate'
+                :comment='comment'
+                :year='year'
+                :country='country'
+                :genre='genre' />
+    </div>
+  </transition>
 
-      <!-- Отображение рейтинга если такой есть -->
-      <a>{{ratecalced}}</a>
-      <a v-if = 'ratecalced' class="star">★</a>
-    </div>
-    <div id="bottom-section">
-      <div class="info-place">
-        <img id="icon-info" src="@/assets/info.png" alt="info" @click="show_info_modal" />
-      </div>
-      <div class="rate-button">
-        <img class="icon" src="@/assets/like.png" alt="like" @click="mshow_like_section" />
-        <span>{{likes}}</span>
-      </div>
-      <div class="rate-button">
-        <img class="icon rotated" src="@/assets/like.png" alt="dislike" @click="mshow_dislike_section" />
-        <span>{{full_dislikes}}</span>
-      </div>
-      <a id="age-restriction">{{limit}} </a>
-    </div>
-    <transition name = 'fade'>
-    <div id="like-section" v-if="show_like_section">
-      <div class="like-button" @click="give_like('cinema')">
-        <img class="" src="@/assets/film.png" />
-        <span>Xочу посмотреть в кинотеатре</span>
-      </div>
-      <div class="like-button" @click="give_like('home')">
-        <img class="" src="@/assets/computer.png" />
-        <span>Xочу посмотреть дома</span>
-      </div>
-      <div class="like-button" @click="give_like('saw')">
-        <img class="" src="@/assets/like.png" />
-        <span>Cмотрел, рекомендую</span>
-      </div>
-    </div>
-    </transition>
-
-    <transition name = 'fade'>
-    <div id="dislike-section" v-if="show_dislike_section">
-      <div class="like-button" @click="give_dislike('uninteresting')">
-        <img class="" src="@/assets/sad.png" />
-        <span>фильм мне неинтересен</span>
-      </div>
-      <div class="like-button" @click="give_dislike('saw')">
-        <img class="rotated" src="@/assets/like.png" />
-        <span>смотрел, не рекомендую</span>
-      </div>
-    </div>
-    </transition>
+  <transition name = 'fade'>
+  <div v-if='show_settings' class = 'modal-settings-layer' @click = 'show_settings_modal'>
+      <SettingsModal/>
 
   </div>
-</div>
+  </transition>
+
+
+
+  <div class="poster">
+
+    <!-- Отображение постера елемента если такой есть -->
+    <img v-if='imgsrc' class="poster-image" :src="imgsrc">
+    <h1 v-else>This element doesn't have an image yet</h1>
+    <div id="action-elements-layer">
+
+      <!--Кнопка рейтинга, включает модальное окно с настройками рейтинга-->
+      <div class='rate' :class="'rate_color_'+ ratecalced" @click='show_settings_modal' title = 'Show settings'>
+
+        <!-- Отображение рейтинга если такой есть -->
+        <div>{{ratecalced}}</div>
+      </div>
+      <div id="bottom-section">
+        <div class="info-place">
+          <img id="icon-info" src="@/assets/info.png" alt="info" @click="show_info_modal" />
+        </div>
+        <div class="rate-button">
+          <img class="icon" src="@/assets/like.png" alt="like" @click="mshow_like_section" />
+          <span>{{dataLikes}}</span>
+        </div>
+        <div class="rate-button">
+          <img class="icon rotated" src="@/assets/like.png" alt="dislike" @click="mshow_dislike_section" />
+          <span>{{dataDislikes}}</span>
+        </div>
+        <div class ="settings-button">
+          <img class ='icon-settigns' src="@/assets/settings.png" alt='settigns'/>
+        </div>
+        <a id="age-restriction">{{limit}} </a>
+      </div>
+      <transition name='fade'>
+        <div id="like-section" v-if="show_like_section">
+          <div class="like-button" @click="give_like(1)">
+            <img class="" src="@/assets/film.png" />
+            <span>Xочу посмотреть в кинотеатре</span>
+          </div>
+          <div class="like-button" @click="give_like(2)">
+            <img class="" src="@/assets/computer.png" />
+            <span>Xочу посмотреть дома</span>
+          </div>
+          <div class="like-button" @click="give_like(3)">
+            <img class="" src="@/assets/like.png" />
+            <span>Cмотрел, рекомендую</span>
+          </div>
+        </div>
+      </transition>
+
+      <transition name='fade'>
+        <div id="dislike-section" v-if="show_dislike_section">
+          <div class="like-button" @click="give_dislike(4)">
+            <img class="" src="@/assets/sad.png" />
+            <span>фильм мне неинтересен</span>
+          </div>
+          <div class="like-button" @click="give_dislike(5)">
+            <img class="rotated" src="@/assets/like.png" />
+            <span>смотрел, не рекомендую</span>
+          </div>
+        </div>
+      </transition>
+
+    </div>
+  </div>
 </div>
 </template>
 
 <script>
+import service from '@/api/base.js'
 import FilmInfo from '@/components/FilmInfo'
+import SettingsModal from "@/components/SettingsModal"
 export default {
   // Параметры постера опциональны!!! Можно не передать ни одного в компонент
   props: {
     kid: Number,
     limit: String,
     title: String,
-    flikes: Number,
+    likes: Number,
     rate: Number,
     description: String,
     comment: String,
@@ -94,17 +109,21 @@ export default {
     votes: Number,
     release: Array,
     genre: Array,
+    id: Number,
+    dislikes: Number,
   },
   components: {
     FilmInfo,
+    SettingsModal
   },
   data() {
     return {
       show_like_section: false,
       show_dislike_section: false,
+      show_settings: false,
       like_given: false,
-      likes: 0,
-      dislikes: 0,
+      dataLikes: this.likes,
+      dataDislikes: this.dislikes,
       dislike_given: false,
       show_info: false,
     }
@@ -123,30 +142,51 @@ export default {
       this.show_like_section = false
       this.show_dislike_section = false
     },
-    give_like: function(reason) {
-      this.show_like_section = !this.show_like_section
-      if (this.like_given) return //нельзя дать много лайков одному фильму
-      console.log("give_like", reason)
-      if (this.dislike_given) {
-          this.dislikes -= 1
-          this.dislike_given = false
-        }
-      this.like_given = true
-      this.likes ++
-      //todo Like2Server
+    show_settings_modal: function() {
+      this.show_settings = !this.show_settings
     },
-    give_dislike: function(reason) {
-      this.show_dislike_section = !this.show_dislike_section
-      if (this.dislike_given) return //нельзя дать много дизлайков одному фильму
+    /* Две функции голоса ниже почти одинаковые, берут целочисленное значение
+     и на его основе отправляют нужный запрос по лайку или дизлайку в апи */
+    // В будущем переделать на абстракцию!!
+    give_like: function(evaluation) {
+      this.show_like_section = !this.show_like_section
       if (this.like_given) {
-         this.likes -= 1
-         this.like_given = false
-       }
-      console.log("give_dislike", reason)
-      this.dislike_given = true
-      this.dislikes ++
-      //todo dislike2Server
+        console.log("Can't give like, you've already voted")
+      } else {
+      console.log("give_like")
+      service.post(`films/${this.id}/like/`, {
+          evaluation: evaluation,
+        })
+        .then((response) => {
+          if (response.data['liked'] == true) this.like_given = true
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+        this.dataLikes ++
+      }
+    },
+
+    // В будущем переделать на абстракцию!!
+    give_dislike: function(evaluation) {
+      this.show_dislike_section = !this.show_dislike_section
+      if (this.dislike_given) {
+        console.log("Can't give dislike, you've already voted")
+      } else {
+      service.post(`films/${this.id}/like/`, {
+          evaluation: evaluation,
+        })
+        .then((response) => {
+          if (response.data['liked'] == true) this.dislike_given = true
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+        this.dataDislikes ++
+      console.log("give_dislike")
     }
+  }
+
   },
   computed: {
     imgsrc: function() {
@@ -161,8 +201,8 @@ export default {
       }
     },
     width: function() {
-     return window.innerWidth
-     },
+      return window.innerWidth
+    },
     height: function() {
       return window.innerHeight
     },
@@ -176,21 +216,22 @@ export default {
     },
     ratecalced: function() {
       let r = this.rate
-      let rc = Math.round(r/2 + 1)
-      if (rc > 5) rc = 5; else if (rc == 1) rc = 2;
-      if (r == 0) return r; else return rc;
+      let rc = Math.round(r / 2 + 1)
+      if (rc > 5) rc = 5;
+      else if (rc == 1) rc = 2;
+      if (r == 0) return r;
+      else return rc;
     },
   }
 }
 </script>
 
 <style scoped lang='scss'>
-
 @media (orientation: portrait) and (max-width: 600px) {
-    .postercontainer{
-      max-width: 100vw !important;
-      max-height: 100vh !important;
-      position: relative !important;
+    .postercontainer {
+        max-width: 100vw !important;
+        max-height: 100vh !important;
+        position: relative !important;
     }
     .poster {
         width: 100% !important;
@@ -202,22 +243,25 @@ export default {
         max-height: 100% !important;
     }
     img {
-      max-width: 100% !important;
-      max-height: 100% !important;
-      vertical-align: top !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        vertical-align: top !important;
     }
 }
 @media (orientation: landscape) {
-
-}
-
+    }
 
 @media (max-height: 600px) {
     #like-section {
         font-size: 0.7em;
+        width: 45% !important;
     }
     #dislike-section {
         font-size: 0.7em;
+        width: 45% !important;
+    }
+    .modal-layer {
+      font-size: 0.7em !important;
     }
 }
 @media (max-height: 800px) {
@@ -225,18 +269,23 @@ export default {
         font-size: 3em !important;
     }
     #age-restriction {
-        font-size: 0.7em !important;
+        font-size: 1em !important;
     }
     #dislike-section {
-        width: 7% !important;
+        width: 55% !important;
     }
     #like-section {
-        width: 7% !important;
+        width: 55% !important;
     }
     .like-button {
         span {
-            display: none;
+            text-align: start !important;
+            font-size: 0.7em !important;
+            color: white;
         }
+    }
+    .modal-layer {
+      font-size: 0.81em !important;
     }
 }
 @media (max-height: 300px) {
@@ -252,6 +301,9 @@ export default {
     #bottom-section {
         height: 8% !important;
     }
+    .modal-layer {
+      font-size: 0.5em !important;
+    }
 }
 
 .postercontainer {
@@ -262,12 +314,12 @@ export default {
     align-items: stretch;
     position: relative;
     .poster {
-      max-width: 100%;
-      max-height: 100%;
-      img {
-        display: flex;
-        flex-direction: column;
-      }
+        max-width: 100%;
+        max-height: 100%;
+        img {
+            display: flex;
+            flex-direction: column;
+        }
     }
 }
 
@@ -309,7 +361,7 @@ export default {
 #like-section {
     position: absolute;
     height: 20%;
-    width: 35%;
+    width: 55%;
     top: 69%;
     padding: 1%;
     left: 16%;
@@ -324,7 +376,8 @@ export default {
             margin-right: 3%;
         }
         span {
-            font-size: 0.75em;
+            display: inline;
+            font-size: 1em;
             color: white;
         }
     }
@@ -340,7 +393,7 @@ export default {
 #dislike-section {
     position: absolute;
     height: 12%;
-    width: 35%;
+    width: 55%;
     top: 77%;
     padding: 1%;
     left: 42%;
@@ -355,6 +408,7 @@ export default {
             margin-right: 3%;
         }
         span {
+            display: inline;
             font-size: 0.75em;
             color: white;
         }
@@ -370,14 +424,27 @@ export default {
 }
 
 .modal-layer {
+    z-index: 3;
+    top: 0;
+    left: 0;
+    height: 92.2%;
+    position: absolute;
+    background-color: rgba(12, 10, 26, 0.8);
+    overflow-y: scroll;
+}
+
+.modal-settings-layer {
   z-index: 2;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 91.33%;
   position: absolute;
-  height: 92.2%;
   background-color: rgba(12, 10, 26, 0.8);
   overflow-y: scroll;
 }
+
+
 .poster {
     position: relative;
     text-align: center;
@@ -387,8 +454,8 @@ export default {
         height: 100%;
         width: 100%;
         img {
-          width: 100%;
-          height: 100%;
+            width: 100%;
+            height: 100%;
         }
     }
     #action-elements-layer {
@@ -403,6 +470,7 @@ export default {
         flex: 1;
         justify-content: space-between;
         .rate {
+            cursor: pointer;
             display: flex;
             border-top-right-radius: 35%;
             border-bottom-right-radius: 35%;
@@ -452,22 +520,35 @@ export default {
                     margin-left: 20%;
                 }
             }
+            .settings-button {
+              display: flex;
+              width: 12%;
+              margin-left: 5%;
+              padding: 1%;
+
+              img {
+                width: 100%;
+                height: 100%;
+              }
+            }
             #dislike {
                 img {
                     transform: rotate(0.5turn); // Делаем палец вниз за счет поворота;
                 }
             }
             #age-restriction {
-                margin-left: 20%;
+                margin-left: 6%;
                 font-size: 4em;
             }
         }
     }
 }
-.fade-enter-active, .fade-leave-active {
-transition: opacity .4s;
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.4s;
 }
-.fade-enter, .fade-leave-to {
-  opacity: 0;
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>

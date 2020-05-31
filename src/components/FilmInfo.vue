@@ -34,7 +34,11 @@
       <p v-if = 'votes'>{{votes}}</p>
     </div>
 
+      <div class = "modal-layer-settings-button">
+        SETTINGS
+      </div>
   </div>
+
 </template>
 
 
@@ -52,6 +56,16 @@
       votes: Number,
       release: Array,
       genre: Array,
+    },
+    data() {
+      return {
+        show_settings: false,
+      }
+    },
+    methods: {
+      onSettingsClick: function() {
+        this.show_settings = !this.show_settings
+      }
     }
   }
 </script>
@@ -82,6 +96,15 @@
     p {
       display: inline;
     }
+  }
+  .modal-layer-settings-button {
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    z-index: 3;
+    color: white;
+    background-color: rgba(10, 9, 20, 0.5);
   }
 
 

@@ -7,7 +7,8 @@
           :kid = 'film.kid'
           :limit = 'film.limits'
           :title = 'film.name[0].name'
-          :flikes = 'film.likes'
+          :likes = 'film.votes.likes'
+          :dislikes = 'film.votes.dislikes'
           :rate = 'film.imdb_rate'
           :description = 'film.description'
           :persons = 'film.persons'
@@ -16,6 +17,7 @@
           :votes = 'film.imdb_votes'
           :release = 'film.release'
           :genre = 'film.genre'
+          :id = 'film.id'
           />
 
 
@@ -61,9 +63,9 @@
 </script>
 
 <style>
-.poster-and-info-block {
-  width: inherit;
-  height: inherit;
+.poster-block {
+  width: 100%;
+  height: 100%;
 }
 
 </style>
