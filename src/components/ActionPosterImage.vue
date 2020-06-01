@@ -210,12 +210,17 @@ export default {
       this.show_auth_window = false
       this.show_age = false
       this.show_main_window_menu = false
+      this.show_rate_settings = false
     },
     onClickRateSettingsButton: function() {
       this.show_rate_settings = !this.show_rate_settings
+      this.show_like_section = false
+      this.show_dislike_section = false
+      this.show_main_window_menu = !this.show_main_window_menu
+      this.show_age = !this.show_age
     },
     onClickAuthButton: function() {
-      this.show_auth_window = !this.show_auth_window
+      this.show_auth_layer = !this.show_auth_layer
     },
     onClickTicketsButton: function() {
       this.show_ticket_section = !this.show_ticket_section
@@ -346,7 +351,8 @@ export default {
 @media (orientation: landscape) {
     }
 
-@media (max-height: 600px) {
+
+@media (max-height: 470px) {
     #like-section {
         font-size: 0.7em;
         width: 45% !important;
@@ -392,7 +398,9 @@ export default {
 
     }
 }
-@media (max-height: 400px) {
+
+
+@media (max-height: 800px) and (max-width: 300px){
     .rate {
         font-size: 2em !important;
     }
@@ -420,6 +428,36 @@ export default {
 
     }
 }
+
+@media (max-height: 400px){
+    .rate {
+        font-size: 2em !important;
+    }
+    #age-restriction {
+        font-size: 0.6em !important;
+    }
+    .rate-button {
+        font-size: 0.7em;
+        span {
+          font-size: 1em;
+        }
+    }
+    #bottom-section {
+        height: 8% !important;
+    }
+    .modal-layer {
+      font-size: 0.5em !important;
+      overflow-y: scroll;
+      clear: both !important;
+      height: 89.5% !important;
+    }
+    .settings-button {
+      width: 24px !important;
+      height: 24px !important;
+
+    }
+}
+
 
 .postercontainer {
     max-width: 25%;
@@ -577,6 +615,7 @@ export default {
     z-index: 2;
     top: 0;
     left: 0;
+    right:0;
     height: 91.2%;
     position: absolute;
     background-color: rgba(12, 10, 26, 0.8);
@@ -713,12 +752,10 @@ export default {
             }
             #age-restriction {
                 margin-left: 24%;
-                margin-bottom: 1%;
                 text-align: center;
                 font-size: 4em;
                 background-color: rgba(6, 8, 20, 0.8);
                 border-radius: 20%;
-                padding: 1%;
             }
         }
     }

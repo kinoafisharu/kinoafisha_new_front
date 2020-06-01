@@ -1,7 +1,7 @@
 <template>
   <div class = 'modal'>
     dawdlawpdlawd
-    fwafaopwfawfawdawdawdawfawifjaiwdiawhdiaw
+    fwafaopwfawf
     awdawfaw
 
     <div class = 'cross-button' @click = 'onClickCloseButton'>
@@ -39,6 +39,7 @@ export default {
   position: relative;
   left: 0px;
   top: 0px;
+  z-index: 2;
   text-align: center;
 }
 
@@ -53,6 +54,7 @@ export default {
     margin-left: 3.4%;
     margin-bottom: 0%;
     opacity: 0.25;
+    font-size: 0.7em;
     img {
       cursor: pointer;
       width: 20px;
