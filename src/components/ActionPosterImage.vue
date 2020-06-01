@@ -1,8 +1,17 @@
 <template>
 <div class='postercontainer'>
   <transition name = 'fade'>
-    <AuthWindow/>
+    <div v-if = 'show_auth_layer' class = 'auth-layer'>
+      <AuthWindow/>
+    </div>
   </transition>
+
+  <transition name = 'fade'>
+    <div v-if = 'show_third_layer' class = 'third-layer'>
+      <ThirdLayer/>
+    </div>
+  </transition>
+
 
   <transition name='fade'>
     <div v-if='show_info' class='modal-layer'>
@@ -17,7 +26,7 @@
   </transition>
 
   <transition name = 'fade'>
-    <div v-if='show_settings' class = 'modal-settings-layer' @click = 'onClickSettingsButton'>
+    <div v-if='show_rate_settings' class = 'modal-rate-settings-layer' @click = 'onClickRateSettingsButton'>
         <SettingsModal/>
 
     </div>
@@ -33,7 +42,7 @@
     <div id="action-elements-layer">
 
       <!--Кнопка рейтинга, включает модальное окно с настройками рейтинга-->
-      <div class='rate' :class="'rate_color_'+ ratecalced" @click='onClickSettingsButton' title = 'Show settings'>
+      <div class='rate' :class="'rate_color_'+ ratecalced" @click='onClickRateSettingsButton' title = 'Show settings'>
 
         <!-- Отображение рейтинга если такой есть -->
         <div>{{ratecalced}}</div>
@@ -41,26 +50,46 @@
 
       <!-- Uslovnoe otobrazhenie nizhney chasti -->
       <div id="bottom-section">
-        <!-- INFO BUTTON -->
-        <div class="info-place">
+        <!-- WARNING: INFO BUTTONS FOR DIFFERENT LAYERS -->
+        <!-- FIRST LAYER -->
+        <div v-if='!show_info & !show_third_layer' class="info-place">
           <img id="icon-info" src="@/assets/info.png" alt="info" @click="onClickInfoButton" />
         </div>
+        <!-- SECOND LAYER -->
+        <div v-if='show_info' class="info-place">
+          <img id="icon-info" src="@/assets/info.png" alt="info" @click="onClickThirdLayerButton" />
+        </div>
+        <!-- THIRD LAYER -->
+        <div v-else-if='show_third_layer' class="info-place">
+          <img id="icon-info" src="@/assets/info.png" alt="info" @click="onClickFourthLayerButton" />
+        </div>
+
 
         <!-- LIKE BUTTON ON CODDITION: MAIN WINDOW -->
-        <div v-if = 'show_main_window_menu' class="rate-button">
+        <div v-if = 'show_main_window_menu & !show_info' class="rate-button">
           <img class="icon" src="@/assets/like.png" alt="like" @click="onClickLikeButton" />
           <span>{{dataLikes}}</span>
+
+
 
         <!-- INFO BLOCK BUTTONS =============================================== -->
 
         <!-- AUTH BUTTON ON CONDITION: SHOW INFO -->
+
         </div>
         <div v-if = 'show_info' class = 'auth-button' @click = 'onClickAuthButton'>
-          <img class ="icon" src="@/assets/key.png" alt="auth">
+          <img class ="icon" src="@/assets/key.png" alt="auth" title = 'Авторизация'>
         </div>
 
+
+        <!-- TICKETS BUTTON -->
         <div v-if = 'show_info' class = 'tickets-button' @click = 'onClickTicketsButton'>
-          <img class ="icon" src = "@/assets/ticket.png" alt="tickets">
+          <img class ="icon" src = "@/assets/ticket.png" alt="tickets" title = 'Купить билеты'>
+        </div>
+
+        <!-- SETTINGS BUTTON -->
+        <div v-if = 'show_info' class = 'settings-button' @click = 'onClickSettingsButton'>
+          <img class ="icon" src = "@/assets/settings.png" alt="tickets" title = 'Settings'>
         </div>
 
 
@@ -68,18 +97,16 @@
 
 
         <!-- DISLIKE BUTTON ON CONDITION: MAIN WINDOW -->
-        <div v-if = 'show_main_window_menu' class="rate-button">
+        <div v-if = 'show_main_window_menu & !show_info' class="rate-button">
           <img class="icon rotated" src="@/assets/like.png" alt="dislike" @click="onClickDislikeButton" />
           <span>{{dataDislikes}}</span>
         </div>
 
-
-        <!-- SETTINGS BUTTON -->
-        <div class ="settings-button" @click = 'onClickGlobalSettingsButton'>
-          <img class ='icon-settigns' src="@/assets/settings.png" alt='settigns'/>
-        </div>
+        <!-- AGE RESTRICTION IF EXISTS -->
         <a v-if = 'show_age' id="age-restriction">{{age_restriction}} </a>
       </div>
+
+
 
       <!-- Sekcii wsplivaushih okon laikov -->
       <transition name='fade'>
@@ -111,14 +138,6 @@
           </div>
         </div>
       </transition>
-      <transition name ='fade'>
-        <div id="settings-section" v-if = 'show_settings_section'>
-          <div class = 'button' @click = 'ageRestrictionToggleOnOff'>
-            <img src = '@/assets/cross.png'/>
-            <span>Отключить возрастное ограничение</span>
-          </div>
-        </div>
-      </transition>
     </div>
   </div>
 </div>
@@ -129,6 +148,7 @@ import service from '@/api/base.js'
 import AuthWindow from '@/components/AuthWindow'
 import FilmInfo from '@/components/FilmInfo'
 import SettingsModal from "@/components/SettingsModal"
+import ThirdLayer from "@/components/ThirdLayer"
 export default {
   // Параметры постера опциональны!!! Можно не передать ни одного в компонент
   props: {
@@ -152,17 +172,19 @@ export default {
   components: {
     FilmInfo,
     SettingsModal,
-    AuthWindow
+    AuthWindow,
+    ThirdLayer,
   },
   data() {
     return {
       show_like_section: false,
       show_dislike_section: false,
-      show_settings_section: false,
       show_main_window_menu: true,
       show_auth_window: false,
       show_ticket_section: false,
-      show_settings: false,
+      show_rate_settings: false,
+      show_settings_section: false,
+      show_third_layer: false,
       like_given: false,
       dataLikes: this.likes,
       dataDislikes: this.dislikes,
@@ -175,37 +197,42 @@ export default {
     onClickLikeButton: function() {
       this.show_like_section = !this.show_like_section
       this.show_dislike_section = false
-      this.show_settings_section = false
+
     },
     onClickDislikeButton: function() {
       this.show_like_section = false
-      this.show_settings_section = false
       this.show_dislike_section = !this.show_dislike_section
     },
     onClickInfoButton: function() {
-      this.show_info = !this.show_info
+      this.show_info = true
       this.show_like_section = false
       this.show_dislike_section = false
-      this.show_settings_section = false
       this.show_auth_window = false
-      this.show_main_window_menu = !this.show_main_window_menu
+      this.show_age = false
+      this.show_main_window_menu = false
     },
-    onClickSettingsButton: function() {
-      this.show_settings = !this.show_settings
-    },
-    onClickGlobalSettingsButton: function() {
-      this.show_settings_section = !this.show_settings_section
-      this.show_like_section = false
-      this.show_dislike_section = false
-    },
-    ageRestrictionToggleOnOff: function() {
-      this.show_age = !this.show_age
+    onClickRateSettingsButton: function() {
+      this.show_rate_settings = !this.show_rate_settings
     },
     onClickAuthButton: function() {
       this.show_auth_window = !this.show_auth_window
     },
     onClickTicketsButton: function() {
       this.show_ticket_section = !this.show_ticket_section
+    },
+    ////////////
+    onClickSettingsButton: function() {
+
+    },
+    ///////////
+    onClickFourthLayerButton: function() {
+
+    },
+    onClickThirdLayerButton: function() {
+      this.show_third_layer = true
+      this.show_info = false
+      this.show_main_window_menu = false
+      this.show_auth_window = false
     },
     /* Две функции голоса ниже почти одинаковые, берут целочисленное значение
      и на его основе отправляют нужный запрос по лайку или дизлайку в апи */
@@ -341,7 +368,7 @@ export default {
         font-size: 3em !important;
     }
     #age-restriction {
-        font-size: 1em !important;
+        font-size: 1.6em !important;
     }
     #dislike-section {
         width: 55% !important;
@@ -538,7 +565,16 @@ export default {
 
 .modal-layer {
     clear: both;
-    z-index: 3;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    height: 91.2%;
+    position: absolute;
+    background-color: rgba(12, 10, 26, 0.8);
+}
+.third-layer {
+    clear: both;
+    z-index: 2;
     top: 0;
     left: 0;
     height: 91.2%;
@@ -546,7 +582,7 @@ export default {
     background-color: rgba(12, 10, 26, 0.8);
 }
 
-.modal-settings-layer {
+.modal-rate-settings-layer {
   z-index: 2;
   top: 0;
   left: 0;
@@ -663,7 +699,8 @@ export default {
               display: inherit;
               height: 37px;
               width: 37px;
-              margin-left: 3%;
+              margin-left: 15%;
+              opacity: 0.8;
               img {
                 width: 100%;
                 height: 100%;
@@ -675,8 +712,13 @@ export default {
                 }
             }
             #age-restriction {
-                margin-left: 6%;
+                margin-left: 24%;
+                margin-bottom: 1%;
+                text-align: center;
                 font-size: 4em;
+                background-color: rgba(6, 8, 20, 0.8);
+                border-radius: 20%;
+                padding: 1%;
             }
         }
     }

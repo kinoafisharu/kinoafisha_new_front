@@ -33,6 +33,12 @@
       <p v-else id = 'description'>This films doesn't have description yet, you can propose your version of description for this film by clicking the button below </p>
       <p v-if = 'votes'>{{votes}}</p>
     </div>
+
+    <div class = 'cross-button' @click = 'onClickCloseButton'>
+      <img id ='icon' src="@/assets/cross.png" alt='cross' title = 'Close modal'/>
+    </div>
+
+
   </div>
 
 </template>
@@ -55,26 +61,33 @@
     },
     data() {
       return {
-        show_settings: false,
+        show_settings_section: false,
       }
     },
+
     methods: {
-      onSettingsClick: function() {
-        this.show_settings = !this.show_settings
-      }
+      // WARNING: FUNCTION CHANGES PARENT'S COMPONENT DATA
+      onClickCloseButton: function() {
+        this.$parent.show_info = !this.$parent.show_info
+        this.$parent.show_main_window_menu = !this.$parent.show_main_window_menu
+        this.$parent.show_age = !this.$parent.show_age
+      },
+
     }
   }
 </script>
 
 
 <style scoped lang = 'scss'>
+
+
+
+
   .filminfo {
     width: inherit;
     height: inherit;
     position: relative;
-    left: 0px;
     top: 0px;
-    z-index: 2;
     text-align: center;
     p {
       color: white;
@@ -94,11 +107,24 @@
     }
   }
 
-  .authorisation-button {
-    left: 0;
-    text-align: left;
-    top: 0;
+  .cross-button {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 0;
+      text-align: left;
+      bottom: 0;
+      margin:5%;
+      margin-left: 3.4%;
+      margin-bottom: 0%;
+      opacity: 0.25;
+      img {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+      }
   }
+
 
 
 </style>

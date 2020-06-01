@@ -9,8 +9,8 @@
 <script>
 import FilmListSingleItem from '@/components/FilmListSingleItem'
 export default {
-  //we need component to now what we send to it
-  //name must be the name of v-bind:!name! = '-----'
+  //we need component to know what we send to it
+  //name must be the name of v-bind: =>name<=   = '-----'
   props: ['filmdata'],
   components: {
     FilmListSingleItem
