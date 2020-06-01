@@ -1,6 +1,8 @@
 <template>
 <div class='postercontainer'>
-
+  <transition name = 'fade'>
+    <AuthWindow/>
+  </transition>
 
   <transition name='fade'>
     <div v-if='show_info' class='modal-layer'>
@@ -15,10 +17,10 @@
   </transition>
 
   <transition name = 'fade'>
-  <div v-if='show_settings' class = 'modal-settings-layer' @click = 'show_settings_modal'>
-      <SettingsModal/>
+    <div v-if='show_settings' class = 'modal-settings-layer' @click = 'onClickSettingsButton'>
+        <SettingsModal/>
 
-  </div>
+    </div>
   </transition>
 
 
@@ -31,39 +33,66 @@
     <div id="action-elements-layer">
 
       <!--Кнопка рейтинга, включает модальное окно с настройками рейтинга-->
-      <div class='rate' :class="'rate_color_'+ ratecalced" @click='show_settings_modal' title = 'Show settings'>
+      <div class='rate' :class="'rate_color_'+ ratecalced" @click='onClickSettingsButton' title = 'Show settings'>
 
         <!-- Отображение рейтинга если такой есть -->
         <div>{{ratecalced}}</div>
       </div>
+
+      <!-- Uslovnoe otobrazhenie nizhney chasti -->
       <div id="bottom-section">
+        <!-- INFO BUTTON -->
         <div class="info-place">
-          <img id="icon-info" src="@/assets/info.png" alt="info" @click="show_info_modal" />
+          <img id="icon-info" src="@/assets/info.png" alt="info" @click="onClickInfoButton" />
         </div>
-        <div class="rate-button">
-          <img class="icon" src="@/assets/like.png" alt="like" @click="mshow_like_section" />
+
+        <!-- LIKE BUTTON ON CODDITION: MAIN WINDOW -->
+        <div v-if = 'show_main_window_menu' class="rate-button">
+          <img class="icon" src="@/assets/like.png" alt="like" @click="onClickLikeButton" />
           <span>{{dataLikes}}</span>
+
+        <!-- INFO BLOCK BUTTONS =============================================== -->
+
+        <!-- AUTH BUTTON ON CONDITION: SHOW INFO -->
         </div>
-        <div class="rate-button">
-          <img class="icon rotated" src="@/assets/like.png" alt="dislike" @click="mshow_dislike_section" />
+        <div v-if = 'show_info' class = 'auth-button' @click = 'onClickAuthButton'>
+          <img class ="icon" src="@/assets/key.png" alt="auth">
+        </div>
+
+        <div v-if = 'show_info' class = 'tickets-button' @click = 'onClickTicketsButton'>
+          <img class ="icon" src = "@/assets/ticket.png" alt="tickets">
+        </div>
+
+
+        <!-- ================================================================== -->
+
+
+        <!-- DISLIKE BUTTON ON CONDITION: MAIN WINDOW -->
+        <div v-if = 'show_main_window_menu' class="rate-button">
+          <img class="icon rotated" src="@/assets/like.png" alt="dislike" @click="onClickDislikeButton" />
           <span>{{dataDislikes}}</span>
         </div>
-        <div class ="settings-button" @click = 'show_settings_section_hover'>
+
+
+        <!-- SETTINGS BUTTON -->
+        <div class ="settings-button" @click = 'onClickGlobalSettingsButton'>
           <img class ='icon-settigns' src="@/assets/settings.png" alt='settigns'/>
         </div>
         <a v-if = 'show_age' id="age-restriction">{{age_restriction}} </a>
       </div>
+
+      <!-- Sekcii wsplivaushih okon laikov -->
       <transition name='fade'>
         <div id="like-section" v-if="show_like_section">
-          <div class="button" @click="give_like(1)">
+          <div class="button" @click="giveLike(1)">
             <img class="" src="@/assets/film.png" />
             <span>Xочу посмотреть в кинотеатре</span>
           </div>
-          <div class="button" @click="give_like(2)">
+          <div class="button" @click="giveLike(2)">
             <img class="" src="@/assets/computer.png" />
             <span>Xочу посмотреть дома</span>
           </div>
-          <div class="button" @click="give_like(3)">
+          <div class="button" @click="giveLike(3)">
             <img class="" src="@/assets/like.png" />
             <span>Cмотрел, рекомендую</span>
           </div>
@@ -72,11 +101,11 @@
 
       <transition name='fade'>
         <div id="dislike-section" v-if="show_dislike_section">
-          <div class="button" @click="give_dislike(4)">
+          <div class="button" @click="giveDislike(4)">
             <img class="" src="@/assets/sad.png" />
             <span>фильм мне неинтересен</span>
           </div>
-          <div class="button" @click="give_dislike(5)">
+          <div class="button" @click="giveDislike(5)">
             <img class="rotated" src="@/assets/like.png" />
             <span>смотрел, не рекомендую</span>
           </div>
@@ -84,7 +113,7 @@
       </transition>
       <transition name ='fade'>
         <div id="settings-section" v-if = 'show_settings_section'>
-          <div class = 'button' @click = 'age_toggler'>
+          <div class = 'button' @click = 'ageRestrictionToggleOnOff'>
             <img src = '@/assets/cross.png'/>
             <span>Отключить возрастное ограничение</span>
           </div>
@@ -97,6 +126,7 @@
 
 <script>
 import service from '@/api/base.js'
+import AuthWindow from '@/components/AuthWindow'
 import FilmInfo from '@/components/FilmInfo'
 import SettingsModal from "@/components/SettingsModal"
 export default {
@@ -121,13 +151,17 @@ export default {
   },
   components: {
     FilmInfo,
-    SettingsModal
+    SettingsModal,
+    AuthWindow
   },
   data() {
     return {
       show_like_section: false,
       show_dislike_section: false,
       show_settings_section: false,
+      show_main_window_menu: true,
+      show_auth_window: false,
+      show_ticket_section: false,
       show_settings: false,
       like_given: false,
       dataLikes: this.likes,
@@ -138,32 +172,45 @@ export default {
     }
   },
   methods: {
-    mshow_like_section: function() {
+    onClickLikeButton: function() {
       this.show_like_section = !this.show_like_section
       this.show_dislike_section = false
+      this.show_settings_section = false
     },
-    mshow_dislike_section: function() {
+    onClickDislikeButton: function() {
       this.show_like_section = false
+      this.show_settings_section = false
       this.show_dislike_section = !this.show_dislike_section
     },
-    show_info_modal: function() {
+    onClickInfoButton: function() {
       this.show_info = !this.show_info
       this.show_like_section = false
       this.show_dislike_section = false
+      this.show_settings_section = false
+      this.show_auth_window = false
+      this.show_main_window_menu = !this.show_main_window_menu
     },
-    show_settings_modal: function() {
+    onClickSettingsButton: function() {
       this.show_settings = !this.show_settings
     },
-    show_settings_section_hover: function() {
+    onClickGlobalSettingsButton: function() {
       this.show_settings_section = !this.show_settings_section
+      this.show_like_section = false
+      this.show_dislike_section = false
     },
-    age_toggler: function() {
+    ageRestrictionToggleOnOff: function() {
       this.show_age = !this.show_age
+    },
+    onClickAuthButton: function() {
+      this.show_auth_window = !this.show_auth_window
+    },
+    onClickTicketsButton: function() {
+      this.show_ticket_section = !this.show_ticket_section
     },
     /* Две функции голоса ниже почти одинаковые, берут целочисленное значение
      и на его основе отправляют нужный запрос по лайку или дизлайку в апи */
     // В будущем переделать на абстракцию!!
-    give_like: function(evaluation) {
+    giveLike: function(evaluation) {
       this.show_like_section = !this.show_like_section
       if (this.like_given) {
         console.log("Can't give like, you've already voted")
@@ -183,7 +230,7 @@ export default {
     },
 
     // В будущем переделать на абстракцию!!
-    give_dislike: function(evaluation) {
+    giveDislike: function(evaluation) {
       this.show_dislike_section = !this.show_dislike_section
       if (this.dislike_given) {
         console.log("Can't give dislike, you've already voted")
@@ -284,6 +331,10 @@ export default {
     .modal-layer {
       font-size: 0.7em !important;
     }
+    .settings-button {
+      width: 20px !important;
+      height: 20px !important;
+    }
 }
 @media (max-height: 800px) {
     .rate {
@@ -309,12 +360,12 @@ export default {
       font-size: 0.81em !important;
     }
     .settings-button {
-      width: 33px !important;
-      height: 33px !important;
+      width: 30px !important;
+      height: 30px !important;
 
     }
 }
-@media (max-height: 300px) {
+@media (max-height: 400px) {
     .rate {
         font-size: 2em !important;
     }
@@ -332,10 +383,13 @@ export default {
     }
     .modal-layer {
       font-size: 0.5em !important;
+      overflow-y: scroll;
+      clear: both !important;
+      height: 89.5% !important;
     }
     .settings-button {
-      width: 15px !important;
-      height: 15px !important;
+      width: 24px !important;
+      height: 24px !important;
 
     }
 }
@@ -483,13 +537,13 @@ export default {
   }
 
 .modal-layer {
+    clear: both;
     z-index: 3;
     top: 0;
     left: 0;
-    height: 92.2%;
+    height: 91.2%;
     position: absolute;
     background-color: rgba(12, 10, 26, 0.8);
-    overflow-y: scroll;
 }
 
 .modal-settings-layer {
@@ -579,15 +633,37 @@ export default {
                     margin-left: 20%;
                 }
             }
+            .auth-button {
+                cursor: pointer;
+                display: flex;
+                width: 10%;
+                margin-left: 10%;
+                margin-right: 11%;
+                .icon {
+                    color: white;
+                    height: 100%;
+                }
+            }
+            .tickets-button {
+                cursor: pointer;
+                padding: 1%;
+                display: flex;
+                width: 10%;
+                margin-left: 3%;
+                margin-right: 11%;
+                .icon {
+                    height: 95%;
+                }
+                .icon:hover {
+                    height: 105%;
+                }
+            }
             .settings-button {
               cursor: pointer;
               display: inherit;
-              height: 23px;
-              width: 23px;
+              height: 37px;
+              width: 37px;
               margin-left: 3%;
-
-
-
               img {
                 width: 100%;
                 height: 100%;

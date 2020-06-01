@@ -33,10 +33,6 @@
       <p v-else id = 'description'>This films doesn't have description yet, you can propose your version of description for this film by clicking the button below </p>
       <p v-if = 'votes'>{{votes}}</p>
     </div>
-
-      <div class = "modal-layer-settings-button">
-        SETTINGS
-      </div>
   </div>
 
 </template>
@@ -97,14 +93,11 @@
       display: inline;
     }
   }
-  .modal-layer-settings-button {
-    cursor: pointer;
-    position: relative;
-    width: 100%;
-    text-align: center;
-    z-index: 3;
-    color: white;
-    background-color: rgba(10, 9, 20, 0.5);
+
+  .authorisation-button {
+    left: 0;
+    text-align: left;
+    top: 0;
   }
 
 
