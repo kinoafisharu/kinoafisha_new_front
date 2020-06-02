@@ -34,9 +34,7 @@
       <p v-if = 'votes'>{{votes}}</p>
     </div>
 
-    <div class = 'cross-button' @click = 'onClickCloseButton'>
-      <img id ='icon' src="@/assets/cross.png" alt='cross' title = 'Close modal'/>
-    </div>
+    <CrossButton class='cross-button' @click.native = 'close'/>
 
 
   </div>
@@ -45,8 +43,12 @@
 
 
 <script>
+import CrossButton from "@/components/CrossButton"
   export default {
     name: 'filminfo',
+    components: {
+      CrossButton
+    },
     props: {
       description: String,
       title: String,
@@ -64,15 +66,10 @@
         show_settings_section: false,
       }
     },
-
     methods: {
-      // WARNING: FUNCTION CHANGES PARENT'S COMPONENT DATA
-      onClickCloseButton: function() {
-        this.$parent.show_info = !this.$parent.show_info
-        this.$parent.show_main_window_menu = !this.$parent.show_main_window_menu
-        this.$parent.show_age = !this.$parent.show_age
-      },
-
+      close: function() {
+        this.$emit('close')
+      }
     }
   }
 </script>
@@ -85,10 +82,13 @@
 
   .filminfo {
     width: inherit;
-    height: inherit;
-    position: relative;
-    top: 0px;
+    height: 91.5%;
+    overflow-y: auto;
+    position: absolute;
+    top: 0;
+    bottom:0;
     text-align: center;
+    background-color: rgba(12, 10, 26, 0.8) !important;
     p {
       color: white;
     }
@@ -116,7 +116,7 @@
       bottom: 0;
       margin:5%;
       margin-left: 3.4%;
-      margin-bottom: 0%;
+      margin-bottom: 5%;
       opacity: 0.25;
       img {
         cursor: pointer;

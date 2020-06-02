@@ -2,7 +2,7 @@
   <div class = 'poster-block'>
 
 
-          <ActionPosterImage
+          <ActionPosterImage0
           v-if = "film !== null"
           :kid = 'film.kid'
           :limit = 'film.limits'
@@ -28,11 +28,11 @@
 
 <script>
   import service from "@/api/base.js"
-  import ActionPosterImage from "@/components/ActionPosterImage.vue"
+  import ActionPosterImage0 from "@/components/ActionPosterImage0.vue"
   export default {
     name: 'filmdetail',
     components: {
-      ActionPosterImage
+      ActionPosterImage0
     },
     //id received from router CHAIN |- FIlmDetailView => FilmDetail => FilmPoster
     props: {

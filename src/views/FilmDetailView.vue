@@ -1,7 +1,5 @@
 <template>
-  <div>
     <FilmDetail :id = 'id'/>
-  </div>
 </template>
 
 <script>
@@ -18,3 +16,9 @@
   }
 
 </script>
+
+<style lang = 'scss'>
+.film-detail-view {
+  display: flex;
+}
+</style>

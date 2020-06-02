@@ -1,12 +1,11 @@
-import axios from 'axios'
+import service from '@/api/base.js'
 
 
-const Is404Image = (url) => { axios.get(url)
-  .catch((error) => {
-    if (error.response) {
-      return error.response.status
-    }
-  });
+const likeFilm = (id) => {
+
+  service.post(`films/${id}/like/`, {
+    evaluation: 5,
+  })
 }
 
-export default Is404Image
+export default likeFilm

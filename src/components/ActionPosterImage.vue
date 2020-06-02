@@ -110,20 +110,7 @@
 
       <!-- Sekcii wsplivaushih okon laikov -->
       <transition name='fade'>
-        <div id="like-section" v-if="show_like_section">
-          <div class="button" @click="giveLike(1)">
-            <img class="" src="@/assets/film.png" />
-            <span>Xочу посмотреть в кинотеатре</span>
-          </div>
-          <div class="button" @click="giveLike(2)">
-            <img class="" src="@/assets/computer.png" />
-            <span>Xочу посмотреть дома</span>
-          </div>
-          <div class="button" @click="giveLike(3)">
-            <img class="" src="@/assets/like.png" />
-            <span>Cмотрел, рекомендую</span>
-          </div>
-        </div>
+        <LikeSectionThreeChoices/>
       </transition>
 
       <transition name='fade'>
@@ -204,13 +191,7 @@ export default {
       this.show_dislike_section = !this.show_dislike_section
     },
     onClickInfoButton: function() {
-      this.show_info = true
-      this.show_like_section = false
-      this.show_dislike_section = false
-      this.show_auth_window = false
-      this.show_age = false
-      this.show_main_window_menu = false
-      this.show_rate_settings = false
+
     },
     onClickRateSettingsButton: function() {
       this.show_rate_settings = !this.show_rate_settings
@@ -228,16 +209,6 @@ export default {
     ////////////
     onClickSettingsButton: function() {
 
-    },
-    ///////////
-    onClickFourthLayerButton: function() {
-
-    },
-    onClickThirdLayerButton: function() {
-      this.show_third_layer = true
-      this.show_info = false
-      this.show_main_window_menu = false
-      this.show_auth_window = false
     },
     /* Две функции голоса ниже почти одинаковые, берут целочисленное значение
      и на его основе отправляют нужный запрос по лайку или дизлайку в апи */
@@ -513,7 +484,7 @@ export default {
 }
 #like-section {
     position: absolute;
-    height: 20%;
+    height: 30%;
     width: 55%;
     top: 69%;
     padding: 1%;

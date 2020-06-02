@@ -9,7 +9,7 @@
 <script>
 import FilmList from '@/components/FilmList'
 export default {
-  name: 'App',
+  name: 'filmlistview',
   // call to getFilms method,receiving, caching container
   mounted () {
         this.$store.dispatch('getFilms')
@@ -37,6 +37,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
