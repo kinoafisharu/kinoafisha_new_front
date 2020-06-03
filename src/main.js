@@ -9,11 +9,14 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         films: [],
+        stories: [],
     },
     getters: {
         films: state => {
-            console.log(state.films)
             return state.films
+        },
+        stories: state => {
+            return state.stories
         },
     },
     actions: {
@@ -24,11 +27,21 @@ const store = new Vuex.Store({
                     context.commit('setFilms', films)
                 })
         },
+        getStories (context) {
+          service.get('news/?page=2&format=json')
+            .then(res => {
+                let stories = res.data.results
+                context.commit('setStories', stories)
+            })
+        }
     },
     mutations: {
         setFilms (state, films) {
             state.films = films
         },
+        setStories (state, stories) {
+          state.stories = stories
+        }
     }
 })
 // ======================================================================================||||

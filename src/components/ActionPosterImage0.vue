@@ -1,12 +1,9 @@
 <template>
-<div class='postercontainer'>
 
-  <div class="poster">
 
-    <!-- Отображение постера елемента если такой есть -->
-    <img v-if='imgsrc' class="poster-image" :src="imgsrc">
-    <h1 v-else>This element doesn't have an image yet</h1>
-    <ActionElementsLayer  :description='description'
+<ImageFlexibleWrapper :imgsrc = 'imgsrc'>
+
+    <ActionElementsLayer0  :description='description'
                           :title='title'
                           :rate='rate'
                           :comment='comment'
@@ -19,22 +16,21 @@
                           :id = 'id'/>
 
 
-
-      <!-- Sekcii wsplivaushih okon laikov -->
-
-    </div>
-  </div>
+</ImageFlexibleWrapper>
 
 </template>
 
 <script>
-import ActionElementsLayer from "@/components/ActionElementsLayer"
-import service from '@/api/base.js'
+import ActionElementsLayer0 from "@/components/ActionElementsLayer0"
+import PosterUrlGeneratorMixin from "@/mixins/PosterUrlGeneratorMixin"
+import ImageFlexibleWrapper from "@/components/wrappers/ImageFlexibleWrapper"
 
 export default {
   components: {
-    ActionElementsLayer
+    ActionElementsLayer0,
+    ImageFlexibleWrapper,
   },
+  mixins: [PosterUrlGeneratorMixin],
   props: {
     limit: String,
     kid: Number,
@@ -56,26 +52,6 @@ export default {
   },
   methods: {
 
-    // В будущем переделать на абстракцию!!
-    giveDislike: function(evaluation) {
-      this.show_dislike_section = !this.show_dislike_section
-      if (this.dislike_given) {
-        console.log("Can't give dislike, you've already voted")
-      } else {
-      service.post(`films/${this.id}/like/`, {
-          evaluation: evaluation,
-        })
-        .then((response) => {
-          if (response.data['liked'] == true) this.dislike_given = true
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-        this.dataDislikes ++
-      console.log("give_dislike")
-    }
-  }
-
   },
   computed: {
     imgsrc: function() {
@@ -89,6 +65,7 @@ export default {
         return null
       }
     },
+
     width: function() {
       return window.innerWidth
     },

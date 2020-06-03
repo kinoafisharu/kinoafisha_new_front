@@ -20,7 +20,6 @@
           :id = 'film.id'
           />
 
-
           <p v-else-if = 'loading === true'>loading...</p>
           <p v-if = 'errored === true'> ERROR occured in FilmDetail component </p>
   </div>
@@ -32,7 +31,7 @@
   export default {
     name: 'filmdetail',
     components: {
-      ActionPosterImage0
+      ActionPosterImage0,
     },
     //id received from router CHAIN |- FIlmDetailView => FilmDetail => FilmPoster
     props: {
