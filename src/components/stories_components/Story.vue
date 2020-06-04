@@ -41,6 +41,7 @@ export default {
     return {
       imgsrc: 'https://desktoplux.com/wallpapers/2000/1620/800x500.jpg',
       layercounter: 0,
+      tohtml: true,
       layers: [null, 'InfoLayer'],
       currentLayer:  'InfoLayer',
     }
@@ -57,11 +58,11 @@ export default {
       this.currentSection = null
     },
   },
-
+  // // WARNING:  // WARNING: CHANGE STORIES HOLDPLACE TO STORAGE
   // computed value of stories container
   computed: {
     currentProperties: function() {
-      return { title: this.story.title, description: this.story.text}
+      return { title: this.story.title, description: this.story.text, tohtml: this.tohtml}
     }
   }
 }
@@ -84,6 +85,9 @@ export default {
     height: 140%;
   }
 }
-
+.infolayer {
+  height: 87.6%;
+  opacity: 0.99;
+}
 
 </style>
