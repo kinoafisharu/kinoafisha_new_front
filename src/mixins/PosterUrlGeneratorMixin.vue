@@ -1,4 +1,5 @@
 <script>
+// Миксин для генерации url постера
 export default {
   methods: {
     imgsrc: function() {

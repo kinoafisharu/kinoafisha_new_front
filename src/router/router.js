@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 // Router takes one component defined in views to display the path page
+// Роутер берет по компоненту из views для отображения его при соответствующем GET запросе
+// Компоненты в папке views выступают в роли главных окон, путь к ним указан в маршрутах
+// <router-link-to> принимает значение name определенного пути
 const routes = [
   {
     path: '/',
@@ -12,12 +15,12 @@ const routes = [
   {
     path: '/films',
     name: 'films',
-    component: () => import("@/views/FilmListView.vue")
+    component: () => import("@/views/kinoinfo_views/FilmListView.vue")
   },
   {
     path: '/films/:id',
     name: 'filmdetail',
-    component: () => import("@/views/FilmDetailView.vue"),
+    component: () => import("@/views/kinoinfo_views/FilmDetailView.vue"),
     props: true,
   },
   {

@@ -7,6 +7,7 @@
 </template>
 
 <script>
+// Домашняя страница
 export default {
     name: "home"
 }

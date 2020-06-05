@@ -10,7 +10,7 @@
       <RateButton ratecalced ='5'/>
       <AELBottomSectionWrapper class = 'action-elements-layer-bottom-section-wrapper'>
         <div class ='info-place' @click = 'onClickInfoButton'>
-          <img class='icon' src = "@/assets/info.png"/>
+          <img class='icon' :src = "`${publicPath}images/info.png`"/>
         </div>
       </AELBottomSectionWrapper>
     </AELWrapper>
@@ -18,11 +18,12 @@
 </template>
 
 <script>
-import ImageFlexibleWrapper from "@/components/wrappers/ImageFlexibleWrapper.vue"
-import AELWrapper from "@/components/wrappers/AELWrapper.vue"
-import AELBottomSectionWrapper from "@/components/wrappers/AELBottomSectionWrapper.vue"
-import InfoLayer from "@/components/InfoLayer"
-import RateButton from "@/components/RateButton"
+// Компонент для отображения истории
+import ImageFlexibleWrapper from "@/components/global/wrappers/ImageFlexibleWrapper.vue"
+import AELWrapper from "@/components/global/wrappers/AELWrapper.vue"
+import AELBottomSectionWrapper from "@/components/global/wrappers/AELBottomSectionWrapper.vue"
+import InfoLayer from "@/components/global/layers/InfoLayer"
+import RateButton from "@/components/global/buttons/RateButton"
 import LayerMixin from "@/mixins/LayerMixin"
 export default {
   name: 'story',
@@ -44,6 +45,7 @@ export default {
       tohtml: true,
       layers: [null, 'InfoLayer'],
       currentLayer:  'InfoLayer',
+      publicPath: process.env.BASE_URL
     }
   },
   methods: {

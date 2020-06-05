@@ -1,5 +1,6 @@
 
 <script>
+// Миксин для переключения секций кнопок, действует как LayerMixin
 export default {
   methods: {
     flushSections: function() {

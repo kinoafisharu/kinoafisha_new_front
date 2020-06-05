@@ -5,7 +5,7 @@ import service from "@/api/base.js"
 import router from "@/router/router.js"
 Vue.use(Vuex)
 
-
+// Самый главный компонент, тут же хранилище Vuex
 const store = new Vuex.Store({
     state: {
         films: [],
@@ -21,14 +21,14 @@ const store = new Vuex.Store({
     },
     actions: {
         getFilms (context) {
-            service.get('films/?format=json')
+            service.get('kinoinfo/films/?format=json')
                 .then((res) => {
                     let films = res.data.results
                     context.commit('setFilms', films)
                 })
         },
         getStories (context) {
-          service.get('news/?page=2&format=json')
+          service.get('texts/stories/?page=2&format=json')
             .then(res => {
                 let stories = res.data.results
                 context.commit('setStories', stories)

@@ -6,6 +6,7 @@
 
 
 <script>
+// Главная страница компонента историй, пока что принимает значение одной истории в виде обьекта
 import Story from "@/components/stories_components/Story"
 import service from "@/api/base.js"
 export default {
@@ -20,8 +21,10 @@ export default {
       story: null,
     }
   },
+  //  Функция ниже - на переелку, переместить данные о историях в хранилище Vuex
+  // // WARNING: CHANGE TO STORAGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   mounted() {
-    service.get('news/')
+    service.get('texts/stories/')
     .then(response => {this.story = response.data.results[0]})
     .catch( error => {
       console.log(error);
