@@ -11,7 +11,7 @@ Vue.js, JavaScript, Vuex, Vue-Router, SCSS
 Проект представляет собой фронтэнд-платформу для создания виджетов, интерфейсов, библиотек и фронтенд частей, с использованием базы данных [Киноинфо](http://kinoinfo.ru/) и его [API](https://new-new-api.herokuapp.com/).
 
 
-## Логика работы Views
+# Логика работы Views
 
 1) [HomeView](https://github.com/kinoafisharu/kinoafisha_new_front/blob/master/src/views/HomeView.vue): Админка виджетов. Должна будет выдавать "панель управления" набором виджетов. Сейчас просто заглушка с ссылкой на FilmView. Так же есть возможность сборки spa на основе независимых виджетов-компонентов.
 
@@ -35,7 +35,7 @@ Vue.js, JavaScript, Vuex, Vue-Router, SCSS
 компоненты страниц и виджетов kinoinfo
 2) [stories_components](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/src/components/stories_components) - компоненты историй
 
-## Папки каталога src:
+# Папки каталога src:
 
 ## Папка [assets](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/src/assets)
 Содержит в себе активно подгружаемые изображения и статикфайлы
@@ -56,7 +56,7 @@ Vue.js, JavaScript, Vuex, Vue-Router, SCSS
 1) ```base.ts``` -- объявляет и экспортирует главный объект Axios с BASE URL и добавляет интресептор для запросов, который подставляет параметр ?format=json для удобства.
 2) ```film.ts``` -- импортирует главный Axios объект из ```base.ts``` и реализует методы по пути /api/film/
 
-## Папки корневого каталога:
+# Папки корневого каталога:
 
 ## Папка [src](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/src)
  Содержит в себе все активные компоненты и части системы, весь написанный код.
