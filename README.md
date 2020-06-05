@@ -43,9 +43,6 @@ Vue.js, JavaScript, Vuex, Vue-Router, SCSS
 ## Папка [components](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/src/components)
 Содержит в себе компоненты приложений (активные части), логика и структура описана выше
 
-## Папка [public](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/public) (корневой каталог)
-Содержит в себе статикфайлы и главный html файл
-
 ## Папка [mixins](https://github.com/kinoafisharu/kinoafisha_new_front/tree/master/src/mixins)
 Содержит в себе миксины - компоненты от которых можно наследовать определенные часто используемые функции и данные
 
