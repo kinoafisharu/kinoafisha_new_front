@@ -29,7 +29,7 @@
 
     <!-- Блок описания -->
     <div class = 'description-block'>
-      <p v-if = 'description & !tohtml' id = 'description'>{{description}}</p>
+      <p v-if = 'description && !tohtml' id = 'description'>{{description}}</p>
       <div class = 'htmldescription' v-else-if = 'tohtml' v-html = 'description'></div>
       <p v-else id = 'description'>This films doesn't have description yet, you can propose your version of description for this film by clicking the button below </p>
       <p v-if = 'votes'>{{votes}}</p>
