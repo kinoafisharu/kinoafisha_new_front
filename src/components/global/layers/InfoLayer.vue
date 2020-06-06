@@ -114,9 +114,9 @@ import CrossButton from "@/components/global/buttons/CrossButton"
       position: absolute;
       width: 20px;
       height: 20px;
-      left: 0;
+      right: 0;
       text-align: left;
-      bottom: 0;
+      top: 0;
       margin:5%;
       margin-left: 3.4%;
       margin-bottom: 5%;

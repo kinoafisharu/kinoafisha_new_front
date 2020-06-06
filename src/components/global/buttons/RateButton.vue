@@ -10,7 +10,7 @@
 export default {
   name: 'rate-button',
   props: {
-    ratecalced: Number,
+    ratecalced: String,
   }
 }
 </script>
@@ -27,8 +27,7 @@ export default {
     align-self: flex-start;
     margin-top: 14%;
     font-size: 4em;
-    padding-bottom: 1%;
-    padding-top: 4%;
+    padding: 2%;
     color: black;
     font-weight: bold;
 }

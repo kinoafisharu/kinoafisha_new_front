@@ -9,14 +9,14 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         films: ['loading',],
-        stories: ['loading',],
+        story: {'title': 'loading', 'description': 'loading'},
     },
     getters: {
         films: state => {
             return state.films
         },
-        stories: state => {
-            return state.stories
+        story: state => {
+            return state.story
         },
     },
     actions: {
@@ -27,11 +27,11 @@ const store = new Vuex.Store({
                     context.commit('setFilms', films)
                 })
         },
-        getStories ({commit}, payload) {
-          service.get(`texts/stories/orderby/?by=${payload.by}&amount=${payload.amount}`)
+        getStory ({commit}, payload) {
+          service.get(`texts/stories/${payload.id}/`)
             .then(res => {
-                let stories = res.data
-                commit('setStories', stories)
+                let story = res.data
+                commit('setStory', story)
             })
         }
     },
@@ -39,9 +39,9 @@ const store = new Vuex.Store({
         setFilms (state, films) {
             state.films = films
         },
-        setStories (state, stories) {
-          console.log(stories)
-          state.stories = stories
+        setStory (state, story) {
+          console.log(story)
+          state.story = story
         }
     }
 })

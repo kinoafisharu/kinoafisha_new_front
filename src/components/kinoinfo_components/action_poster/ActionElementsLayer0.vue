@@ -64,7 +64,8 @@
     <transition name = 'fade'>
       <component :is = 'currentSection' @give-like = 'giveLike'
                                         @close-like-section = 'flushSections'
-                                        @close-dislike-section = 'flushSections'>
+                                        @close-dislike-section = 'flushSections'
+                                        v-bind = 'sectionProperties'>
 
       </component>
     </transition>
@@ -72,7 +73,7 @@
 </template>
 
 <script>
-// Слой активных элементов для постера kinoinfo 
+// Слой активных элементов для постера kinoinfo
 // Берет описанные ниже пропсы, список слоев необходимо описать в Data (layers) в порядке их переключения
 // Используются динамические компоненты (слои)
 import SettingsButton from "@/components/global/buttons/SettingsButton"
@@ -158,7 +159,16 @@ export default {
   },
   computed: {
     currentProperties: function() {
-        return { title: this.title, genre: this.genre, year: this.year, description: this.description, country: this.country }
+        return { title: this.title, genre: this.genre, year: this.year, description: this.description, country: this.country, tohtml: null, }
+    },
+    sectionProperties: function() {
+        return {
+          spantext1: 'Хочу посмотреть в кинотеатре',
+          spantext2: 'Хочу посмотреть дома',
+          spantext3: 'Смотрел, рекомендую',
+          spantext4: 'Фильм мне не интерестен',
+          spantext5: 'Смотрел не рекомендую',
+       }
     },
     ageRestriction: function() {
       let numberPattern = /\d+/g;

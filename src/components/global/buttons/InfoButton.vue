@@ -13,6 +13,7 @@ export default {
     publicPath: process.env.BASE_URL
   }
 }
+}
 </script>
 
 <style scoped lang='scss'>

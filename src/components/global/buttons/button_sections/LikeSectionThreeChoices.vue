@@ -2,15 +2,15 @@
   <div id="like-section">
     <LittleRoundButton class = 'image' @click.native = 'emitParentLikeFunction(1)'
                         buttonimagesource = 'film.png'
-                        buttonspantext = 'Xочу посмотреть в кинотеатре'/>
+                        :buttonspantext = 'spantext1'/>
 
     <LittleRoundButton class = 'image' @click.native = 'emitParentLikeFunction(2)'
-                        buttonspantext = 'Xочу посмотреть дома'
-                        buttonimagesource = 'computer.png'/>
+                        buttonimagesource = 'computer.png'
+                        :buttonspantext = 'spantext2'/>
 
     <LittleRoundButton class = 'image' @click.native = 'emitParentLikeFunction(3)'
-                        buttonspantext = 'Cмотрел, рекомендую'
-                        buttonimagesource = 'like.png'/>
+                        buttonimagesource = 'like.png'
+                        :buttonspantext = 'spantext3'/>
 
   </div>
 </template>
@@ -21,6 +21,11 @@ export default {
   name: 'like-section-three-choices',
   components: {
     LittleRoundButton,
+  },
+  props: {
+    spantext1: String,
+    spantext2: String,
+    spantext3: String,
   },
   methods: {
     emitParentLikeFunction: function(val) {

@@ -24,9 +24,10 @@ const routes = [
     props: true,
   },
   {
-    path: '/stories/',
+    path: '/stories/:id',
     name: 'story',
     component: () => import('@/views/stories_views/StoryView.vue'),
+    props: true,
   }
 ]
 

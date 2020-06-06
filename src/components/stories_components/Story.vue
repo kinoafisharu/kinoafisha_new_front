@@ -4,8 +4,6 @@
       <transition name = 'fade'>
         <h2 id = outertitle v-if = '!currentLayer'>{{this.story.title}}</h2>
       </transition>
-      <ArrowButton @click.native = 'parentGoRight'/>
-      <ArrowButton class = 'left-arrow' @click.native = 'parentGoLeft'/>
       <transition name = 'fade'>
         <component  :is = 'currentLayer'
                     v-bind = 'currentProperties'
@@ -17,9 +15,12 @@
         <div class ='info-place' @click = 'onClickInfoButton'>
           <img class='icon' :src = "`${publicPath}images/info.png`"/>
         </div>
-        <LittleRoundButton class = 'like-button' buttonimagesource = 'like.png'/>
-        <LittleRoundButton class = 'like-button' buttonimagesource = 'dislike.png'/>
+        <LittleRoundButton @click.native = 'onClickLikeButton' class = 'like-button' buttonimagesource = 'like.png'/>
+        <LittleRoundButton @click.native = 'onClickDislikeButton' class = 'like-button' buttonimagesource = 'dislike.png'/>
+        <CrossButton class= 'cross-button' v-if = 'currentLayer || currentSection' @click.native = 'onClickCrossButton'/>
       </AELBottomSectionWrapper>
+      <component :is = 'currentSection'>
+      </component>
     </AELWrapper>
   </ImageFlexibleWrapper>
 </template>
@@ -32,11 +33,15 @@ import AELBottomSectionWrapper from "@/components/global/wrappers/AELBottomSecti
 import InfoLayer from "@/components/global/layers/InfoLayer"
 import RateButton from "@/components/global/buttons/RateButton"
 import ArrowButton from "@/components/global/buttons/ArrowButton"
+import CrossButton from "@/components/global/buttons/CrossButton"
 import LayerMixin from "@/mixins/LayerMixin"
+import SectionMixin from "@/mixins/SectionMixin"
 import LittleRoundButton from "@/components/global/buttons/LittleRoundButton"
+import DislikeSectionTwoChoices from "@/components/global/buttons/button_sections/DislikeSectionTwoChoices"
+import LikeSectionThreeChoices from "@/components/global/buttons/button_sections/LikeSectionThreeChoices"
 export default {
   name: 'story',
-  mixins: [LayerMixin,],
+  mixins: [LayerMixin, SectionMixin],
   components: {
     AELWrapper,
     AELBottomSectionWrapper,
@@ -44,7 +49,10 @@ export default {
     RateButton,
     InfoLayer,
     ArrowButton,
+    DislikeSectionTwoChoices,
+    LikeSectionThreeChoices,
     LittleRoundButton,
+    CrossButton
   },
   props: {
     story: Object,
@@ -56,6 +64,7 @@ export default {
       tohtml: true,
       layers: [null, 'InfoLayer'],
       currentLayer:  'InfoLayer',
+      currentSection: null,
       publicPath: process.env.BASE_URL
     }
   },
@@ -70,6 +79,17 @@ export default {
       this.currentLayer = this.layers[this.layercounter]
       this.currentSection = null
     },
+    onClickCrossButton: function() {
+      this.currentLayer = null
+      this.layercounter = null
+      this.currentSection = null
+    },
+    onClickLikeButton: function() {
+      this.currentSection = 'LikeSectionThreeChoices'
+    },
+    onClickDislikeButton: function() {
+      this.currentSection = 'DislikeSectionTwoChoices'
+    },
     parentGoRight: function() {
       this.$emit('go-right')
     },
@@ -82,6 +102,9 @@ export default {
   computed: {
     currentProperties: function() {
       return { title: this.story.title, description: this.story.text, tohtml: this.tohtml}
+    },
+    sectionProperties: function() {
+      return {}
     }
   }
 }
@@ -131,7 +154,7 @@ export default {
   display: flex;
 }
 .like-button {
-  margin-left: 10%;
+  margin-left: 15%;
 }
 #outertitle {
   color: white;
@@ -139,6 +162,17 @@ export default {
   padding: 3%;
   width: 94%;
   position: absolute;
+}
+#like-section {
+  width: 23%;
+  top: 64%;
+}
+#dislike-section {
+  width: 20%;
+  top: 74%;
+}
+.cross-button {
+  margin-left: 13%;
 }
 
 .fade-enter-active, .fade-leave-active {

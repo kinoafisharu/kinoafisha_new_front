@@ -1,5 +1,5 @@
 <template>
-  <StorySet/>
+  <StorySet :story = 'story' />
 </template>
 
 
@@ -8,15 +8,18 @@
 import StorySet from "@/components/stories_components/StorySet"
 export default {
   name: 'story-view',
+  props: {
+    id: String,
+  },
   components: {
     StorySet,
   },
   created() {
-    this.$store.dispatch('getStories', {by: '-dtime', amount: 5})
+    this.$store.dispatch('getStory', {id: this.id})
   },
-  methods: {
-    updateSorting: function(by) {
-      this.$store.dispatch('getStories', {by: by, amount: 5})
+  computed: {
+    story: function() {
+      return this.$store.getters.story
     }
   }
 

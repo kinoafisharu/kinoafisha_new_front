@@ -1,5 +1,5 @@
 <template>
-  <Story :story = 'currentStory' @go-right = 'goRight' @go-left = 'goLeft'/>
+  <Story :story = 'story' @go-right = 'goRight' @go-left = 'goLeft'/>
 </template>
 
 
@@ -11,6 +11,9 @@ export default {
   components: {
     Story,
   },
+  props: {
+    story: Object,
+  },
   data () {
     return {
       errored: false,
@@ -18,20 +21,10 @@ export default {
     }
   },
   computed: {
-    sStories () {
-      return this.$store.getters.stories
-    },
-    currentStory () {
-      return this.sStories[this.counter]
-    }
+
   },
   methods: {
-    goRight: function() {
-      if (this.counter < this.sStories.length) this.counter ++
-    },
-    goLeft: function() {
-      if (this.counter > 0) this.counter --
-    }
+
   }
 
 
