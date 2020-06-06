@@ -18,7 +18,6 @@ export default {
   // computed value of films container
     computed: {
       films () {
-        console.log(this.$store.getters.films)
         return this.$store.getters.films
       }
     },

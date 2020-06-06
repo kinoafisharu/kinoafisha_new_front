@@ -9,6 +9,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         films: ['loading',],
+        film: {'limit': 'loading'},
         story: {'title': 'loading', 'description': 'loading'},
     },
     getters: {
@@ -18,6 +19,9 @@ const store = new Vuex.Store({
         story: state => {
             return state.story
         },
+        film: state => {
+          return state.film
+        }
     },
     actions: {
         getFilms (context) {
@@ -26,6 +30,13 @@ const store = new Vuex.Store({
                     let films = res.data.results
                     context.commit('setFilms', films)
                 })
+        },
+        getFilm ({commit}, payload) {
+          service.get(`kinoinfo/films/${payload.id}/`)
+            .then((res) => {
+              let film = res.data
+              commit('setFilm', film)
+            })
         },
         getStory ({commit}, payload) {
           service.get(`texts/stories/${payload.id}/`)
@@ -42,6 +53,9 @@ const store = new Vuex.Store({
         setStory (state, story) {
           console.log(story)
           state.story = story
+        },
+        setFilm (state, film) {
+          state.film = film
         }
     }
 })
