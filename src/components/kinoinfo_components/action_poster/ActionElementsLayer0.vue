@@ -168,6 +168,7 @@ export default {
           spantext3: 'Смотрел, рекомендую',
           spantext4: 'Фильм мне не интерестен',
           spantext5: 'Смотрел не рекомендую',
+          thirdOption: true,
        }
     },
     ageRestriction: function() {

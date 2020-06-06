@@ -1,6 +1,7 @@
 <template>
   <ImageFlexibleWrapper :imgsrc = 'imgsrc' class="image-flexible-wrapper">
     <AELWrapper class = 'action-elements-layer-wrapper'>
+      <ArrowButton @click.native = 'parentGoRight'/>
       <transition name = 'fade'>
         <h2 id = outertitle v-if = '!currentLayer'>{{this.story.title}}</h2>
       </transition>
@@ -19,7 +20,7 @@
         <LittleRoundButton @click.native = 'onClickDislikeButton' class = 'like-button' buttonimagesource = 'dislike.png'/>
         <CrossButton class= 'cross-button' v-if = 'currentLayer || currentSection' @click.native = 'onClickCrossButton'/>
       </AELBottomSectionWrapper>
-      <component :is = 'currentSection'>
+      <component :is = 'currentSection' v-bind = 'sectionProperties'>
       </component>
     </AELWrapper>
   </ImageFlexibleWrapper>
@@ -104,7 +105,7 @@ export default {
       return { title: this.story.title, description: this.story.text, tohtml: this.tohtml}
     },
     sectionProperties: function() {
-      return {}
+      return {spantext1: 'Прочел, рекомендую', spantext2: 'Хочу прочесть' , spantext4: 'Не буду читать', spantext5: 'Прочел, не рекомендую'}
     }
   }
 }
@@ -138,8 +139,9 @@ export default {
   cursor: pointer;
   position: absolute;
   width: 10%;
+  height: 90%;
   right: 0;
-  margin-top: 23.5%;
+  margin-top: 8%;
   margin-right: 3%;
 }
 .left-arrow {
@@ -165,7 +167,8 @@ export default {
 }
 #like-section {
   width: 23%;
-  top: 64%;
+  top: 69%;
+  height: 15%;
 }
 #dislike-section {
   width: 20%;

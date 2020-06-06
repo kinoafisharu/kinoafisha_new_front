@@ -24,7 +24,12 @@ export default {
 
   },
   methods: {
-
+    goRight: function() {
+      this.$router.push({path: `stories/${this.story.id + 1}`})
+    },
+    goLeft: function() {
+      this.$router.push({path: `stories/${this.story.id - 1}`})
+    }
   }
 
 

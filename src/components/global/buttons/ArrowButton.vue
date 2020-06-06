@@ -19,9 +19,12 @@ export default {
 .buttonimg {
   max-width: 100%;
   max-height: 100%;
+}
+.icon-arrow {
   opacity: 0.1;
 }
-.buttonimg:hover {
-  opacity: 0.7;
+.icon-arrow:hover {
+  opacity: 0.9;
 }
+
 </style>

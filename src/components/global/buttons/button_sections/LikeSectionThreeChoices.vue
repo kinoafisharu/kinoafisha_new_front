@@ -8,7 +8,7 @@
                         buttonimagesource = 'computer.png'
                         :buttonspantext = 'spantext2'/>
 
-    <LittleRoundButton class = 'image' @click.native = 'emitParentLikeFunction(3)'
+    <LittleRoundButton v-if = 'thirdOption' class = 'image' @click.native = 'emitParentLikeFunction(3)'
                         buttonimagesource = 'like.png'
                         :buttonspantext = 'spantext3'/>
 
@@ -26,6 +26,7 @@ export default {
     spantext1: String,
     spantext2: String,
     spantext3: String,
+    thirdOption: Boolean,
   },
   methods: {
     emitParentLikeFunction: function(val) {
