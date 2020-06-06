@@ -8,8 +8,8 @@ Vue.use(Vuex)
 // Самый главный компонент, тут же хранилище Vuex
 const store = new Vuex.Store({
     state: {
-        films: [],
-        stories: [],
+        films: ['loading',],
+        stories: ['loading',],
     },
     getters: {
         films: state => {
@@ -27,11 +27,11 @@ const store = new Vuex.Store({
                     context.commit('setFilms', films)
                 })
         },
-        getStories (context) {
-          service.get('texts/stories/?page=2&format=json')
+        getStories ({commit}, payload) {
+          service.get(`texts/stories/orderby/?by=${payload.by}&amount=${payload.amount}`)
             .then(res => {
-                let stories = res.data.results
-                context.commit('setStories', stories)
+                let stories = res.data
+                commit('setStories', stories)
             })
         }
     },
@@ -40,6 +40,7 @@ const store = new Vuex.Store({
             state.films = films
         },
         setStories (state, stories) {
+          console.log(stories)
           state.stories = stories
         }
     }
