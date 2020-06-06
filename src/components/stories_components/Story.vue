@@ -2,6 +2,11 @@
   <ImageFlexibleWrapper :imgsrc = 'imgsrc' class="image-flexible-wrapper">
     <AELWrapper class = 'action-elements-layer-wrapper'>
       <transition name = 'fade'>
+        <h2 id = outertitle v-if = '!currentLayer'>{{this.story.title}}</h2>
+      </transition>
+      <ArrowButton @click.native = 'parentGoRight'/>
+      <ArrowButton class = 'left-arrow' @click.native = 'parentGoLeft'/>
+      <transition name = 'fade'>
         <component  :is = 'currentLayer'
                     v-bind = 'currentProperties'
                     @close = 'flushLayers'>
@@ -12,6 +17,8 @@
         <div class ='info-place' @click = 'onClickInfoButton'>
           <img class='icon' :src = "`${publicPath}images/info.png`"/>
         </div>
+        <LittleRoundButton class = 'like-button' buttonimagesource = 'like.png'/>
+        <LittleRoundButton class = 'like-button' buttonimagesource = 'dislike.png'/>
       </AELBottomSectionWrapper>
     </AELWrapper>
   </ImageFlexibleWrapper>
@@ -24,7 +31,9 @@ import AELWrapper from "@/components/global/wrappers/AELWrapper.vue"
 import AELBottomSectionWrapper from "@/components/global/wrappers/AELBottomSectionWrapper.vue"
 import InfoLayer from "@/components/global/layers/InfoLayer"
 import RateButton from "@/components/global/buttons/RateButton"
+import ArrowButton from "@/components/global/buttons/ArrowButton"
 import LayerMixin from "@/mixins/LayerMixin"
+import LittleRoundButton from "@/components/global/buttons/LittleRoundButton"
 export default {
   name: 'story',
   mixins: [LayerMixin,],
@@ -34,6 +43,8 @@ export default {
     ImageFlexibleWrapper,
     RateButton,
     InfoLayer,
+    ArrowButton,
+    LittleRoundButton,
   },
   props: {
     story: Object,
@@ -59,6 +70,12 @@ export default {
       this.currentLayer = this.layers[this.layercounter]
       this.currentSection = null
     },
+    parentGoRight: function() {
+      this.$emit('go-right')
+    },
+    parentGoLeft: function() {
+      this.$emit('go-left')
+    }
   },
   // // WARNING:  // WARNING: CHANGE STORIES HOLDPLACE TO STORAGE
   // computed value of stories container
@@ -72,8 +89,8 @@ export default {
 
 <style scoped lang='scss'>
 .image-flexible-wrapper {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 70%;
+  max-height: 70%;
 }
 #bottom-section{
   .info-place {
@@ -91,5 +108,43 @@ export default {
   height: 87.6%;
   opacity: 0.99;
 }
+.rate {
+  margin-top: 8%;
+}
+.icon-arrow {
+  cursor: pointer;
+  position: absolute;
+  width: 10%;
+  right: 0;
+  margin-top: 23.5%;
+  margin-right: 3%;
+}
+.left-arrow {
+  left: 0;
+  margin-left: 2.5%;
+  transform: rotate(180deg);
+}
+.title-block-0 {
+  margin-left: 37%;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+}
+.like-button {
+  margin-left: 10%;
+}
+#outertitle {
+  color: white;
+  right: 0;
+  padding: 3%;
+  width: 94%;
+  position: absolute;
+}
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+}
 </style>
