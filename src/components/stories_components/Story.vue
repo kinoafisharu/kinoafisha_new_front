@@ -60,7 +60,7 @@ export default {
   },
   data () {
     return {
-      imgsrc: 'https://desktoplux.com/wallpapers/2000/1620/800x500.jpg',
+      imgsrc: 'https://ic.pics.livejournal.com/philologist/23000738/2376603/2376603_original.jpg',
       layercounter: 0,
       tohtml: true,
       layers: [null, 'InfoLayer'],
@@ -116,71 +116,7 @@ export default {
   max-width: 70%;
   max-height: 70%;
 }
-#bottom-section{
-  .info-place {
-    cursor: pointer;
-    width: 7%;
-    height: 76%;
-  }
-  .icon {
-    position: relative;
-    width: 60%;
-    height: 140%;
-  }
-}
-.infolayer {
-  height: 87.6%;
-  opacity: 0.99;
-}
-.rate {
-  margin-top: 8%;
-}
-.icon-arrow {
-  cursor: pointer;
-  position: absolute;
-  width: 10%;
-  height: 90%;
-  right: 0;
-  margin-top: 8%;
-  margin-right: 3%;
-  .buttonimg {
-    max-width: 100%;
-    max-height: 100%;
-  }
-}
-.left-arrow {
-  left: 0;
-  margin-left: 2.5%;
-  transform: rotate(180deg);
-}
-.title-block-0 {
-  margin-left: 37%;
-  max-width: 100%;
-  max-height: 100%;
-  display: flex;
-}
-.like-button {
-  margin-left: 15%;
-}
-#outertitle {
-  color: white;
-  right: 0;
-  padding: 3%;
-  width: 94%;
-  position: absolute;
-}
-#like-section {
-  width: 23%;
-  top: 69%;
-  height: 15%;
-}
-#dislike-section {
-  width: 20%;
-  top: 74%;
-}
-.cross-button {
-  margin-left: 13%;
-}
+
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;

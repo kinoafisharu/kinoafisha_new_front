@@ -1,7 +1,13 @@
 <template>
   <div id="dislike-section">
-    <LittleRoundButton class='image' @click.native = 'emitParentLikeFunction(4)'  buttonimagesource = 'sad.png' :buttonspantext = 'spantext4'/>
-    <LittleRoundButton class='image' @click.native = 'emitParentLikeFunction(5)' buttonimagesource = 'dislike.png' :buttonspantext = 'spantext5'/>
+    <LittleRoundButton class='image'
+         @click.native = 'emitParentLikeFunction(4)'
+         :buttonimagesource = 'sectionConfig.buttonimage4'
+         :buttonspantext = 'sectionConfig.spantext4'/>
+    <LittleRoundButton class='image'
+        @click.native = 'emitParentLikeFunction(5)'
+        :buttonimagesource = 'sectionConfig.buttonimage5'
+        :buttonspantext = 'sectionConfig.spantext5'/>
   </div>
 </template>
 
@@ -13,8 +19,7 @@ export default {
     LittleRoundButton,
   },
   props: {
-    spantext4: String,
-    spantext5: String,
+    sectionConfig: Object,
   },
   methods: {
       emitParentLikeFunction: function(val) {

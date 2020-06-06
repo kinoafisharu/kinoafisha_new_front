@@ -2,12 +2,12 @@
 <div class='postercontainer'>
 
   <div class="poster">
-
     <!-- Отображение постера елемента если такой есть -->
-    <img v-if='imgsrc' class="poster-image" :src="imgsrc">
-    <h1 v-else>This element doesn't have an image yet</h1>
+    <img v-if = 'imgsrc' class="poster-image" :src="imgsrc">
+    <div v-else>
+      <img class="poster-image" src = 'https://ic.pics.livejournal.com/philologist/23000738/2376603/2376603_original.jpg'/>
+    </div>
     <slot></slot>
-
   </div>
 </div>
 
@@ -22,6 +22,11 @@ export default {
   props: {
     imgsrc: String,
   },
+  data () {
+  return {
+    publicPath: process.env.BASE_URL
+  }
+}
 }
 </script>
 
@@ -63,6 +68,9 @@ export default {
             display: flex;
             flex-direction: column;
         }
+    }
+    #noimg {
+      position: absolute;
     }
 }
 

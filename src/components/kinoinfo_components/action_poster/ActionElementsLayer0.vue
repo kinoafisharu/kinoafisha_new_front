@@ -105,6 +105,7 @@ export default {
   },
   mixins: [LayerMixin, SectionMixin, RateMixin],
   props: {
+    tohtml: Boolean,
     limit: String,
     rate: Number,
     title: String,
@@ -116,6 +117,7 @@ export default {
     likes: Number,
     dislikes: Number,
     id: Number,
+    sectionConfig: Object,
   },
   data() {
     return {
@@ -125,7 +127,7 @@ export default {
       currentSection: null,
       dataLikes: this.likes,
       dataDislikes: this.dislikes,
-      show_like_section: false,
+      show_second_layer_buttons: false,
       show_rate_layer_buttons: true,
     }
   },
@@ -159,31 +161,32 @@ export default {
   },
   computed: {
     currentProperties: function() {
-        return { title: this.title, genre: this.genre, year: this.year, description: this.description, country: this.country, tohtml: null, }
+        return { title: this.title, genre: this.genre, year: this.year, description: this.description, country: this.country, tohtml: this.tohtml, }
     },
     sectionProperties: function() {
-        return {
-          spantext1: 'Хочу посмотреть в кинотеатре',
-          spantext2: 'Хочу посмотреть дома',
-          spantext3: 'Смотрел, рекомендую',
-          spantext4: 'Фильм мне не интерестен',
-          spantext5: 'Смотрел не рекомендую',
-          thirdOption: true,
-       }
-    },
+        return {sectionConfig: this.sectionConfig}
+      },
     ageRestriction: function() {
       let numberPattern = /\d+/g;
-      let age = this.limit.match(numberPattern)[0] + '+'
-      return age
+      if (this.limit) {
+        let age = this.limit.match(numberPattern)[0] + '+'
+        return age
+      } else {
+        return null
+      }
 
     },
     ratecalced: function() {
-      let r = this.rate
-      let rc = Math.round(r / 2 + 1)
-      if (rc > 5) rc = 5;
-      else if (rc == 1) rc = 2;
-      if (r == 0) return r;
-      else return rc;
+      if (this.rate) {
+        let r = this.rate
+        let rc = Math.round(r / 2 + 1)
+        if (rc > 5) rc = 5;
+        else if (rc == 1) rc = 2;
+        if (r == 0) return r;
+        else return rc;
+    } else {
+      return '0'
+    }
     }
   },
 

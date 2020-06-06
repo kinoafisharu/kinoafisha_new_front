@@ -1,16 +1,16 @@
 <template>
   <div id="like-section">
-    <LittleRoundButton class = 'image' @click.native = 'emitParentLikeFunction(1)'
-                        buttonimagesource = 'film.png'
-                        :buttonspantext = 'spantext1'/>
+    <LittleRoundButton v-if = '!sectionConfig.excfirstOption' class = 'image' @click.native = 'emitParentLikeFunction(1)'
+                        :buttonimagesource = 'sectionConfig.buttonimage1'
+                        :buttonspantext = 'sectionConfig.spantext1'/>
 
-    <LittleRoundButton class = 'image' @click.native = 'emitParentLikeFunction(2)'
-                        buttonimagesource = 'computer.png'
-                        :buttonspantext = 'spantext2'/>
+    <LittleRoundButton v-if = '!sectionConfig.excsecondOption' class = 'image' @click.native = 'emitParentLikeFunction(2)'
+                        :buttonimagesource = 'sectionConfig.buttonimage2'
+                        :buttonspantext = 'sectionConfig.spantext2'/>
 
-    <LittleRoundButton v-if = 'thirdOption' class = 'image' @click.native = 'emitParentLikeFunction(3)'
-                        buttonimagesource = 'like.png'
-                        :buttonspantext = 'spantext3'/>
+    <LittleRoundButton v-if = '!sectionConfig.excthirdOption' class = 'image' @click.native = 'emitParentLikeFunction(3)'
+                        :buttonimagesource = 'sectionConfig.buttonimage3'
+                        :buttonspantext = 'sectionConfig.spantext3'/>
 
   </div>
 </template>
@@ -23,10 +23,7 @@ export default {
     LittleRoundButton,
   },
   props: {
-    spantext1: String,
-    spantext2: String,
-    spantext3: String,
-    thirdOption: Boolean,
+    sectionConfig: Object,
   },
   methods: {
     emitParentLikeFunction: function(val) {

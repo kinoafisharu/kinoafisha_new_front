@@ -3,17 +3,18 @@
 
 <ImageFlexibleWrapper :imgsrc = 'imgsrc'>
 
-    <ActionElementsLayer0  :description='description'
-                          :title='title'
-                          :rate='rate'
-                          :comment='comment'
-                          :year='year'
-                          :country='country'
-                          :genre='genre'
-                          :likes = 'likes'
-                          :dislikes = 'dislikes'
-                          :limit = 'limit'
-                          :id = 'id'/>
+    <ActionElementsLayer0   :description='description'
+                            :title='title'
+                            :rate='rate'
+                            :comment='comment'
+                            :year='year'
+                            :country='country'
+                            :genre='genre'
+                            :likes = 'likes'
+                            :dislikes = 'dislikes'
+                            :limit = 'limit'
+                            :id = 'id'
+                            :sectionConfig = 'sectionConfig'/>
 
 
 </ImageFlexibleWrapper>
@@ -49,7 +50,18 @@ export default {
   },
   data () {
     return {
-
+      sectionConfig: {
+                      spantext1: 'Хочу посмотреть в кинотеатре',
+                      spantext2: 'Хочу посмотреть дома',
+                      spantext3: 'Смотрел, рекомендую',
+                      spantext4: 'Фильм мне не интерестен',
+                      spantext5: 'Не буду смотреть',
+                      buttonimage1: 'film.png',
+                      buttonimage2: 'computer.png',
+                      buttonimage3: 'like.png',
+                      buttonimage4: 'dislike.png',
+                      buttonimage5: 'sad.png',
+                    }
     }
   },
   methods: {
@@ -66,13 +78,6 @@ export default {
       } else {
         return null
       }
-    },
-
-    width: function() {
-      return window.innerWidth
-    },
-    height: function() {
-      return window.innerHeight
     },
   }
 }
@@ -101,7 +106,13 @@ export default {
     }
 }
 
+#image-flexible-wrapper {
+  z-index: -1;
+}
 
+#action-elements-layer {
+  z-index: 2;
+}
 
 .postercontainer {
     max-width: 25%;

@@ -29,7 +29,6 @@
 // Страница с детальным вывоом информации о фильме
 // На данный момент просто принимает id фильма из роутера
 // и рендерит компонент ActionPosterImage0, оборачивая его в доп. блок
-  import service from "@/api/base.js"
   import ActionPosterImage0 from "@/components/kinoinfo_components/action_poster/ActionPosterImage0.vue"
   export default {
     name: 'filmdetail',
@@ -43,23 +42,18 @@
     /// send id from porps here to receive a film object
     data() {
      return {
-       film: null,
        info: null,
-       loading: true,
-       errored: false
      };
    },
    //FETCH DATA FROM API USING GIVEN ID PROP
-    mounted() {
-      let id = String(this.id) + '/'
-      service.get('kinoinfo/films/' + id, {params: {format: 'json'} })
-      .then(response => {this.film = response.data})
-      .catch( error => {
-        console.log(error)
-        this.errored = true
-      .finally(() => this.loading = false)
-      })
+    created() {
+      this.$store.dispatch('getFilm', {id: this.id})
   },
+   computed: {
+     film: function() {
+       return this.$store.getters.film
+     },
+   }
 }
 
 </script>
