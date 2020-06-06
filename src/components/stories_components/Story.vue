@@ -143,6 +143,10 @@ export default {
   right: 0;
   margin-top: 8%;
   margin-right: 3%;
+  .buttonimg {
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 .left-arrow {
   left: 0;
