@@ -1,127 +1,147 @@
 <template>
-  <ImageFlexibleWrapper :imgsrc = 'imgsrc' class="image-flexible-wrapper">
-    <AELWrapper class = 'action-elements-layer-wrapper'>
-      <ArrowButton @click.native = 'parentGoRight'/>
+  <div class = 'poster-block'>
+    <ImageFlexibleWrapper imgsrc = 'https://ic.pics.livejournal.com/philologist/23000738/2376603/2376603_original.jpg'>
       <transition name = 'fade'>
-        <h2 id = outertitle v-if = '!currentLayer'>{{this.story.title}}</h2>
-      </transition>
-      <transition name = 'fade'>
-        <component  :is = 'currentLayer'
-                    v-bind = 'currentProperties'
-                    @close = 'flushLayers'>
-        </component>
-      </transition>
-      <RateButton ratecalced ='5'/>
-      <AELBottomSectionWrapper class = 'action-elements-layer-bottom-section-wrapper'>
-        <div class ='info-place' @click = 'onClickInfoButton'>
-          <img class='icon' :src = "`${publicPath}images/info.png`"/>
+        <div id = 'exttitle' @click = 'onClickExternalTitle'>
+          <h1 id = 'exttitle'>{{obj.title}}</h1>
         </div>
-        <LittleRoundButton @click.native = 'onClickLikeButton' class = 'like-button' buttonimagesource = 'like.png'/>
-        <LittleRoundButton @click.native = 'onClickDislikeButton' class = 'like-button' buttonimagesource = 'dislike.png'/>
-        <CrossButton class= 'cross-button' v-if = 'currentLayer || currentSection' @click.native = 'onClickCrossButton'/>
-      </AELBottomSectionWrapper>
-      <component :is = 'currentSection' v-bind = 'sectionProperties'>
-      </component>
-    </AELWrapper>
-  </ImageFlexibleWrapper>
+      </transition>
+        <StoryActionElementsLayer
+                                :description='obj.text'
+                                :title='obj.title'
+                                :sectionConfig = 'sectionConfig'
+                                likes = 0
+                                dislikes = 0
+                                tohtml = true>
+        </StoryActionElementsLayer>
+    </ImageFlexibleWrapper>
+  </div>
 </template>
 
 <script>
-// Компонент для отображения истории
-import ImageFlexibleWrapper from "@/components/global/wrappers/ImageFlexibleWrapper.vue"
-import AELWrapper from "@/components/global/wrappers/AELWrapper.vue"
-import AELBottomSectionWrapper from "@/components/global/wrappers/AELBottomSectionWrapper.vue"
-import InfoLayer from "@/components/global/layers/InfoLayer"
-import RateButton from "@/components/global/buttons/RateButton"
-import ArrowButton from "@/components/global/buttons/ArrowButton"
-import CrossButton from "@/components/global/buttons/CrossButton"
-import LayerMixin from "@/mixins/LayerMixin"
-import SectionMixin from "@/mixins/SectionMixin"
-import LittleRoundButton from "@/components/global/buttons/LittleRoundButton"
-import DislikeSectionTwoChoices from "@/components/global/buttons/button_sections/DislikeSectionTwoChoices"
-import LikeSectionThreeChoices from "@/components/global/buttons/button_sections/LikeSectionThreeChoices"
-export default {
-  name: 'story',
-  mixins: [LayerMixin, SectionMixin],
-  components: {
-    AELWrapper,
-    AELBottomSectionWrapper,
-    ImageFlexibleWrapper,
-    RateButton,
-    InfoLayer,
-    ArrowButton,
-    DislikeSectionTwoChoices,
-    LikeSectionThreeChoices,
-    LittleRoundButton,
-    CrossButton
-  },
-  props: {
-    story: Object,
-  },
-  data () {
-    return {
-      imgsrc: 'https://ic.pics.livejournal.com/philologist/23000738/2376603/2376603_original.jpg',
-      layercounter: 0,
-      tohtml: true,
-      layers: [null, 'InfoLayer'],
-      currentLayer:  'InfoLayer',
-      currentSection: null,
-      publicPath: process.env.BASE_URL
-    }
-  },
-  methods: {
-    onClickInfoButton: function() {
-      this.layercounter ++
-      if (this.layercounter === this.layers.length) {
-        this.layercounter = 0
-        this.show_rate_layer_buttons = true
-        this.show_second_layer_buttons = false
+  import StoryActionElementsLayer from "@/components/stories_components/layers/StoryActionElementsLayer.vue"
+  import ImageFlexibleWrapper from "@/components/global/wrappers/ImageFlexibleWrapper"
+  export default {
+    name: 'objdetail',
+    components: {
+      StoryActionElementsLayer,
+      ImageFlexibleWrapper,
+    },
+    //id received from router CHAIN |- FIlmDetailView => FilmDetail => FilmPoster
+    props: {
+      obj: Object,
+    },
+    /// send id from porps here to receive a obj object
+    data () {
+      return {
+        sectionConfig: {
+                        spantext2: 'Прочел, рекомендую',
+                        spantext3: 'Хочу прочесть',
+                        spantext4: 'Прочел, не рекомендую',
+                        spantext5: 'Не буду читать',
+                        buttonimage2: 'like.png',
+                        buttonimage3: 'like.png',
+                        buttonimage4: 'dislike.png',
+                        buttonimage5: 'sad.png',
+                        likepath: 'story',
+                        excfirstOption: true,
+                      }
       }
-      this.currentLayer = this.layers[this.layercounter]
-      this.currentSection = null
     },
-    onClickCrossButton: function() {
-      this.currentLayer = null
-      this.layercounter = null
-      this.currentSection = null
-    },
-    onClickLikeButton: function() {
-      this.currentSection = 'LikeSectionThreeChoices'
-    },
-    onClickDislikeButton: function() {
-      this.currentSection = 'DislikeSectionTwoChoices'
-    },
-    parentGoRight: function() {
-      this.$emit('go-right')
-    },
-    parentGoLeft: function() {
-      this.$emit('go-left')
+    methods: {
+      onClickExternalTitle: function() {
+        this.$refs.StoryActionElementsLayer.parentOnClickExternalTitle
+      }
     }
-  },
-  // // WARNING:  // WARNING: CHANGE STORIES HOLDPLACE TO STORAGE
-  // computed value of stories container
-  computed: {
-    currentProperties: function() {
-      return { title: this.story.title, description: this.story.text, tohtml: this.tohtml}
-    },
-    sectionProperties: function() {
-      return {spantext1: 'Прочел, рекомендую', spantext2: 'Хочу прочесть' , spantext4: 'Не буду читать', spantext5: 'Прочел, не рекомендую'}
-    }
-  }
 }
+
 </script>
 
-<style scoped lang='scss'>
-.image-flexible-wrapper {
-  max-width: 70%;
-  max-height: 70%;
+<style lang='scss'>
+.poster-block {
+  width: 100%;
+  height: 100%;
+}
+@media (orientation: portrait) and (max-width: 600px) {
+    .postercontainer {
+        max-width: 100vw !important;
+        max-height: 100vh !important;
+        position: relative !important;
+    }
+    .poster {
+        width: 100% !important;
+        height: 100% !important;
+        text-align: center !important;
+    }
+    .poster-image {
+        max-width: 100% !important;
+        max-height: 100% !important;
+    }
+    img {
+        max-width: 100% !important;
+        max-height: 100% !important;
+        vertical-align: top !important;
+    }
 }
 
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.postercontainer {
+    max-width: 25%;
+    max-height: 50%;
+    margin: 0 auto;
+    align-items: stretch;
+    position: relative;
+    .poster {
+        max-width: 100%;
+        max-height: 100%;
+        img {
+            display: flex;
+            flex-direction: column;
+        }
+    }
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
-  opacity: 0;
+
+
+
+.poster {
+    position: relative;
+    text-align: center;
+    flex: 1;
+    height: 100%;
+    .poster-image {
+        height: 100%;
+        width: 100%;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+  }
+#action-elements-layer {
+  #like-section {
+    height: 15%;
+    top: 73%;
+  }
 }
+#exttitle {
+  z-index: 1;
+  background-color: black;
+  color: white;
+  opacity: 0.6;
+  background-blend-mode: darken;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  font-size: 1.2em;
+  width: 100%;
+}
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.4s;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
 </style>

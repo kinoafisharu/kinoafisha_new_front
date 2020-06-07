@@ -1,14 +1,14 @@
 <template>
   <div id="like-section">
-    <LittleRoundButton v-if = '!sectionConfig.excfirstOption' class = 'image' @click.native = 'emitParentLikeFunction(1)'
+    <LittleRoundButton v-if = '!sectionConfig.excfirstOption' class = 'image' @click.native = 'emitParentLikeFunction(1, sectionConfig.likepath)'
                         :buttonimagesource = 'sectionConfig.buttonimage1'
                         :buttonspantext = 'sectionConfig.spantext1'/>
 
-    <LittleRoundButton v-if = '!sectionConfig.excsecondOption' class = 'image' @click.native = 'emitParentLikeFunction(2)'
+    <LittleRoundButton v-if = '!sectionConfig.excsecondOption' class = 'image' @click.native = 'emitParentLikeFunction(2, sectionConfig.likepath)'
                         :buttonimagesource = 'sectionConfig.buttonimage2'
                         :buttonspantext = 'sectionConfig.spantext2'/>
 
-    <LittleRoundButton v-if = '!sectionConfig.excthirdOption' class = 'image' @click.native = 'emitParentLikeFunction(3)'
+    <LittleRoundButton v-if = '!sectionConfig.excthirdOption' class = 'image' @click.native = 'emitParentLikeFunction(3, sectionConfig.likepath)'
                         :buttonimagesource = 'sectionConfig.buttonimage3'
                         :buttonspantext = 'sectionConfig.spantext3'/>
 
@@ -26,8 +26,8 @@ export default {
     sectionConfig: Object,
   },
   methods: {
-    emitParentLikeFunction: function(val) {
-      this.$emit('give-like', val)
+    emitParentLikeFunction: function(val, path) {
+      this.$emit('give-like', val, path)
       this.$emit('close-like-section')
   }
 }

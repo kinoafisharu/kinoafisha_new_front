@@ -6,6 +6,13 @@
 // слой с позицией в списке слоев равной этому значению
 // FlushLayers сбрасывает счетчик переключений слоев и ставит текущий слой на null (главное окно)
 export default {
+  data() {
+    return {
+      layers:[null,'InfoLayer', 'ThirdLayer'],
+      layercounter: 0,
+      currentLayer: null,
+    }
+  },
   methods: {
     chooseLayer: function(val) {
       this.currentLayer = this.layers[val]

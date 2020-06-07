@@ -1,5 +1,6 @@
 <template>
-  <StorySet :story = 'story' />
+  <StorySet v-touch:swipe.left = 'onSwipeLeft' v-touch:swipe = 'onSwipeRight' v-if = 'story' :story = 'story' />
+  <h2 v-else> loading... </h2>
 </template>
 
 
@@ -14,15 +15,28 @@ export default {
   components: {
     StorySet,
   },
-  created() {
-    this.$store.dispatch('getStory', {id: this.id})
+  data () {
+    return {
+      fid: this.id,
+      story: null,
+    }
   },
-  computed: {
-    story: function() {
-      return this.$store.getters.story
+  async created() {
+     await this.$store.dispatch('getStories')
+     let storyobj = await this.$store.getters.stories
+     this.story = storyobj.find(obj => obj.id == this.id)
+     console.log(this.story)
+  },
+  methods: {
+    onSwipeLeft: function() {
+      this.fid ++
+      this.story = this.$store.getters.stories.find(obj => obj.id == this.fid)
+    },
+    onSwipeRight: function() {
+      this.fid --
+      this.story = this.$store.getters.stories.find(obj => obj.id == this.fid)
     }
   }
-
 }
 </script>
 

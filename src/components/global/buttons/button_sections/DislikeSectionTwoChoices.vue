@@ -1,11 +1,11 @@
 <template>
   <div id="dislike-section">
     <LittleRoundButton class='image'
-         @click.native = 'emitParentLikeFunction(4)'
+         @click.native = 'emitParentLikeFunction(4, sectionConfig.likepath)'
          :buttonimagesource = 'sectionConfig.buttonimage4'
          :buttonspantext = 'sectionConfig.spantext4'/>
     <LittleRoundButton class='image'
-        @click.native = 'emitParentLikeFunction(5)'
+        @click.native = 'emitParentLikeFunction(5, sectionConfig.likepath)'
         :buttonimagesource = 'sectionConfig.buttonimage5'
         :buttonspantext = 'sectionConfig.spantext5'/>
   </div>

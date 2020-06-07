@@ -1,15 +1,15 @@
 <template>
-  <Story0 :obj = 'story' @go-right = 'goRight' @go-left = 'goLeft'/>
+  <Story :obj = 'story' @go-right = 'goRight' @go-left = 'goLeft'/>
 </template>
 
 
 <script>
 // Главная страница компонента историй, пока что принимает значение одной истории в виде обьекта
-import Story0 from "@/components/stories_components/Story0"
+import Story from "@/components/stories_components/Story"
 export default {
   name: 'story-set',
   components: {
-    Story0,
+    Story,
   },
   props: {
     story: Object,

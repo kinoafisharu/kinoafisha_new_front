@@ -6,13 +6,19 @@ export default {
       /* Две функции голоса ниже почти одинаковые, берут целочисленное значение
        и на его основе отправляют нужный запрос по лайку или дизлайку в апи */
       // В будущем переделать на абстракцию!!
-      giveLike: function(evaluation) {
+      giveLike: function(evaluation, object) {
+        let path = null
+        if (object == 'film') {
+          path = 'kinoinfo/films/'
+        } else if (object == 'story') {
+          path = 'texts/stories/'
+        }
         this.show_like_section = !this.show_like_section
         if (this.like_given) {
           console.log("Can't give like, you've already voted")
         } else {
         console.log("give_like")
-        service.post(`kinoinfo/films/${this.id}/like/`, {
+        service.post(`${path}${this.id}/like/`, {
             evaluation: evaluation,
           })
           .then((response) => {

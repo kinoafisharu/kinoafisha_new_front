@@ -2,7 +2,7 @@
   <div class = 'poster-block'>
 
 
-          <ActionPosterImage0
+          <ActionPosterImage
           v-if = "film !== null"
           :kid = 'film.kid'
           :limit = 'film.limits'
@@ -29,11 +29,11 @@
 // Страница с детальным вывоом информации о фильме
 // На данный момент просто принимает id фильма из роутера
 // и рендерит компонент ActionPosterImage0, оборачивая его в доп. блок
-  import ActionPosterImage0 from "@/components/kinoinfo_components/action_poster/ActionPosterImage0.vue"
+  import ActionPosterImage from "@/components/kinoinfo_components/action_poster/ActionPosterImage.vue"
   export default {
     name: 'filmdetail',
     components: {
-      ActionPosterImage0,
+      ActionPosterImage,
     },
     //id received from router CHAIN |- FIlmDetailView => FilmDetail => FilmPoster
     props: {
