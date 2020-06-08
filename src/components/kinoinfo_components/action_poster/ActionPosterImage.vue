@@ -2,7 +2,11 @@
 
 
 <ImageFlexibleWrapper :imgsrc = 'imgsrc'>
-
+    <div v-if='!imgsrc' id = 'exttitle' @click = 'onClickExternalTitle'>
+      <transition name = 'fade'>
+      <h1 id = 'exttitle'>{{title}}</h1>
+      </transition>
+    </div>
     <ActionElementsLayer   :description='description'
                             :title='title'
                             :rate='rate'
@@ -156,5 +160,17 @@ export default {
 .fade-enter,
 .fade-leave-to {
     opacity: 0;
+}
+#exttitle {
+  z-index: 1;
+  background-color: black;
+  color: white;
+  opacity: 0.8;
+  background-blend-mode: darken;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  font-size: 1.2em;
+  width: 100%;
 }
 </style>

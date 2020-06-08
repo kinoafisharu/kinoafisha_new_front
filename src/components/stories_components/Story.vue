@@ -3,7 +3,9 @@
     <ImageFlexibleWrapper imgsrc = 'https://ic.pics.livejournal.com/philologist/23000738/2376603/2376603_original.jpg'>
       <transition name = 'fade'>
         <div id = 'exttitle' @click = 'onClickExternalTitle'>
+          <transition name = 'fade'>
           <h1 id = 'exttitle'>{{obj.title}}</h1>
+          </transition>
         </div>
       </transition>
         <StoryActionElementsLayer

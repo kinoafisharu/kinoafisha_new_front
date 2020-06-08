@@ -25,9 +25,14 @@ const routes = [
   },
   {
     path: '/stories/:id',
-    name: 'story',
+    name: 'stories',
     component: () => import('@/views/stories_views/StoryView.vue'),
     props: true,
+  },
+  {
+    path: '/slide',
+    component: () => import('@/views/stories_views/StorySlideView.vue'),
+    name: 'stories-slide',
   }
 ]
 

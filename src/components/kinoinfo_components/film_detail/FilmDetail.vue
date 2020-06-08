@@ -3,25 +3,23 @@
 
 
           <ActionPosterImage
-          v-if = "film !== null"
-          :kid = 'film.kid'
-          :limit = 'film.limits'
-          :title = 'film.name[0].name'
-          :likes = 'film.votes.likes'
-          :dislikes = 'film.votes.dislikes'
-          :rate = 'film.imdb_rate'
-          :description = 'film.description'
-          :persons = 'film.persons'
-          :year = 'film.year'
-          :country = 'film.country'
-          :votes = 'film.imdb_votes'
-          :release = 'film.release'
-          :genre = 'film.genre'
-          :id = 'film.id'
+          v-if = "obj != undefined"
+          :kid = 'obj.kid'
+          :limit = 'obj.limits'
+          :title = 'obj.name[0].name'
+          :likes = 'obj.votes.likes'
+          :dislikes = 'obj.votes.dislikes'
+          :rate = 'obj.imdb_rate'
+          :description = 'obj.description'
+          :persons = 'obj.persons'
+          :year = 'obj.year'
+          :country = 'obj.country'
+          :votes = 'obj.imdb_votes'
+          :release = 'obj.release'
+          :genre = 'obj.genre'
+          :id = 'obj.id'
           />
 
-          <p v-else-if = 'loading === true'>loading...</p>
-          <p v-if = 'errored === true'> ERROR occured in FilmDetail component </p>
   </div>
 </template>
 
@@ -35,25 +33,11 @@
     components: {
       ActionPosterImage,
     },
-    //id received from router CHAIN |- FIlmDetailView => FilmDetail => FilmPoster
+    //obj received from CHAIN |- FIlmDetailView => FilmDetail => FilmPoster
     props: {
-      id:String,
+      obj: Object,
     },
-    /// send id from porps here to receive a film object
-    data() {
-     return {
-       info: null,
-     };
-   },
-   //FETCH DATA FROM API USING GIVEN ID PROP
-    created() {
-      this.$store.dispatch('getFilm', {id: this.id})
-  },
-   computed: {
-     film: function() {
-       return this.$store.getters.film
-     },
-   }
+
 }
 
 </script>

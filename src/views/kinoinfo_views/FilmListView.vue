@@ -1,8 +1,10 @@
 <template>
   <div id="filmlistview">
     <FilmList
-      :filmdata = 'films'
+      v-if = 'filmdata'
+      :filmdata = 'filmdata'
     />
+    <p v-else>loading...</p>
   </div>
 </template>
 
@@ -12,15 +14,17 @@ import FilmList from '@/components/kinoinfo_components/film_listing/FilmList'
 export default {
   name: 'filmlistview',
   // call to getFilms method,receiving, caching container
-  mounted () {
-        this.$store.dispatch('getFilms')
+  data () {
+    return {
+      filmdata: null,
+    }
+  },
+  async created () {
+        await this.$store.dispatch('getFilms', {currentPage: 3})
+        let data = await this.$store.getters.films
+        this.filmdata = data
     },
-  // computed value of films container
-    computed: {
-      films () {
-        return this.$store.getters.films
-      }
-    },
+
 
   components: {
     FilmList

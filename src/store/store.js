@@ -6,7 +6,7 @@ Vue.use(Vuex)
 // Самый главный компонент, тут же хранилище Vuex
 const store = new Vuex.Store({
     state: {
-        films: ['loading',],
+        films: [{'name': '..loading'}],
         film: {'limit': 'loading'},
         story: {'title': 'loading', 'description': 'loading'},
         stories: [null],
@@ -26,17 +26,18 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-        getFilms (context) {
-            service.get('kinoinfo/films/?format=json')
+        async getFilms ({commit}, payload) {
+            await service.get('kinoinfo/films/?format=json', {params: {page: payload.currentPage, page_size: payload.page_size}})
                 .then((res) => {
                     let films = res.data.results
-                    context.commit('setFilms', films)
+                    commit('setFilms', films)
                 })
         },
-        getFilm ({commit}, payload) {
-          service.get(`kinoinfo/films/${payload.id}/`)
+        async getFilm ({commit}, payload) {
+          await service.get(`kinoinfo/films/${payload.id}/`)
             .then((res) => {
               let film = res.data
+              console.log(film)
               commit('setFilm', film)
             })
         },
@@ -47,8 +48,8 @@ const store = new Vuex.Store({
                 commit('setStory', story)
             })
         },
-        async getStories ({commit}) {
-          await service.get('texts/stories/')
+        async getStories ({commit}, payload) {
+          await service.get('texts/stories/', {params: {page: payload.currentPage}})
             .then(res => {
               let stories = res.data.results
               console.log(stories)

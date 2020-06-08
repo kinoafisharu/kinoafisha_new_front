@@ -22,7 +22,7 @@ export default {
     }
   },
   async created() {
-     await this.$store.dispatch('getStories')
+     await this.$store.dispatch('getStories', {currentPage: 1})
      let storyobj = await this.$store.getters.stories
      this.story = storyobj.find(obj => obj.id == this.id)
      console.log(this.story)
