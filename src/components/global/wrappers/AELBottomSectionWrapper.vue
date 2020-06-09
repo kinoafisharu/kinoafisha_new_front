@@ -13,7 +13,7 @@ export default {
 
 <style lang='scss'>
 #bottom-section {
-    height: 10%;
+    height: 8.5%;
     background: rgba(84, 93, 112, 0.4);
     color: white;
     padding: 2%;
@@ -84,11 +84,11 @@ export default {
       opacity: 0.7;
       border-radius: 20%;
       height: 28px;
-      width: 28px;
+      width: 28 px;
       margin-left: 0%;
       img {
-        width: 60px;
-        height: 20px;
+        width: 27px;
+        height: 24px;
       }
     }
     #dislike {

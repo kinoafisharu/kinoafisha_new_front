@@ -1,6 +1,6 @@
 <template>
   <div class = 'icon-arrow'>
-    <img class = 'buttonimg' :src = "`${publicPath}images/arrow.png`">
+    <img class = 'arrow-buttonimg' :src = "`${publicPath}images/arrow.png`">
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-.buttonimg {
+.arrow-buttonimg {
   max-width: 100%;
   max-height: 100%;
 }

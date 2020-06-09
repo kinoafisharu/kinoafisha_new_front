@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img class ="icon" :src = "`${publicPath}images/${buttonimagesource}`"/>
+    <img class ="little-round-button-icon" :src = "`${publicPath}images/${buttonimagesource}`"/>
     <span>{{buttonspantext}}</span>
   </div>
 </template>
@@ -8,7 +8,7 @@
 <script>
 // Паттерн маленькой круглой кнопки, используется в интерфейсах с крглыми кнопками (пример: постер фильма)
 export default {
-  name: 'button',
+  name: 'litte-round-button',
   props: {
     buttonimagesource: String,
     buttonspantext: String,
@@ -23,11 +23,11 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-.icon {
+.little-round-button-icon {
     height: 95%;
     cursor: pointer;
 }
-.icon:hover {
+.little-round-button-icon:hover {
     height: 110%;
 }
 span {

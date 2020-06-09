@@ -1,19 +1,19 @@
 <template>
-  <StorySet v-touch:swipe.left = 'onSwipeLeft' v-touch:swipe = 'onSwipeRight' v-if = 'story' :story = 'story' />
+  <Story v-if = 'story' :story = 'story' />
   <h2 v-else> loading... </h2>
 </template>
 
 
 <script>
 // Главная страница компонента историй, пока что принимает значение одной истории в виде обьекта
-import StorySet from "@/components/stories_components/StorySet"
+import Story from "@/components/stories_components/Story"
 export default {
   name: 'story-view',
   props: {
     id: String,
   },
   components: {
-    StorySet,
+    Story,
   },
   data () {
     return {

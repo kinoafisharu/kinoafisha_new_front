@@ -2,7 +2,7 @@
 
 
 <ImageFlexibleWrapper :imgsrc = 'imgsrc'>
-    <div v-if='!imgsrc' id = 'exttitle' @click = 'onClickExternalTitle'>
+    <div v-if='!imgsrc' id = 'exttitle'>
       <transition name = 'fade'>
       <h1 id = 'exttitle'>{{title}}</h1>
       </transition>
@@ -18,7 +18,8 @@
                             :dislikes = 'dislikes'
                             :limit = 'limit'
                             :id = 'id'
-                            :sectionConfig = 'sectionConfig'/>
+                            :sectionConfig = 'sectionConfig'
+                            :tohtml = "true"/>
 
 
 </ImageFlexibleWrapper>
@@ -29,7 +30,6 @@
 // Компонент постера с акт. элементами kinoinfo
 // Принимает в себя описанные пропсы без каких либо особенностей
 import ActionElementsLayer from "@/components/kinoinfo_components/action_poster/ActionElementsLayer"
-import PosterUrlGeneratorMixin from "@/mixins/PosterUrlGeneratorMixin"
 import ImageFlexibleWrapper from "@/components/global/wrappers/ImageFlexibleWrapper"
 
 export default {
@@ -37,7 +37,6 @@ export default {
     ActionElementsLayer,
     ImageFlexibleWrapper,
   },
-  mixins: [PosterUrlGeneratorMixin],
   props: {
     limit: String,
     kid: Number,
@@ -45,7 +44,7 @@ export default {
     genre: Array,
     description: String,
     rate: Number,
-    commentnt: String,
+    comment: String,
     year: Number,
     country: Array,
     likes: Number,
@@ -69,9 +68,6 @@ export default {
                     }
     }
   },
-  methods: {
-
-  },
   computed: {
     imgsrc: function() {
       if (this.kid) {
@@ -84,11 +80,12 @@ export default {
         return null
       }
     },
-  }
+  },
+
 }
 </script>
 
-<style scoped lang='scss'>
+<style lang='scss'>
 @media (orientation: portrait) and (max-width: 600px) {
     .postercontainer {
         max-width: 100vw !important;
@@ -115,9 +112,6 @@ export default {
   z-index: -1;
 }
 
-#action-elements-layer {
-  z-index: 2;
-}
 
 .postercontainer {
     max-width: 25%;

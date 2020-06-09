@@ -3,15 +3,15 @@
 
 
           <ActionPosterImage
-          v-if = "obj != undefined"
+          v-if = "obj"
           :kid = 'obj.kid'
           :limit = 'obj.limits'
           :title = 'obj.name[0].name'
-          :likes = 'obj.votes.likes'
-          :dislikes = 'obj.votes.dislikes'
           :rate = 'obj.imdb_rate'
           :description = 'obj.description'
           :persons = 'obj.persons'
+          :likes = 'obj.votes.likes'
+          :dislikes = 'obj.votes.dislikes'
           :year = 'obj.year'
           :country = 'obj.country'
           :votes = 'obj.imdb_votes'

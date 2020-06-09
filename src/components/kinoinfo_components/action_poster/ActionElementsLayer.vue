@@ -159,8 +159,13 @@ export default {
 }
 </script>
 
-<style scoped lang='scss'>
+<style lang='scss'>
 
+#settingsbutton{
+  .icon {
+    width: 20px;
+  }
+}
 
 .fade-enter-active,
 .fade-leave-active {

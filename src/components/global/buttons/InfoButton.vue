@@ -1,6 +1,6 @@
 <template>
   <div class="info-place">
-    <img id = 'icon' :src = "`${publicPath}images/info.png`">
+    <img id = 'info-place-icon' :src = "`${publicPath}images/info.png`">
   </div>
 </template>
 

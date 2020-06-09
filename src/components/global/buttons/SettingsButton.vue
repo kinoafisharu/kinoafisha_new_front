@@ -1,14 +1,14 @@
 <template>
   <div id = 'settingsbutton'>
-    <img class ="icon" :src = '`${publicPath}images/${buttonimagesource}`'/>
-    <span>{{buttonspantext}}</span>
+    <img class ="settings-button-icon" :src = '`${publicPath}images/${buttonimagesource}`'/>
+    <span id = 'settings-button-span'>{{buttonspantext}}</span>
   </div>
 </template>
 
 <script>
 // Кнопка настроек, требуется заменить иконку на пропорциональную
 export default {
-  name: 'button',
+  name: 'settings-button',
   props: {
     buttonimagesource: String,
     buttonspantext: String,
@@ -21,20 +21,20 @@ export default {
 }
 </script>
 
-<style scoped lang='scss'>
+<style lang='scss'>
 #settingsbutton {
   margin-bottom: 2%;
 }
-.icon {
+.settings-button-icon {
     height: 26px;
     width: 26px;
     margin-bottom: 2%;
     cursor: pointer;
 }
-.icon:hover {
+.settings-button-icon:hover {
     height: 110%;
 }
-span {
+#settings-button-span {
     font-size: 1.5em;
     margin-left: 10px;
 }

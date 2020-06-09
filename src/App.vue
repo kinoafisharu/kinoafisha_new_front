@@ -1,7 +1,9 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+  <v-app>
+    <div id="app">
+      <router-view/>
+    </div>
+  </v-app>
 </template>
 
 <script>
@@ -11,7 +13,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang = 'scss'>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -19,5 +21,4 @@ export default {
   text-align: center;
 
 }
-
 </style>

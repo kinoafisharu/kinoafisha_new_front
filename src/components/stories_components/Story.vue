@@ -120,9 +120,6 @@
     }
   }
 #action-elements-layer {
-  #bottom-section {
-    height: 6%;
-  }
   #like-section {
     height: 15%;
     top: 73%;

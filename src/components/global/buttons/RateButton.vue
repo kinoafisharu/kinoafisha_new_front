@@ -1,7 +1,7 @@
 <template>
   <div class='rate' :class="'rate_color_'+ ratecalced" title = 'Show settings'>
     <!-- Отображение рейтинга если такой есть -->
-    <a>{{ratecalced}}</a>
+    <a class='blue-gray--text'>{{ratecalced}}</a>
   </div>
 </template>
 
@@ -10,12 +10,12 @@
 export default {
   name: 'rate-button',
   props: {
-    ratecalced: String,
+    ratecalced: [String, Number],
   }
 }
 </script>
 
-<style scoped lang='scss'>
+<style lang='scss'>
 .rate {
     cursor: pointer;
     display: flex;
@@ -23,7 +23,7 @@ export default {
     border-bottom-right-radius: 38%;
     padding-left: 4%;
     padding-right: 7%;
-    color: black;
+    color: black !important;
     align-self: flex-start;
     margin-top: 14%;
     font-size: 4em;

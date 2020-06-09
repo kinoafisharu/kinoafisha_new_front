@@ -3,7 +3,7 @@
     <div class='toggle-component'>
       <v-col
             cols="12"
-            sm="6"
+            sm="3"
             class="py-2"
           >
 
@@ -24,14 +24,36 @@
               <v-btn value="Other">
                 Other
               </v-btn>
-
-              <v-btn value="justify">
-                Other
-              </v-btn>
             </v-btn-toggle>
           </v-col>
+          <div class="text-center">
+              <v-menu offset-y
+                      v-model = 'showMenu'>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    Фильтр
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item  @click.native = "onClickToggleSortButton('New')">
+                    <v-list-item-title>Новые</v-list-item-title>
+                  </v-list-item>
+                  <v-list-item  @click.native = "onClickToggleSortButton('Popular')">
+                    <v-list-item-title>Популярные</v-list-item-title>
+                  </v-list-item>
+                  <v-list-item  @click.native = 'onClickToggleSortButton'>
+                    <v-list-item-title>Личности</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
         </div>
-  <swiper ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd' @reachBeginning = 'onReachBeginning'>
+  <swiper ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd'>
       <swiper-slide v-for = 'obj in objarr' :key = 'obj.id'>
         <component :obj = 'obj' :is = 'currentComp'>
         </component>
@@ -57,21 +79,17 @@ export default {
     FilmDetail
   },
   async created() {
-      if (this.currentComp == 'Story') {
-       await this.$store.dispatch('getStories', {currentPage: this.currentPage})
-       let storyobjarr = await this.$store.getters.stories
-       this.objarr = storyobjarr
-     } else if (this.currentComp == 'FilmDetail') {
-       await this.$store.dispatch('getFilms', {currentPage: this.currentPage})
-       let filmobjarr = await this.$store.getters.films
-       this.objarr = filmobjarr
-     }
+    this.makeRequest('id,text,title,dtime', 'getval', this.currentStoryOrdering)
   },
   data() {
     return {
+      showMenu: false,
       toggleData: null,
       currentComp: 'Story',
       currentPage: 1,
+      currentFilmOrdering: 'id',
+      currentStoryOrdering: 'id',
+      currentDispatcher: 'getStories',
       objarr: null,
       swiperOption: {
         loop: true,
@@ -97,12 +115,12 @@ export default {
           }
         },
         breakpoints: {
-            1000: {
+            1100: {
               slidesPerView: 3,
               spaceBetween: 40
             },
             768: {
-              slidesPerView: 2,
+              slidesPerView: 3,
               spaceBetween: 30
             },
             640: {
@@ -123,36 +141,57 @@ export default {
     }
   },
   methods: {
+    makeRequest: async function(fieldvalues, apiaction, itemordering) {
+       await this.$store.dispatch(this.currentDispatcher, {currentPage: this.currentPage,
+                                                             values: fieldvalues,
+                                                             action: apiaction,
+                                                             ordering: itemordering})
+      let objarr = null
+      if (this.currentDispatcher == 'getFilms') { objarr = await this.$store.getters.films}
+      else if (this.currentDispatcher == 'getStories') { objarr = await this.$store.getters.stories }
+      this.objarr = objarr
+    },
     onReachEnd: async function() {
         this.currentPage ++
         if (this.currentComp == 'Story') {
-          await this.$store.dispatch('getStories', {currentPage: this.currentPage})
-          let storyobj = await this.$store.getters.stories
-          this.objarr = storyobj
+            await this.makeRequest('id,text,title,dtime', 'getval', this.currentStoryOrdering)
         } else if (this.currentComp == 'FilmDetail') {
-          await this.$store.dispatch('getFilms', {currentPage: this.currentPage})
-          let filmobj = await this.$store.getters.films
-          this.objarr = filmobj
+            await this.makeRequest('id,name,genre,description,votes,kid,country,year,limits,imdb_votes,imdb_rate,persons', 'getval', this.currentFilmOrdering)
         }
-        this.swiper.slideToLoop(0, 20, true);
+        this.swiper.slideToLoop(0, 0, true);
     },
-    onReachBeginning: async function() {
-      if (this.currentPage > 1) {
-        this.currentPage --
-        await this.$store.dispatch('getStories', {currentPage: this.currentPage, page_size: '5'})
-        let storyobj = await this.$store.getters.stories
-        this.objarr = storyobj
-      }
-    },
-    onClickToggleButton: function() {
+    onClickToggleButton:  async function() {
       if (this.toggleData == 'Stories') {
+        this.currentPage = 1
+        this.currentDispatcher = 'getStories'
         this.currentComp = 'Story'
-        this.swiper.update()
+      await this.makeRequest('id,text,title,dtime', 'getval', this.currentStoryOrdering)
       } else if (this.toggleData == 'Films') {
+        this.currentPage = 1
+        this.currentDispatcher = 'getFilms'
         this.currentComp = 'FilmDetail'
-        this.swiper.update()
+        await this.makeRequest('id,name,genre,description,votes,kid,country,year,limits,imdb_votes,imdb_rate,persons', 'getval', this.currentFilmOrdering)
       }
     },
+    onClickToggleSortButton: async function(value) {
+      if (this.currentComp == 'FilmDetail') {
+        if (value == 'New') {
+          this.currentFilmOrdering = '-year'
+        } else if (value == 'Popular') {
+          this.currentFilmOrdering = '-imdb_votes'
+        }
+        await this.makeRequest('id,name,genre,description,votes,kid,country,year,limits,imdb_votes,imdb_rate,persons', 'getval', this.currentFilmOrdering)
+      } else if (this.currentComp == 'Story') {
+          if (value == 'New') {
+            this.currentStoryOrdering = '-dtime'
+          } else if (value == 'Popular') {
+            this.currentStoryOrdering = 'id'
+          }
+            this.makeRequest('id,text,title,dtime', 'getval', this.currentStoryOrdering)
+      }
+      console.log(this.currentFilmOrdering);
+      console.log(this.currentStoryOrdering);
+    }
   },
 }
 
@@ -165,23 +204,22 @@ export default {
   max-width: 100%;
   max-height: 100%;
 }
-.poster {
-  width: 300px;
-  height: 400px;
-  max-width: 100%;
-  max-height: 100%;
-}
-.poster-block {
-  max-width: 100%;
-  max-height: 100%;
-}
+
 .swiper {
   height: 460px;
 }
 .toggle-component {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   left: 0;
 }
+#bottom-section {
+  height: 6.5%;
+}
+.text-center {
+  margin-top: 1.65%;
+}
+
 
 </style>

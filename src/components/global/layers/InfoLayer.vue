@@ -86,6 +86,7 @@ import CrossButton from "@/components/global/buttons/CrossButton"
   .infolayer {
     width: inherit;
     height: 91.5%;
+    clear: both;
     overflow-y: auto;
     position: absolute;
     top: 0;
