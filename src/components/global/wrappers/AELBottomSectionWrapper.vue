@@ -13,7 +13,7 @@ export default {
 
 <style scoped lang='scss'>
 #bottom-section {
-    height: 6%;
+    height: 10%;
     background: rgba(84, 93, 112, 0.4);
     color: white;
     padding: 2%;
