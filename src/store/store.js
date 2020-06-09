@@ -26,8 +26,8 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-        async getFilms ({commit}, payload) {
-            await service.get(`kinoinfo/films/${payload.action}/`, {params: {page: payload.currentPage,
+         getFilms ({commit}, payload) {
+            return service.get(`kinoinfo/films/${payload.action}/`, {params: {page: payload.currentPage,
                                                                               page_size: payload.page_size,
                                                                               values: payload.values,
                                                                               ordering: payload.ordering}})
@@ -37,8 +37,8 @@ const store = new Vuex.Store({
                     commit('setFilms', films)
                 })
         },
-        async getFilm ({commit}, payload) {
-          await service.get(`kinoinfo/films/${payload.id}/`)
+        getFilm ({commit}, payload) {
+          return service.get(`kinoinfo/films/${payload.id}/`)
             .then((res) => {
               let film = res.data
               console.log(film)
@@ -52,8 +52,8 @@ const store = new Vuex.Store({
                 commit('setStory', story)
             })
         },
-        async getStories ({commit}, payload) {
-          await service.get(`texts/stories/${payload.action}/`, {params: {page: payload.currentPage,
+       getStories ({commit}, payload) {
+            return service.get(`texts/stories/${payload.action}/`, {params: {page: payload.currentPage,
                                                                           ordering: payload.ordering,
                                                                           values: payload.values}})
             .then(res => {

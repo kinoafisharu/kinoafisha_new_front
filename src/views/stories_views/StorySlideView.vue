@@ -189,9 +189,7 @@ export default {
           }
             this.makeRequest('id,text,title,dtime', 'getval', this.currentStoryOrdering)
       }
-      console.log(this.currentFilmOrdering);
-      console.log(this.currentStoryOrdering);
-    }
+    },
   },
 }
 
