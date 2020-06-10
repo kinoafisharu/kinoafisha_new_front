@@ -6,7 +6,7 @@ Vue.use(Vuex)
 // Самый главный компонент, тут же хранилище Vuex
 const store = new Vuex.Store({
     state: {
-        films: [{'name': '..loading', 'votes':'loading...', 'kid':'loading..'}],
+        films: [],
         film: {'limit': 'loading'},
         story: {'title': 'loading', 'text': 'loading'},
         stories: [null],

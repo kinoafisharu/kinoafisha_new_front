@@ -32,6 +32,7 @@
 import ActionElementsLayer from "@/components/kinoinfo_components/action_poster/ActionElementsLayer"
 import ImageFlexibleWrapper from "@/components/global/wrappers/ImageFlexibleWrapper"
 
+
 export default {
   components: {
     ActionElementsLayer,
@@ -70,17 +71,17 @@ export default {
   },
   computed: {
     imgsrc: function() {
-      if (this.kid) {
-        let kid = this.kid
-        let thousand = Math.trunc(Number(kid) / 1000) + 1 // какая тысяча. используется в URL.
-        let url = "http://posters.kinoafisha.ru/" + thousand + "/" + String(kid) + "-001.jpg"
-        console.log(url)
-        return url
-      } else {
-        return null
-      }
-    },
+    if (this.kid) {
+      let kid = this.kid
+      let thousand = Math.trunc(Number(kid) / 1000) + 1 // какая тысяча. используется в URL.
+      let url = "http://posters.kinoafisha.ru/" + thousand + "/" + String(kid) + "-001.jpg"
+      console.log(url)
+      return url
+    } else {
+      return null
+    }
   },
+}
 
 }
 </script>
