@@ -166,6 +166,7 @@ export default {
     width: 20px;
   }
 }
+
 #bottom-section {
   height: 8.5%;
 }
