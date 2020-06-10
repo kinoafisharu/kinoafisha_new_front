@@ -33,7 +33,7 @@
 
 </script>
 
-<style lang = 'scss'>
+<style scoped lang = 'scss'>
 .film-detail-view {
   display: flex;
 }

@@ -1,5 +1,5 @@
 <template>
-  <AELWrapper id = 'action-elements-layer'>
+  <AELWrapper>
     <transition name = 'fade'>
       <component  :is = 'currentLayer'
                   v-bind = 'currentProperties'

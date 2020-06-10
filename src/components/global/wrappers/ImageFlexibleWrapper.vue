@@ -30,7 +30,7 @@ export default {
 }
 </script>
 
-<style lang='scss'>
+<style scoped lang='scss'>
 @media (orientation: portrait) and (max-width: 600px) {
     .postercontainer {
         max-width: 100vw !important;

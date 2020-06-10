@@ -10,7 +10,7 @@ export default {
 }
 </script>
 
-<style lang ='scss'>
+<style scoped lang ='scss'>
 .bottom-block {
   bottom: 0;
   position: absolute;

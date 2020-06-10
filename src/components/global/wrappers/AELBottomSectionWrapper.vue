@@ -7,11 +7,11 @@
 <script>
 //Обертка для нижней части слоя активных элементов, вмещает в себя кнопки, находящиеся снизу
 export default {
-  name: 'aelbootomsectionwrapper',
+  name: 'bottom-section',
 }
 </script>
 
-<style lang='scss'>
+<style scoped lang='scss'>
 #bottom-section {
     height: 8.5%;
     background: rgba(84, 93, 112, 0.4);

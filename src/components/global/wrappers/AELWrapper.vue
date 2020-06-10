@@ -12,7 +12,7 @@ export default {
 }
 </script>
 
-<style lang='scss'>
+<style scoped lang='scss'>
 
 #action-elements-layer {
     position: absolute;

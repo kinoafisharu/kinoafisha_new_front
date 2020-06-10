@@ -85,7 +85,7 @@ export default {
 }
 </script>
 
-<style lang='scss'>
+<style scoped lang='scss'>
 @media (orientation: portrait) and (max-width: 600px) {
     .postercontainer {
         max-width: 100vw !important;
@@ -113,7 +113,7 @@ export default {
 }
 
 
-.postercontainer {
+::v-deep .postercontainer {
     max-width: 25%;
     max-height: 50%;
     margin: 0 auto;
@@ -131,7 +131,7 @@ export default {
 
 
 
-.poster {
+::v-deep .poster {
     position: relative;
     text-align: center;
     flex: 1;

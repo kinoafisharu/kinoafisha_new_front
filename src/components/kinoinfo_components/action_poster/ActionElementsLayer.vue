@@ -1,5 +1,5 @@
 <template>
-  <AELWrapper id = 'action-elements-layer'>
+  <AELWrapper>
     <transition name = 'fade'>
       <component  :is = 'currentLayer'
                   v-bind = 'currentProperties'
@@ -11,7 +11,7 @@
     <RateButton :ratecalced = 'ratecalced' @click.native = 'onClickRateSettingsButton'/>
 
     <!-- Uslovnoe otobrazhenie nizhney chasti -->
-    <AELBottomSectionWrapper id = 'bottom-section'>
+    <AELBottomSectionWrapper>
       <LittleRoundButton class = 'info-place'
                           v-on:click.native="onClickInfoButton"
                           buttonimagesource = 'info.png'/>
@@ -159,15 +159,17 @@ export default {
 }
 </script>
 
-<style lang='scss'>
+<style scoped lang='scss'>
 
-#settingsbutton{
-  .icon {
-    width: 20px;
+::v-deep #settingsbutton{
+  width: 10%;
+  .settings-button-icon {
+    width: 85%;
+    height: 89%;
   }
 }
 
-#bottom-section {
+::v-deep #bottom-section {
   height: 8.5%;
 }
 

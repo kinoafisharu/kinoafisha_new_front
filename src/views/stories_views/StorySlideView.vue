@@ -195,8 +195,8 @@ export default {
 
 </script>
 
-<style lang ='scss'>
-.postercontainer {
+<style scoped lang ='scss'>
+::v-deep .postercontainer {
   width: 300px;
   height: 400px;
   max-width: 100%;
@@ -212,11 +212,12 @@ export default {
   justify-content: center;
   left: 0;
 }
-#bottom-section {
+::v-deep #bottom-section {
   height: 6.5%;
 }
 .text-center {
-  margin-top: 1.65%;
+  margin-top: 1.24%;
+  margin-left: 1%;
 }
 
 
