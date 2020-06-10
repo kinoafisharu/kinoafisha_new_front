@@ -195,7 +195,7 @@ export default {
 
 </script>
 
-<style lang ='scss'>
+<style scoped lang ='scss'>
 .postercontainer {
   width: 300px;
   height: 400px;
