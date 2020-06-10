@@ -42,7 +42,7 @@
 
 </script>
 
-<style scoped lang='scss'>
+<style lang='scss'>
 .poster-block {
   width: 100%;
   height: 100%;
