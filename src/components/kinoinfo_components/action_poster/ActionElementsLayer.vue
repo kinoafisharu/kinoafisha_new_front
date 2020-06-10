@@ -166,6 +166,9 @@ export default {
     width: 20px;
   }
 }
+#bottom-section {
+  height: 8.5%;
+}
 
 .fade-enter-active,
 .fade-leave-active {
