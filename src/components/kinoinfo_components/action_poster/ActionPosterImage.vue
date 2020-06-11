@@ -33,6 +33,7 @@ import ActionElementsLayer from "@/components/kinoinfo_components/action_poster/
 import ImageFlexibleWrapper from "@/components/global/wrappers/ImageFlexibleWrapper"
 
 
+
 export default {
   components: {
     ActionElementsLayer,
@@ -52,6 +53,7 @@ export default {
     dislikes: Number,
     id: Number,
   },
+
   data () {
     return {
       sectionConfig: {
@@ -127,6 +129,17 @@ export default {
             display: flex;
             flex-direction: column;
         }
+        img:before {
+          content: "Мы сожалеем, но эта картинка «битая» :(";
+          display: block;
+          margin-bottom: 10px;
+        }
+
+        img:after {
+          content: "(url: " attr(src) ")";
+          display: block;
+          font-size: 12px;
+        }
     }
 }
 
@@ -143,6 +156,17 @@ export default {
         img {
             width: 100%;
             height: 100%;
+        }
+        img:before {
+          content: "Мы сожалеем, но эта картинка «битая» :(";
+          display: block;
+          margin-bottom: 10px;
+        }
+
+        img:after {
+          content: "(url: " attr(src) ")";
+          display: block;
+          font-size: 12px;
         }
     }
   }

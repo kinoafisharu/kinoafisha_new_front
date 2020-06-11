@@ -56,7 +56,7 @@
   <AbsSlider  ref = 'AbsSlider'
               component = 'FilmDetail'
               defaultdispatcher = 'getFilms'
-              :defaultordering = 'computeordering'
+              :defaultordering = 'ordering'
               :defaultapiaction = 'defaultapiaction'
               defaultfields = 'id,name,genre,description,votes,kid,country,year,limits,imdb_votes,imdb_rate,persons'/>
 </div>
@@ -74,7 +74,6 @@ export default {
     AbsSlider,
   },
   props: {
-    defaultordering: String,
     defaultapiaction: String
   },
   data() {
@@ -99,10 +98,6 @@ export default {
     },
   },
   computed: {
-    computeordering: function() {
-      if (this.defaultordering) {return this.defaultordering}
-      else {return this.ordering}
-    }
   }
 }
 </script>

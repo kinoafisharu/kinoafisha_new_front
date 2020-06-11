@@ -33,7 +33,6 @@ export default {
   },
   props: {
     defaultdispatcher: String,
-    defaultordering: String,
     defaultfields: String,
     defaultapiaction: String,
     component: String,
@@ -45,7 +44,7 @@ export default {
       currentComp: this.component,
       apiaction: this.defaultapiaction,
       fields: this.defaultfields,
-      ordering: this.defaultordering,
+      ordering: 'id',
       dispatcher: this.defaultdispatcher,
       objarr: null,
       swiperOption: {
@@ -105,7 +104,7 @@ export default {
     },
     update: async function(ordering) {
       this.ordering = ordering
-      await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, ordering)
+      await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering)
     }
   },
 }
