@@ -1,12 +1,7 @@
 <template>
 
 
-<ImageFlexibleWrapper :imgsrc = 'imgsrc'>
-    <div v-if='!imgsrc' id = 'exttitle'>
-      <transition name = 'fade'>
-      <h1 id = 'exttitle'>{{title}}</h1>
-      </transition>
-    </div>
+<ImageFlexibleWrapper :imgsrc = 'imgsrc' :title = 'title'>
     <ActionElementsLayer   :description='description'
                             :title='title'
                             :rate='rate'
@@ -56,6 +51,7 @@ export default {
 
   data () {
     return {
+      imageerror: false,
       sectionConfig: {
                       spantext1: 'Хочу посмотреть в кинотеатре',
                       spantext2: 'Хочу посмотреть дома',
@@ -83,6 +79,11 @@ export default {
       return null
     }
   },
+  methods: {
+    onErrorImage: function() {
+      this.imageerror = true
+    }
+  }
 }
 
 }
@@ -129,17 +130,7 @@ export default {
             display: flex;
             flex-direction: column;
         }
-        img:before {
-          content: "Мы сожалеем, но эта картинка «битая» :(";
-          display: block;
-          margin-bottom: 10px;
-        }
 
-        img:after {
-          content: "(url: " attr(src) ")";
-          display: block;
-          font-size: 12px;
-        }
     }
 }
 
@@ -157,17 +148,6 @@ export default {
             width: 100%;
             height: 100%;
         }
-        img:before {
-          content: "Мы сожалеем, но эта картинка «битая» :(";
-          display: block;
-          margin-bottom: 10px;
-        }
-
-        img:after {
-          content: "(url: " attr(src) ")";
-          display: block;
-          font-size: 12px;
-        }
     }
   }
 
@@ -179,17 +159,5 @@ export default {
 .fade-enter,
 .fade-leave-to {
     opacity: 0;
-}
-#exttitle {
-  z-index: 1;
-  background-color: black;
-  color: white;
-  opacity: 0.8;
-  background-blend-mode: darken;
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  font-size: 1.2em;
-  width: 100%;
 }
 </style>

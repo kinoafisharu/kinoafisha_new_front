@@ -3,9 +3,14 @@
 
   <div class="poster">
     <!-- Отображение постера елемента если такой есть -->
-    <img v-if = 'imgsrc' class="poster-image" :src="imgsrc">
+    <img ref ='img' v-if = 'imgsrc' class="poster-image" :src="imgsrc" @error = 'onErrorImage'>
     <div v-else>
-      <img class="poster-image" src = 'https://ic.pics.livejournal.com/philologist/23000738/2376603/2376603_original.jpg'/>
+      <img class="poster-image" src = 'https://source.unsplash.com/random/380x500'/>
+      <div v-if ='!imgsrc || imgerrored' id = 'exttitle'>
+        <transition name = 'fade'>
+        <h1 id = 'exttitle'>{{title}}</h1>
+        </transition>
+      </div>
     </div>
     <slot></slot>
   </div>
@@ -21,12 +26,20 @@ export default {
   name: 'image-flexible-wrapper',
   props: {
     imgsrc: String,
+    title: String,
   },
   data () {
   return {
+    imgerrored: false,
     publicPath: process.env.BASE_URL
   }
-}
+},
+methods: {
+  onErrorImage: function() {
+    this.$refs.img.src = 'https://source.unsplash.com/random/380x500'
+    this.imgerrored = true
+  }
+},
 }
 </script>
 
@@ -42,16 +55,22 @@ export default {
         height: 100% !important;
         text-align: center !important;
     }
+
     .poster-image {
-        max-width: 100% !important;
-        max-height: 100% !important;
-    }
+        height: 100% !important;
+        width: 100% !important;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+      }
     img {
         max-width: 100% !important;
         max-height: 100% !important;
         vertical-align: top !important;
     }
-}
+  }
+
 
 
 
@@ -82,6 +101,7 @@ export default {
     flex: 1;
     height: 100%;
     .poster-image {
+
         height: 100%;
         width: 100%;
         img {
@@ -89,6 +109,18 @@ export default {
             height: 100%;
         }
     }
+  }
+  #exttitle {
+    z-index: 1;
+    background-color: black;
+    color: white;
+    opacity: 0.8;
+    background-blend-mode: darken;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    font-size: 1.2em;
+    width: 100%;
   }
 
 

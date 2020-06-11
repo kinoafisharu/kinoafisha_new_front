@@ -1,6 +1,6 @@
 <template>
   <div class = 'poster-block'>
-    <ImageFlexibleWrapper imgsrc = 'https://ic.pics.livejournal.com/philologist/23000738/2376603/2376603_original.jpg'>
+    <ImageFlexibleWrapper>
       <transition name = 'fade'>
         <div id = 'exttitle' @click = 'onClickExternalTitle'>
           <transition name = 'fade'>

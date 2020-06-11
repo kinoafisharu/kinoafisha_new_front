@@ -12,8 +12,7 @@ export default {
       this.layercounter ++
       if (this.layercounter === this.layers.length) {
         this.layercounter = 0
-        this.show_rate_layer_buttons = true
-        this.show_second_layer_buttons = false
+        this.selectRateButtons()
       } else {
         this.show_rate_layer_buttons = false
         this.show_second_layer_buttons = true
@@ -33,6 +32,11 @@ export default {
       this.currentLayer = 'SettingsModal'
       this.layercounter = 0
     },
+    selectRateButtons: function() {
+      this.show_rate_layer_buttons = true
+      this.show_second_layer_buttons = false
+    },
+
   }
 }
 </script>

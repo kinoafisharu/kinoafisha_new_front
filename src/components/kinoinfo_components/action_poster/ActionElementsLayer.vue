@@ -3,7 +3,7 @@
     <transition name = 'fade'>
       <component  :is = 'currentLayer'
                   v-bind = 'currentProperties'
-                  @close = 'flushLayers'>
+                  @close = 'closeLayer'>
       </component>
     </transition>
 
@@ -155,6 +155,13 @@ export default {
     }
     }
   },
+  methods: {
+    closeLayer: function() {
+      this.flushSections()
+      this.flushLayers()
+      this.selectRateButtons()
+    }
+  }
 
 }
 </script>
