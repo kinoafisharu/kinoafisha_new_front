@@ -104,6 +104,7 @@ export default {
         this.swiper.slideToLoop(0, 0, false);
     },
     update: async function(ordering) {
+      this.ordering = ordering
       await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, ordering)
     }
   },
