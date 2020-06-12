@@ -18,7 +18,7 @@
 
                           <!-- LIKE BUTTON ON CODDITION: MAIN WINDOW -->
       <LittleRoundButton  v-on:click.native = 'onClickLikeButton'
-                                              class="rate-button"
+                                              class="like-button"
                                               :buttonspantext = 'dataLikes'
                                               buttonimagesource = "like.png"
                                               v-if = 'show_rate_layer_buttons'/>
@@ -32,13 +32,13 @@
 
       <!-- TICKETS BUTTON -->
       <LittleRoundButton v-if = "show_second_layer_buttons"
-                          class = 'tickets-button'
+                          class="tickets-button"
 
                           buttonimagesource = "ticket.png"/>
 
       <!-- SETTINGS BUTTON -->
       <SettingsButton v-if = "show_second_layer_buttons"
-                          class = 'settings-button'
+                          class = 'settings-little-button'
                           buttonimagesource = "settings.png"/>
 
 
@@ -47,14 +47,14 @@
 
       <!-- DISLIKE BUTTON ON CONDITION: MAIN WINDOW -->
       <LittleRoundButton
-                          class="rate-button"
+                          class="dislike-button"
                           @click.native = "onClickDislikeButton"
                           :buttonspantext = 'dataDislikes'
                           buttonimagesource = "dislike.png"
                           v-if = 'show_rate_layer_buttons'/>
 
       <!-- AGE RESTRICTION IF EXISTS -->
-      <a v-if = 'ageRestriction' id="age-restriction">{{ageRestriction}}</a>
+      <p v-if = 'ageRestriction' id="age-restriction">{{ageRestriction}}</p>
     </AELBottomSectionWrapper>
 
 
@@ -158,7 +158,9 @@ export default {
   methods: {
     closeLayer: function() {
       this.flushSections()
-      this.flushLayers()
+      this.flushLayers(
+
+      )
       this.selectRateButtons()
     }
   }
@@ -168,17 +170,52 @@ export default {
 
 <style scoped lang='scss'>
 
-::v-deep #settingsbutton{
-  width: 10%;
-  .settings-button-icon {
-    width: 85%;
-    height: 89%;
-  }
-}
+
 
 ::v-deep #bottom-section {
   height: 8.5%;
 }
+
+#age-restriction {
+  height: 100%;
+  width: 9%;
+  opacity: 0.8;
+}
+
+.tickets-button {
+  width: 10% !important;
+  height: 75% !important;
+  cursor: pointer;
+  ::v-deep .little-round-button-icon {
+    height: 29.5px;
+    position: absolute;
+    width: auto;
+    bottom: 1%;
+  }
+  }
+
+.auth-button {
+  width: 10% !important;
+  height: 100% !important;
+  cursor: pointer;
+  ::v-deep .little-round-button-icon {
+    height: 30px;
+    position: absolute;
+    width: auto;
+    bottom: 0.8%;
+  }
+}
+.settings-little-button {
+  width: 9.2%;
+  height: 102%;
+  margin-left: 2%;
+  ::v-deep img {
+    width: 99%;
+  }
+}
+
+
+
 
 .fade-enter-active,
 .fade-leave-active {

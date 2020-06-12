@@ -1,14 +1,14 @@
 <template>
   <div id="like-section">
-    <LittleRoundButton v-if = '!sectionConfig.excfirstOption' class = 'image' @click.native = 'emitParentLikeFunction(1, sectionConfig.likepath)'
+    <LittleRoundButton v-if = '!sectionConfig.excfirstOption' class = 'image' @click.native = 'emitParentLikeFunction(1, sectionConfig.likepath, sectionConfig.id)'
                         :buttonimagesource = 'sectionConfig.buttonimage1'
                         :buttonspantext = 'sectionConfig.spantext1'/>
 
-    <LittleRoundButton v-if = '!sectionConfig.excsecondOption' class = 'image' @click.native = 'emitParentLikeFunction(2, sectionConfig.likepath)'
+    <LittleRoundButton v-if = '!sectionConfig.excsecondOption' class = 'image' @click.native = 'emitParentLikeFunction(2, sectionConfig.likepath, sectionConfig.id)'
                         :buttonimagesource = 'sectionConfig.buttonimage2'
                         :buttonspantext = 'sectionConfig.spantext2'/>
 
-    <LittleRoundButton v-if = '!sectionConfig.excthirdOption' class = 'image' @click.native = 'emitParentLikeFunction(3, sectionConfig.likepath)'
+    <LittleRoundButton v-if = '!sectionConfig.excthirdOption' class = 'image' @click.native = 'emitParentLikeFunction(3, sectionConfig.likepath, sectionConfig.id)'
                         :buttonimagesource = 'sectionConfig.buttonimage3'
                         :buttonspantext = 'sectionConfig.spantext3'/>
 
@@ -39,24 +39,35 @@ export default {
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 20%;
-  width: 60%;
+  justify-content: space-around;
+  height: 25%;
+  width: 75%;
   background-color: rgba(6, 5, 20, 0.99);
   border-radius: 10%;
-  top: 69%;
+  top: 61%;
   padding: 1%;
-  left: 23%;
-  display: block;
+  left: 13%;
     .image {
       display: flex;
+      left: 0;
       width: 100%;
       height: 24%;
       margin: 3%;
-      font-size: 0.4em;
+      font-size: 0.7em;
       color: white;
       text-align: left;
     }
+  ::v-deep .little-round-button-icon {
+    width: 20px;
+    position: absolute;
+  }
+  ::v-deep .little-round-button-wrapper {
+    position: absolute;
+  }
+  ::v-deep #little-round-button-span-text {
+    position: relative;
+    margin-left: 15%;
+  }
 }
 
 </style>

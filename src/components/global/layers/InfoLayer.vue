@@ -20,10 +20,10 @@
 
     <!-- Блок со странами, цикл for -->
     <div>
-      <p v-for = 'count in country'
+      <p class = 'country-name' v-for = 'count in country'
           :key = 'count.name'>
 
-          {{count.name}}, {{count.name_en}}
+         {{count.name}}
       </p>
     </div>
 
@@ -89,6 +89,7 @@ import CrossButton from "@/components/global/buttons/CrossButton"
     clear: both;
     overflow-y: auto;
     position: absolute;
+    z-index: 2;
     top: 0;
     bottom:0;
     text-align: center;
@@ -112,26 +113,27 @@ import CrossButton from "@/components/global/buttons/CrossButton"
   }
 
   .cross-button {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      right: 0;
-      text-align: left;
-      top: 0;
-      margin:5%;
-      margin-left: 3.4%;
-      margin-bottom: 5%;
-      opacity: 0.25;
-      img {
-        cursor: pointer;
-        width: 20px;
-        height: 20px;
-      }
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 0;
+    text-align: left;
+    top: 0;
+    margin: 5%;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    margin-left: 3.4%;
+    margin-bottom: 5%;
+    opacity: 0.25;
+    cursor: pointer;
   }
 .htmldescription {
   color: white;
   font-size-adjust: auto;
   padding: 2%;
+}
+
+.country-name {
 }
 
 

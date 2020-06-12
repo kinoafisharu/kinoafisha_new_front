@@ -1,7 +1,7 @@
 <template>
   <div class='rate' :class="'rate_color_'+ ratecalced" title = 'Show settings'>
     <!-- Отображение рейтинга если такой есть -->
-    <a class='blue-gray--text'>{{ratecalced}}</a>
+    <p>{{ratecalced}}</p>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style lang='scss'>
+<style scoped lang='scss'>
 .rate {
     cursor: pointer;
     display: flex;

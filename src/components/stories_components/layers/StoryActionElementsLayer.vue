@@ -18,7 +18,7 @@
 
                           <!-- LIKE BUTTON ON CODDITION: MAIN WINDOW -->
       <LittleRoundButton  v-on:click.native = 'onClickLikeButton'
-                                              class="rate-button"
+                                              class="like-button"
                                               :buttonspantext = 'dataLikes'
                                               buttonimagesource = "like.png"
                                               v-if = 'show_rate_layer_buttons'/>
@@ -47,7 +47,7 @@
 
       <!-- DISLIKE BUTTON ON CONDITION: MAIN WINDOW -->
       <LittleRoundButton
-                          class="rate-button"
+                          class="dislike-button"
                           @click.native = "onClickDislikeButton"
                           :buttonspantext = 'dataDislikes'
                           buttonimagesource = "dislike.png"
@@ -144,6 +144,43 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+
+.tickets-button {
+  width: 10% !important;
+  height: 75% !important;
+  cursor: pointer;
+  ::v-deep .little-round-button-icon {
+    height: 29.5px;
+    position: absolute;
+    width: auto;
+    bottom: 1%;
+  }
+  }
+
+.auth-button {
+  width: 10% !important;
+  height: 100% !important;
+  cursor: pointer;
+  ::v-deep .little-round-button-icon {
+    height: 30px;
+    position: absolute;
+    width: auto;
+    bottom: 0.8%;
+  }
+}
+.settings-little-button {
+  width: 9.2%;
+  height: 102%;
+  margin-left: 2%;
+  ::v-deep img {
+    width: 99%;
+  }
+}
+
+::v-deep #like-section {
+  height: 15%;
+  top: 73%;
+}
 
 
 .fade-enter-active,

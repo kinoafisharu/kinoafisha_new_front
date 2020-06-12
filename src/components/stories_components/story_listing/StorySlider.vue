@@ -79,16 +79,7 @@ export default {
 </script>
 
 <style scoped lang ='scss'>
-::v-deep .postercontainer {
-  width: 300px;
-  height: 400px;
-  max-width: 100%;
-  max-height: 100%;
-}
 
-.swiper {
-  height: 460px;
-}
 .toggle-component {
   display: flex;
   flex-direction: row;

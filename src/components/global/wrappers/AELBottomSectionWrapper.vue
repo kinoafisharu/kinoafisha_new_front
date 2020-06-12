@@ -18,32 +18,24 @@ export default {
     color: white;
     padding: 2%;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     .info-place {
         width: 10%;
-        padding: 1%;
+        cursor: pointer;
+        height: auto;
+        padding-right: 2%;
         border-right: double 1px #757575;
     }
-    .rate-button {
-        padding: 1%;
-        display: flex;
-        width: 10%;
-        margin-left: 10%;
-        margin-right: 11%;
-        span {
-            font-size: 1.5em;
-            margin-left: 20%;
-        }
+      .like-button {
+        position: absolute;
+        width: 8%;
+        right: 65%;
       }
       .dislike-button {
-          padding: 1%;
-          display: flex;
-          width: 10%;
-          margin-left: 20%;
-          margin-right: 11%;
-          span {
-              font-size: 1.5em;
-              margin-left: 20%;
-          }
+          width: 8%;
+          position: absolute;
+          right: 32%;
         }
 
     .auth-button {
@@ -76,20 +68,6 @@ export default {
         .icon:hover {
             height: 105%;
         }
-    }
-    .settings-button {
-      cursor: pointer;
-      display: block;
-      background-color: black;
-      opacity: 0.7;
-      border-radius: 20%;
-      height: 28px;
-      width: 28 px;
-      margin-left: 0%;
-      img {
-        width: 27px;
-        height: 24px;
-      }
     }
     #dislike {
         img {

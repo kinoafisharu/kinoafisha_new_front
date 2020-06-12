@@ -1,8 +1,5 @@
 <template>
-  <div id = 'settingsbutton'>
-    <img class ="settings-button-icon" :src = '`${publicPath}images/${buttonimagesource}`'/>
-    <span id = 'settings-button-span'>{{buttonspantext}}</span>
-  </div>
+    <img class = 'settings-little-button' :src = '`${publicPath}images/${buttonimagesource}`'/>
 </template>
 
 <script>
@@ -22,21 +19,6 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-#settingsbutton {
-  margin-bottom: 2%;
+.settings-little-button {
 }
-.settings-button-icon {
-    height: 26px;
-    width: 26px;
-    margin-bottom: 2%;
-    cursor: pointer;
-}
-.settings-button-icon:hover {
-    height: 110%;
-}
-#settings-button-span {
-    font-size: 1.5em;
-    margin-left: 10px;
-}
-
 </style>

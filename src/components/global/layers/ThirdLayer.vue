@@ -1,8 +1,17 @@
 <template>
   <div class = 'modal'>
-    dawdlawpdlawd
-    fwafaopwfawf
-    awdawfaw
+    <h1>
+      Приветствую, дорогой друг!
+    </h1>
+    <p>
+      Если ты просматриваешь этот постер, это уже многое для нас значит,
+      сейчас данный ресурс находится в разработке отважными участниками
+      нашей команды (I-Kar), если тебе нравится идея и ты желаешь помочь проекту,
+      просим оправить любые пожелания, личные идеи, и прочее на нашу почту,
+      ответим всем и каждому!
+    </p>
+    <hr>
+    (Здесь будет окно авторизации)
 
     <CrossButton class='cross-button' @click.native = 'close'/>
 
@@ -39,6 +48,7 @@ export default {
   position: absolute;
   top: 0;
   bottom:0;
+  color: white;
   text-align: center;
   background-color: rgba(12, 10, 26, 0.8) !important;
   p {

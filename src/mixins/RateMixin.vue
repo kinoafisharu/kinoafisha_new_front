@@ -7,14 +7,11 @@ export default {
        и на его основе отправляют нужный запрос по лайку или дизлайку в апи */
       // В будущем переделать на абстракцию!!
       giveLike: function(evaluation, object) {
-        let path = null
-        if (object == 'film') {
-          path = 'kinoinfo/films/'
-        } else if (object == 'story') {
-          path = 'texts/stories/'
-        }
+        let path = 'kinoinfo/films/'
+        console.log(object);
+        console.log(path);
         this.show_like_section = !this.show_like_section
-        if (this.like_given) {
+        if (localStorage.like_given) {
           console.log("Can't give like, you've already voted")
         } else {
         console.log("give_like")
@@ -27,7 +24,11 @@ export default {
           .catch((error) => {
             console.log(error)
           })
-          this.dataLikes ++
+          if (evaluation >= 4) {
+            this.dataDislikes ++
+          } else {
+            this.dataLikes ++
+          }
         }
       },
   }

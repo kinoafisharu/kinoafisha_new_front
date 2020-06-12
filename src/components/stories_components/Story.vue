@@ -87,7 +87,7 @@
 }
 
 
-.postercontainer {
+::v-deep .postercontainer {
     max-width: 25%;
     max-height: 50%;
     margin: 0 auto;

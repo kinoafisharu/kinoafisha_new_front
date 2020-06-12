@@ -49,16 +49,16 @@ export default {
       objarr: null,
       swiperOption: {
         loop: true,
-        loopAdittionalSlides: -1,
-        loopPerSlides: 0,
+        spaceBetween: 0,
+        loopAdittionalSlides: 0,
+        looppedSlides: 0,
         slidesPerView: 1,
         mousewheel: true,
         keyboard: {
              enabled: true,
            },
         pagination: {
-          el: '.swiper-pagination',
-          type: 'bullets',
+
           clickable: true,
         },
         navigation: {
@@ -113,15 +113,15 @@ export default {
 
 <style scoped lang ='scss'>
 ::v-deep .postercontainer {
-  width: 300px;
-  height: 400px;
+  width: 350px;
+  height: 520px;
   max-width: 100%;
   max-height: 100%;
 }
 
-.swiper {
-  height: 460px;
-}
+
+
+
 .toggle-component {
   display: flex;
   flex-direction: row;

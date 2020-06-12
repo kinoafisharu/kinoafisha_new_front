@@ -1,5 +1,5 @@
 <template>
-  <LittleRoundButton buttonimagesource = 'cross.png'/>
+  <LittleRoundButton class="cross-button" buttonimagesource = 'cross.png'/>
 </template>
 
 <script>
@@ -14,5 +14,10 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-
+  .cross-button {
+    ::v-deep img {
+      width: 100%;
+      height: 100%;
+    }
+  }
 </style>
