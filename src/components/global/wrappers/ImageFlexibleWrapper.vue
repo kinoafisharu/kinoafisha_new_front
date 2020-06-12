@@ -5,7 +5,7 @@
     <!-- Отображение постера елемента если такой есть -->
     <img ref ='img' v-if = 'imgsrc' class="poster-image" :src="imgsrc" @error = 'onErrorImage'>
     <div v-else>
-      <img class="poster-image" src = 'https://source.unsplash.com/random/350x520'/>
+      <img class="poster-image" src = 'https://source.unsplash.com/random/350x540'/>
       <div v-if ='!imgsrc || imgerrored' id = 'exttitle'>
         <transition name = 'fade'>
         <h1 id = 'exttitle'>{{title}}</h1>
@@ -36,7 +36,7 @@ export default {
 },
 methods: {
   onErrorImage: function() {
-    this.$refs.img.src = 'https://source.unsplash.com/random/350x520'
+    this.$refs.img.src = 'https://source.unsplash.com/random/350x540'
     this.imgerrored = true
   }
 },

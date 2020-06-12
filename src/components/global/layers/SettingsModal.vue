@@ -45,7 +45,7 @@ export default {
 <style scoped lang = "scss">
 .modal {
   width: inherit;
-  height: 91.5%;
+  height: 91%;
   overflow-y: auto;
   position: absolute;
   color: white;

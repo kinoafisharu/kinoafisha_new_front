@@ -39,9 +39,8 @@ export default {
     width: 105%;
 }
 #little-round-button-span-text {
-    font-size: 1em;
+    font-size: 1.2em;
     position: absolute;
-    margin-left: 10%;
     bottom: 0;
 }
 

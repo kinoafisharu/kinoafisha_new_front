@@ -81,7 +81,10 @@ export default {
             },
             640: {
               slidesPerView: 2,
-              spaceBetween: 20
+              spaceBetween: 20,
+              navigation: {
+
+              }
             },
             320: {
               slidesPerView: 1,
@@ -113,7 +116,7 @@ export default {
 
 <style scoped lang ='scss'>
 ::v-deep .postercontainer {
-  width: 350px;
+  width: 340px;
   height: 520px;
   max-width: 100%;
   max-height: 100%;

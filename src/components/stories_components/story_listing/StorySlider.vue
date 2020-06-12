@@ -1,7 +1,7 @@
 <template>
 <div class = 'story-slider-wrapper'>
   <div class='toggle-sort-component'>
-        <div class="text-center">
+        <div v-if = 'showSliderMenu' class="text-center">
             <v-menu offset-y
                     v-model = 'showMenu'>
               <template v-slot:activator="{ on, attrs }">
@@ -63,6 +63,7 @@ export default {
   },
   methods: {
     onClickToggleSortButton: function(value) {
+      this.currentPage = 1
       if (value == 'New') {this.ordering = 'dtime'}
       else if (value == 'Popular') {this.ordering = 'id'}
       this.$refs.AbsSlider.update(this.ordering)

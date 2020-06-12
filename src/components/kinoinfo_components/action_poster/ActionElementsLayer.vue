@@ -27,18 +27,19 @@
       <!-- AUTH BUTTON ON CONDITION: SHOW INFO -->
       <LittleRoundButton v-if = "show_second_layer_buttons"
                           class = 'auth-button'
-
+                          @click.native = 'chooseLayer(2)'
                           buttonimagesource = "key.png"/>
 
       <!-- TICKETS BUTTON -->
       <LittleRoundButton v-if = "show_second_layer_buttons"
                           class="tickets-button"
-
+                          @click.native = 'chooseLayer(2)'
                           buttonimagesource = "ticket.png"/>
 
       <!-- SETTINGS BUTTON -->
       <SettingsButton v-if = "show_second_layer_buttons"
                           class = 'settings-little-button'
+                          @click.native = 'chooseLayer(2)'
                           buttonimagesource = "settings.png"/>
 
 
@@ -184,10 +185,10 @@ export default {
 
 .tickets-button {
   width: 10% !important;
-  height: 75% !important;
+  height: 79% !important;
   cursor: pointer;
   ::v-deep .little-round-button-icon {
-    height: 29.5px;
+    height: 35px;
     position: absolute;
     width: auto;
     bottom: 1%;
@@ -199,16 +200,17 @@ export default {
   height: 100% !important;
   cursor: pointer;
   ::v-deep .little-round-button-icon {
-    height: 30px;
+    height: 34.5px;
     position: absolute;
     width: auto;
-    bottom: 0.8%;
+    bottom: 1.1%;
   }
 }
 .settings-little-button {
-  width: 9.2%;
+  cursor: pointer;
+  width: 11.1%;
   height: 102%;
-  margin-left: 2%;
+  margin-right: 5%;
   ::v-deep img {
     width: 99%;
   }

@@ -1,6 +1,6 @@
 <template>
 <div class = 'film-slider-container'>
-  <div class='toggle-sort-component'>
+  <div v-if = 'showSliderMenu' class='toggle-sort-component'>
         <div class="text-center">
             <v-menu offset-y
                     v-model = 'showMenu'>
@@ -28,7 +28,7 @@
             </v-menu>
           </div>
           <template>
-    <div class="text-center">
+    <div  class="text-center">
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -92,6 +92,7 @@ export default {
   },
   methods: {
     onClickToggleSortButton: function(value) {
+      this.currentPage = 1
       if (value == 'New') {this.ordering = '-year'}
       else if (value == 'Popular') {this.ordering = '-imdb_votes'}
       this.$refs.AbsSlider.update(this.ordering)

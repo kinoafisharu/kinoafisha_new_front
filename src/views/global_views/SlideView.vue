@@ -7,34 +7,81 @@
     <v-container fluid = 'true'>
       <div class = 'slide-view-wrapper'>
 
-          <div class = 'menu-place'>
+          <v-toolbar dense flat>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-          </div>
-          <div class='toggle-component'>
 
-            <v-col
-                  cols="12"
-                  sm="3"
-                  class="py-2"
-                >
 
-                  <v-btn-toggle
-                    v-model="toggleData"
-                    tile
-                    color="blue-gray"
-                    group
-                  >
-                    <v-btn value="Stories">
-                      Stories
-                    </v-btn>
+             <v-toolbar-title>Title</v-toolbar-title>
 
-                    <v-btn value="Films">
-                      Films
-                    </v-btn>
+             <v-spacer></v-spacer>
 
-                  </v-btn-toggle>
-                </v-col>
-          </div>
+             <v-btn icon>
+               <v-icon>mdi-magnify</v-icon>
+             </v-btn>
+
+             <v-menu
+               v-model="menu"
+               :close-on-content-click="false"
+               offset-x
+             >
+               <template v-slot:activator="{ on, attrs }">
+                 <v-btn icon v-bind = 'attrs' v-on = 'on'>
+                   <v-icon>mdi-dots-vertical</v-icon>
+                 </v-btn>
+               </template>
+
+               <v-card>
+                 <v-list>
+                   <v-list-item>
+
+                     <v-list-item-content>
+                       <v-list-item-title>Окно доп. настроек</v-list-item-title>
+                       <v-list-item-subtitle>В разработке</v-list-item-subtitle>
+                     </v-list-item-content>
+
+                     <v-list-item-action>
+                     </v-list-item-action>
+                   </v-list-item>
+                 </v-list>
+
+                 <v-divider></v-divider>
+
+                   <template>
+                     <v-expansion-panels>
+                       <v-expansion-panel>
+                         <v-expansion-panel-header>Настройки</v-expansion-panel-header>
+                         <v-expansion-panel-content>
+                           <v-col class="d-flex" cols="20" sm="16">
+                            <v-select
+                               v-model = 'e1'
+                              :items="['Новые', 'Популярные', 'Личности']"
+                              solo
+                              label="Фильтр"
+                              dense
+                            ></v-select>
+                          </v-col>
+                          <v-col class="d-flex" cols="20" sm="16">
+                           <v-select
+                              v-if = "toggleData == 'Films'"
+                             :items="['На этой неделе в кинотеатрах', 'На этой неделе онлайн', 'Лучшее в кинотеатрах', 'Лучшее онлайн', 'Бокс-офис уикенда', 'Топ 250']"
+                             solo
+                             label="Подборки"
+                             dense
+                           ></v-select>
+                         </v-col>
+                         </v-expansion-panel-content>
+                       </v-expansion-panel>
+                     </v-expansion-panels>
+                   </template>
+
+                 <v-card-actions>
+                   <v-spacer></v-spacer>
+
+                   <v-btn text @click="menu = false">Cancel</v-btn>
+                 </v-card-actions>
+               </v-card>
+             </v-menu>
+           </v-toolbar>
           <FilmSlider ref = 'obj' :defaultordering = 'filmdefaultordering' defaultapiaction = 'getval' v-if = "toggleData == 'Films'"/>
           <StorySlider ref = 'obj' :defaultordering = 'storydefaultordering' defaultapiaction = 'getval' v-if = "toggleData == 'Stories'"/>
         </div>
@@ -58,34 +105,17 @@
 
       <v-divider></v-divider>
 
+      <v-list-item-group v-model = 'toggleData' class="grow">
+        <v-list-item value = 'Films'>
+          <v-list-item-title>Films</v-list-item-title>
+        </v-list-item>
+        <v-list-item value = 'Stories'>
+          <v-list-item-title>Stories</v-list-item-title>
+        </v-list-item>
+      </v-list-item-group>
 
-      <template>
-        <v-expansion-panels>
-          <v-expansion-panel>
-            <v-expansion-panel-header>Здесь будут настройки!</v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <v-col class="d-flex" cols="20" sm="16">
-               <v-select
-                  v-model = 'toggleFilter'
-                 :items="['Новые','Популярные','Личности']"
-                 auto
-                 solo
-                 label="Фильтр"
-                 dense
-               ></v-select>
-             </v-col>
-             <v-col class="d-flex" cols="20" sm="16">
-              <v-select
-                :items="['Хорошего','Вам','Дня! (ночи, утра, вечера)']"
-                solo
-                label="Параметры"
-                dense
-              ></v-select>
-            </v-col>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </template>
+
+
 
 
     </v-navigation-drawer>
@@ -105,20 +135,29 @@ export default {
   },
   data () {
     return {
-      items: {'Новые':'New','Популярные':'Popular','Личности':'Persons'},
+      e1: null,
+      links: ['Home', 'Contacts', 'Settings'],
       drawer: null,
-      toggleData: 'Story',
+      menu: false,
+      toggleData: 'Films',
       filmdefaultordering: 'id',
       storydefaultordering: 'id',
 
     }
   },
   watch: {
-    toggleFilter(value) {
-      this.$refs.obj.onClickToggleSortButton(value)
+    e1(value) {
+      let query = null
+      if (value == 'Популярные') {query = 'Popular'}
+      else if (value == 'Новые') {query = 'New'}
+      else if (value == 'Личности') {query = 'New'}
+      this.$refs.obj.onClickToggleSortButton(query)
+
+      }
+
+      }
     }
-  }
-}
+
 </script>
 <style lang=scss>
 .toggle-component {

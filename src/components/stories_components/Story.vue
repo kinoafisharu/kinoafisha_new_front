@@ -9,6 +9,7 @@
         </div>
       </transition>
         <StoryActionElementsLayer
+                                ref = 'sae'
                                 :description='obj.text'
                                 :title='obj.title'
                                 :sectionConfig = 'sectionConfig'

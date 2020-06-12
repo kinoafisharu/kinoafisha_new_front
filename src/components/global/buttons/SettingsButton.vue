@@ -20,5 +20,12 @@ export default {
 
 <style scoped lang='scss'>
 .settings-little-button {
+  cursor: pointer;
+  width: 11.1%;
+  height: 102%;
+  margin-left: 2%;
+  ::v-deep img {
+    width: 99%;
+  }
 }
 </style>
