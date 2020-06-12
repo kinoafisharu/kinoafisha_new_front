@@ -13,7 +13,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang='scss'>
 .container {
   margin: 300px;
 
