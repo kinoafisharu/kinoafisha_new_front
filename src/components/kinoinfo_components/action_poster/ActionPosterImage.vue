@@ -88,7 +88,7 @@ export default {
     }
 },
   methods: {
-    onErrorImage: function() {
+     onErrorImage: async function() {
       if (!this.imgLoaded) {
         if (this.errcount == 0) this.imgTail = '-000.jpg'
         else if (this.errcount == 1) this.imgTail = '-001.png'
@@ -101,7 +101,7 @@ export default {
         this.errcount ++
       }
     },
-    onLoadImage: function() {
+  onLoadImage: function() {
       this.imgLoaded = true
     }
   }

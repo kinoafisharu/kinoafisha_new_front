@@ -35,11 +35,11 @@ export default {
   }
 },
 methods: {
-  onErrorImage: function() {
-    this.$emit('imgerr')
+  onErrorImage: async function() {
+    await this.$emit('imgerr')
   },
-  onLoadImage: function() {
-    this.$emit('imgload')
+  onLoadImage: async function() {
+    await this.$emit('imgload')
     console.log('sucess');
   }
 },

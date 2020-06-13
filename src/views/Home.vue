@@ -13,7 +13,7 @@ export default {
 }
 </script>
 
-<style scoped lang='scss'>
+<style scopd lang ='scss'>
 .home {
   width: 200px;
   height: 100px;
