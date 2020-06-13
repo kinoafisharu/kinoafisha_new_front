@@ -4,7 +4,7 @@
     class="overflow-hidden"
     style="position: relative;"
   >
-    <v-container fluid = 'true'>
+    <v-container>
       <div class = 'slide-view-wrapper'>
 
           <v-toolbar dense flat>

@@ -107,7 +107,7 @@ export default {
   mixins: [LayerMixin, SectionMixin, RateMixin, ActionElementsLayerMixin],
   props: {
     tohtml: Boolean,
-    limit: String,
+    limit: [String ,Number],
     rate: Number,
     title: String,
     genre: Array,
@@ -136,8 +136,12 @@ export default {
     ageRestriction: function() {
       let numberPattern = /\d+/g;
       if (this.limit) {
-        let age = this.limit.match(numberPattern)[0] + '+'
-        return age
+        try {
+            let age = this.limit.match(numberPattern)[0] + '+'
+            return age
+        } catch(err) {
+          return '0+'
+        }
       } else {
         return null
       }
@@ -159,9 +163,7 @@ export default {
   methods: {
     closeLayer: function() {
       this.flushSections()
-      this.flushLayers(
-
-      )
+      this.flushLayers()
       this.selectRateButtons()
     }
   }

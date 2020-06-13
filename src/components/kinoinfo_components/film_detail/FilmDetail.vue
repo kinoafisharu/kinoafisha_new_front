@@ -5,8 +5,8 @@
           <ActionPosterImage
           v-if = "obj"
           :kid = 'obj.kid'
-          :limit = 'obj.limits'
-          :title = 'obj.name[0].name'
+          :limit = "obj.limits ? obj.limits : '0+'"
+          :title = "obj.name[0] ? obj.name[0].name : 'No title'"
           :rate = 'obj.imdb_rate'
           :description = 'obj.description'
           :persons = 'obj.persons'

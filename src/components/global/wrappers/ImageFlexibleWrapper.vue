@@ -3,7 +3,7 @@
 
   <div class="poster">
     <!-- Отображение постера елемента если такой есть -->
-    <img ref ='img' v-if = 'imgsrc' class="poster-image" :src="imgsrc" @error = 'onErrorImage'>
+    <img ref ='img' v-if = 'imgsrc' class="poster-image" :src="imgsrc" @error = 'onErrorImage' @load = 'onLoadImage'>
     <div v-else>
       <img class="poster-image" src = 'https://source.unsplash.com/random/350x540'/>
       <div v-if ='!imgsrc || imgerrored' id = 'exttitle'>
@@ -36,8 +36,11 @@ export default {
 },
 methods: {
   onErrorImage: function() {
-    this.$refs.img.src = 'https://source.unsplash.com/random/350x540'
-    this.imgerrored = true
+    this.$emit('imgerr')
+  },
+  onLoadImage: function() {
+    this.$emit('imgload')
+    console.log('sucess');
   }
 },
 }

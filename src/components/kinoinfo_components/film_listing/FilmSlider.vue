@@ -74,7 +74,8 @@ export default {
     AbsSlider,
   },
   props: {
-    defaultapiaction: String
+    defaultapiaction: String,
+    showSliderMenu: Boolean
   },
   data() {
     return {

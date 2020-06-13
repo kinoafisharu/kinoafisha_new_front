@@ -51,6 +51,7 @@ export default {
   props: {
     defaultapiaction: String,
     defaultordering: String,
+    showSliderMenu: Boolean,
   },
   data() {
     return {

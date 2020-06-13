@@ -5,6 +5,17 @@
         <FilmDetail v-if = "currentComp == 'FilmDetail'" :obj = 'obj'/>
         <Story v-if = "currentComp == 'Story'" :obj = 'obj'/>
       </swiper-slide>
+      <swiper-slide>
+        <div class = 'absslider-loading-slide'>
+          <v-progress-circular
+            :size="70"
+            :width="7"
+            color="primary"
+            indeterminate
+          ></v-progress-circular>
+        </div>
+
+      </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
@@ -48,10 +59,7 @@ export default {
       dispatcher: this.defaultdispatcher,
       objarr: null,
       swiperOption: {
-        loop: true,
         spaceBetween: 0,
-        loopAdittionalSlides: 0,
-        looppedSlides: 0,
         slidesPerView: 1,
         mousewheel: true,
         keyboard: {
@@ -103,7 +111,7 @@ export default {
     onReachEnd: async function() {
         this.currentPage ++
         await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering)
-        this.swiper.slideToLoop(0, 0, false);
+        this.swiper.slideTo(0, 0, false);
     },
     update: async function(ordering) {
       this.ordering = ordering
@@ -123,7 +131,10 @@ export default {
 }
 
 
-
+.absslider-loading-slide {
+  margin-top: 50%;
+  margin: 0 auto;
+}
 
 .toggle-component {
   display: flex;

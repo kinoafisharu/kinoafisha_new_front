@@ -11,7 +11,7 @@ export default {
   name: 'litte-round-button',
   props: {
     buttonimagesource: String,
-    buttonspantext: String,
+    buttonspantext: [String, Number],
   },
   data () {
   return {

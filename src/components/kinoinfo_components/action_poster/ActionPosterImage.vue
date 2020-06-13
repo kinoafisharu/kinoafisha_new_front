@@ -1,7 +1,7 @@
 <template>
 
 
-<ImageFlexibleWrapper :imgsrc = 'imgsrc' :title = 'title'>
+<ImageFlexibleWrapper ref='ifw' :imgsrc = 'imgsrc' :title = 'title' @imgerr = 'onErrorImage' @imgload = 'onLoadImage'>
     <ActionElementsLayer   :description='description'
                             :title='title'
                             :rate='rate'
@@ -51,7 +51,9 @@ export default {
 
   data () {
     return {
-      imageerror: false,
+      imgTail: '-001.jpg',
+      errcount: 0,
+      imgLoaded: false,
       sectionConfig: {
                       spantext1: 'Хочу посмотреть в кинотеатре',
                       spantext2: 'Хочу посмотреть дома',
@@ -68,25 +70,44 @@ export default {
     }
   },
   computed: {
-    imgsrc: function() {
-    if (this.kid) {
-      let kid = this.kid
-      let thousand = Math.trunc(Number(kid) / 1000) + 1 // какая тысяча. используется в URL.
-      let url = "http://posters.kinoafisha.ru/" + thousand + "/" + String(kid) + "-001.jpg"
-      console.log(url)
-      return url
-    } else {
-      return null
+    imgsrc:{
+      get: function() {
+        if (this.kid) {
+          let kid = this.kid
+          let thousand = Math.trunc(Number(kid) / 1000) + 1 // какая тысяча. используется в URL.
+          let url = "http://posters.kinoafisha.ru/" + thousand + "/" + String(kid) + `${this.imgTail}`
+          console.log(url)
+          return url
+        } else {
+          return null
+        }
+    },
+    set: function() {
+
     }
-  },
+    }
+},
   methods: {
     onErrorImage: function() {
-      this.imageerror = true
+      if (!this.imgLoaded) {
+        if (this.errcount == 0) this.imgTail = '-000.jpg'
+        else if (this.errcount == 1) this.imgTail = '-001.png'
+        else if (this.errcount == 2) this.imgTail = '-000.png'
+        else if (this.errcount == 3) this.imgTail = '-008.jpg'
+        else if (this.errcount == 4) this.imgTail = '-005.jpg'
+        else if (this.errcount == 5) this.imgTail = '-020.jpg'
+        else if (this.errcount == 6) this.imgTail = '-002.jpg'
+        console.log(this.errcount);
+        this.errcount ++
+      }
+    },
+    onLoadImage: function() {
+      this.imgLoaded = true
     }
   }
 }
 
-}
+
 </script>
 
 <style scoped lang='scss'>
