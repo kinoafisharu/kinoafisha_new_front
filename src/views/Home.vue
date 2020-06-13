@@ -13,11 +13,7 @@ export default {
 }
 </script>
 
-<style>
-.container {
-  margin: 300px;
-
-}
+<style scoped lang='scss'>
 .home {
   width: 200px;
   height: 100px;
