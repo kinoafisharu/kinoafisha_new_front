@@ -53,7 +53,8 @@
     </div>
   </template>
     </div>
-  <AbsSlider  ref = 'AbsSlider'
+  <AbsSlider  @zoom = 'onClickZoomButton'
+              ref = 'AbsSlider'
               component = 'FilmDetail'
               defaultdispatcher = 'getFilms'
               :defaultordering = 'ordering'
@@ -98,6 +99,9 @@ export default {
       else if (value == 'Popular') {this.ordering = '-imdb_votes'}
       this.$refs.AbsSlider.update(this.ordering)
     },
+    onClickZoomButton: function() {
+      this.$emit('zoom')
+    }
   },
   computed: {
   }

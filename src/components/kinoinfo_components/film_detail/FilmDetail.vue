@@ -1,7 +1,12 @@
 <template>
   <div class = 'poster-block'>
-
-
+          <div class="zoom-button">
+            <div class="my-2">
+              <v-btn fab x-small dark @click.native = 'onClickZoomButton'>
+                <v-icon>mdi-television</v-icon>
+              </v-btn>
+            </div>
+          </div>
           <ActionPosterImage
           v-if = "obj"
           :kid = 'obj.kid'
@@ -37,12 +42,22 @@
     props: {
       obj: Object,
     },
-
+    methods: {
+      onClickZoomButton: function (){
+        this.$emit('zoom')
+      }
+    },
 }
 
 </script>
 
 <style scoped lang='scss'>
+.zoom-button {
+  position: absolute;
+  left: 5%;
+  top: 0;
+  z-index: 2;
+}
 .poster-block {
   width: 100%;
   height: 100%;

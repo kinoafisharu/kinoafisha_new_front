@@ -20,7 +20,7 @@ export default {
     }
   },
   async created () {
-        await this.$store.dispatch('getFilms', {currentPage: 3})
+        await this.$store.dispatch('getFilms', {currentPage: 1})
         let data = await this.$store.getters.films
         this.filmdata = data
     },

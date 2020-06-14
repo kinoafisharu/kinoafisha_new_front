@@ -3,10 +3,10 @@
 
   <div class="poster">
     <!-- Отображение постера елемента если такой есть -->
-    <img ref ='img' v-if = 'imgsrc' class="poster-image" :src="imgsrc" @error = 'onErrorImage' @load = 'onLoadImage'>
+    <img ref ='img' v-if = 'imgsrc && !imgErr' class="poster-image" :src="imgsrc" @error = 'onErrorImage' @load = 'onLoadImage'>
     <div v-else>
       <img class="poster-image" src = 'https://source.unsplash.com/random/350x540'/>
-      <div v-if ='!imgsrc || imgerrored' id = 'exttitle'>
+      <div v-if ='!imgsrc || imgErr' id = 'exttitle'>
         <transition name = 'fade'>
         <h1 id = 'exttitle'>{{title}}</h1>
         </transition>
@@ -25,6 +25,7 @@ export default {
   // Картинка при этом масштабируется под ширину и высоту viewport
   name: 'image-flexible-wrapper',
   props: {
+    imgErr: Boolean,
     imgsrc: String,
     title: String,
   },
@@ -38,8 +39,7 @@ methods: {
   onErrorImage: async function() {
     await this.$emit('imgerr')
   },
-  onLoadImage: async function() {
-    await this.$emit('imgload')
+  onLoadImage: function() {
     console.log('sucess');
   }
 },

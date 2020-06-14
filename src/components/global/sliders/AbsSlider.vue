@@ -2,14 +2,14 @@
   <div v-if = '!loading' class='swipercontainer'>
   <swiper ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd'>
       <swiper-slide v-for = 'obj in objarr' :key = 'obj.id'>
-        <FilmDetail v-if = "currentComp == 'FilmDetail'" :obj = 'obj'/>
+        <FilmDetail v-if = "currentComp == 'FilmDetail'" :obj = 'obj' @zoom = 'onClickZoomButton'/>
         <Story v-if = "currentComp == 'Story'" :obj = 'obj'/>
       </swiper-slide>
       <swiper-slide>
         <div class = 'absslider-loading-slide'>
           <v-progress-circular
-            :size="70"
-            :width="7"
+            :size="150"
+            :width="14"
             color="primary"
             indeterminate
           ></v-progress-circular>
@@ -59,7 +59,6 @@ export default {
       dispatcher: this.defaultdispatcher,
       objarr: null,
       swiperOption: {
-        spaceBetween: 0,
         slidesPerView: 1,
         mousewheel: true,
         keyboard: {
@@ -81,11 +80,11 @@ export default {
         breakpoints: {
             1100: {
               slidesPerView: 3,
-              spaceBetween: 40
+              spaceBetween: 20
             },
             768: {
-              slidesPerView: 3,
-              spaceBetween: 30
+              slidesPerView: 2,
+              spaceBetween: 20
             },
             640: {
               slidesPerView: 2,
@@ -114,9 +113,13 @@ export default {
         this.swiper.slideTo(0, 0, false);
     },
     update: async function(ordering) {
+      this.currentPage = 1
       this.ordering = ordering
       await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering)
     }
+  },
+  onClickZoomButton: function() {
+    this.$emit('zoom')
   },
 }
 
@@ -126,13 +129,11 @@ export default {
 ::v-deep .postercontainer {
   width: 340px;
   height: 520px;
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 100% !important;
 }
 
 
 .absslider-loading-slide {
-  margin-top: 50%;
   margin: 0 auto;
 }
 

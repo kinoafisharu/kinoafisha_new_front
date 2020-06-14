@@ -54,6 +54,7 @@ export default {
       imgTail: '-001.jpg',
       errcount: 0,
       imgLoaded: false,
+      imgErr: false,
       sectionConfig: {
                       spantext1: 'Хочу посмотреть в кинотеатре',
                       spantext2: 'Хочу посмотреть дома',
@@ -89,7 +90,6 @@ export default {
 },
   methods: {
      onErrorImage: async function() {
-      if (!this.imgLoaded) {
         if (this.errcount == 0) this.imgTail = '-000.jpg'
         else if (this.errcount == 1) this.imgTail = '-001.png'
         else if (this.errcount == 2) this.imgTail = '-000.png'
@@ -97,9 +97,9 @@ export default {
         else if (this.errcount == 4) this.imgTail = '-005.jpg'
         else if (this.errcount == 5) this.imgTail = '-020.jpg'
         else if (this.errcount == 6) this.imgTail = '-002.jpg'
+        else this.imgErr = true
         console.log(this.errcount);
         this.errcount ++
-      }
     },
   onLoadImage: function() {
       this.imgLoaded = true

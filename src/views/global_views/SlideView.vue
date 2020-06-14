@@ -4,6 +4,18 @@
     class="overflow-hidden"
     style="position: relative;"
   >
+  <v-overlay
+    :z-index="3"
+    :value="overlay"
+  >
+    <v-btn
+      class="white--text"
+      color="teal"
+      @click="overlay = false"
+    >
+      Hide Overlay
+    </v-btn>
+  </v-overlay>
     <v-container>
       <div class = 'slide-view-wrapper'>
 
@@ -82,7 +94,7 @@
                </v-card>
              </v-menu>
            </v-toolbar>
-          <FilmSlider ref = 'obj' :defaultordering = 'filmdefaultordering' defaultapiaction = 'getval' v-if = "toggleData == 'Films'"/>
+          <FilmSlider ref = 'obj' :defaultordering = 'filmdefaultordering' defaultapiaction = 'getval' v-if = "toggleData == 'Films'" @zoom = 'onClickZoomButton'/>
           <StorySlider ref = 'obj' :defaultordering = 'storydefaultordering' defaultapiaction = 'getval' v-if = "toggleData == 'Stories'"/>
         </div>
       </v-container>
@@ -113,7 +125,50 @@
           <v-list-item-title>Stories</v-list-item-title>
         </v-list-item>
       </v-list-item-group>
-
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>В кинотеатрах</v-expansion-panel-header>
+          <v-expansion-panel-content>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>Скоро</v-expansion-panel-header>
+          <v-expansion-panel-content>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>Рекомендации</v-expansion-panel-header>
+          <v-expansion-panel-content>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>Бокс-Офис</v-expansion-panel-header>
+          <v-expansion-panel-content>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>Обзоры, мнения и комментарии</v-expansion-panel-header>
+          <v-expansion-panel-content>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>
+             Мегакритик
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
 
 
 
@@ -139,6 +194,7 @@ export default {
       links: ['Home', 'Contacts', 'Settings'],
       drawer: null,
       menu: false,
+      overlay: false,
       toggleData: 'Films',
       filmdefaultordering: 'id',
       storydefaultordering: 'id',
@@ -154,9 +210,13 @@ export default {
       this.$refs.obj.onClickToggleSortButton(query)
 
       }
-
-      }
+    },
+  methods: {
+    onClickZoomButton: function() {
+      this.overlay = !this.overlay
     }
+  }
+}
 
 </script>
 <style lang=scss>
