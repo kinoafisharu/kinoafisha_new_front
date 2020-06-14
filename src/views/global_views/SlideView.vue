@@ -196,7 +196,7 @@ export default {
       menu: false,
       overlay: false,
       toggleData: 'Films',
-      filmdefaultordering: 'id',
+      filmdefaultordering: '-imdb_rate',
       storydefaultordering: 'id',
 
     }
