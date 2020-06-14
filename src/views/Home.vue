@@ -1,7 +1,7 @@
 <template>
   <div class = 'container'>
     <div class="home">
-      <router-link :to="{ name: 'films', params: {} }">Films</router-link>
+      <router-link :to="{ name: 'slide', params: {} }">Временная точка входа</router-link>
     </div>
   </div>
 </template>

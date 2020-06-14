@@ -23,7 +23,7 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
 
-             <v-toolbar-title>Title</v-toolbar-title>
+             <v-toolbar-title>IKar Studio</v-toolbar-title>
 
              <v-spacer></v-spacer>
 
