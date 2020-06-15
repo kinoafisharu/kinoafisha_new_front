@@ -80,7 +80,7 @@ export default {
   },
   data() {
     return {
-      ordering: 'id',
+      ordering: '-imdb_votes',
       showMenu: false,
       items: [
         { title: 'На этой неделе в кинотеатрах' },
