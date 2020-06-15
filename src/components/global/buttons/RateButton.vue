@@ -1,5 +1,5 @@
 <template>
-  <div class='rate' :class="'rate_color_'+ ratecalced" title = 'Show settings'>
+  <div class='rate' :class="'rate_color_'+ ratecalced" :title = 'title'>
     <!-- Отображение рейтинга если такой есть -->
     <p>{{ratecalced}}</p>
   </div>
@@ -11,6 +11,12 @@ export default {
   name: 'rate-button',
   props: {
     ratecalced: [String, Number],
+    imdb_rate: [String, Number],
+  },
+  computed: {
+    title: function() {
+      return `Репутация фильма на IMDB: ${this.imdb_rate}`
+    }
   }
 }
 </script>

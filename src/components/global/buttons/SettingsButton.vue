@@ -1,5 +1,5 @@
 <template>
-    <img class = 'settings-little-button' :src = '`${publicPath}images/${buttonimagesource}`'/>
+    <img class = 'settings-little-button' :src = '`${publicPath}images/${buttonimagesource}`' title = 'Настройки'/>
 </template>
 
 <script>

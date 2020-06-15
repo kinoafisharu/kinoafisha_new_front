@@ -1,5 +1,5 @@
 <template>
-  <AELWrapper>
+  <AELWrapper ref = 'AELWrapper'>
     <transition name = 'fade'>
       <component  :is = 'currentLayer'
                   v-bind = 'currentProperties'
@@ -8,7 +8,7 @@
     </transition>
 
     <!--Кнопка рейтинга, включает модальное окно с настройками рейтинга-->
-    <RateButton :ratecalced = 'ratecalced' @click.native = 'onClickRateSettingsButton'/>
+    <RateButton :imdb_rate = 'rate' :ratecalced = 'ratecalced' @click.native = 'onClickRateSettingsButton'/>
 
     <!-- Uslovnoe otobrazhenie nizhney chasti -->
     <AELBottomSectionWrapper>
@@ -28,13 +28,15 @@
       <LittleRoundButton v-if = "show_second_layer_buttons"
                           class = 'auth-button'
                           @click.native = 'chooseLayer(2)'
-                          buttonimagesource = "key.png"/>
+                          buttonimagesource = "key.png"
+                          title = 'Авторизация'/>
 
       <!-- TICKETS BUTTON -->
       <LittleRoundButton v-if = "show_second_layer_buttons"
                           class="tickets-button"
                           @click.native = 'chooseLayer(2)'
-                          buttonimagesource = "ticket.png"/>
+                          buttonimagesource = "ticket.png"
+                          title = 'Купить билеты'/>
 
       <!-- SETTINGS BUTTON -->
       <SettingsButton v-if = "show_second_layer_buttons"
@@ -150,7 +152,7 @@ export default {
     ratecalced: function() {
       if (this.rate) {
         let r = this.rate
-        let rc = Math.round(r / 2 + 1)
+        let rc = Math.round(r / 2 + 0.3)
         if (rc > 5) rc = 5;
         else if (rc == 1) rc = 2;
         if (r == 0) return r;
@@ -165,14 +167,13 @@ export default {
       this.flushSections()
       this.flushLayers()
       this.selectRateButtons()
-    }
+    },
   }
 
 }
 </script>
 
 <style scoped lang='scss'>
-
 
 
 ::v-deep #bottom-section {

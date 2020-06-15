@@ -46,6 +46,7 @@ export default {
     defaultdispatcher: String,
     defaultfields: String,
     defaultapiaction: String,
+    defaultordering: String,
     component: String,
   },
   data() {
@@ -55,7 +56,7 @@ export default {
       currentComp: this.component,
       apiaction: this.defaultapiaction,
       fields: this.defaultfields,
-      ordering: 'id',
+      ordering: this.defaultordering,
       dispatcher: this.defaultdispatcher,
       objarr: null,
       swiperOption: {
@@ -78,11 +79,11 @@ export default {
           }
         },
         breakpoints: {
-            1100: {
+            900: {
               slidesPerView: 3,
-              spaceBetween: 20
+              spaceBetween: 30
             },
-            768: {
+            800: {
               slidesPerView: 2,
               spaceBetween: 20
             },
@@ -126,8 +127,12 @@ export default {
 </script>
 
 <style scoped lang ='scss'>
+@media (max-width: 20%) {
+
+}
+
 ::v-deep .postercontainer {
-  width: 340px;
+  width: 363px;
   height: 520px;
   max-width: 100% !important;
 }

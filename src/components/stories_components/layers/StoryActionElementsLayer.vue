@@ -28,13 +28,9 @@
       <LittleRoundButton v-if = "show_second_layer_buttons"
                           class = 'auth-button'
                           @click.native = 'chooseLayer(2)'
-                          buttonimagesource = "key.png"/>
+                          buttonimagesource = "key.png"
+                          title="Авторизация"/>
 
-      <!-- TICKETS BUTTON -->
-      <LittleRoundButton v-if = "show_second_layer_buttons"
-                          class = 'tickets-button'
-                          @click.native = 'chooseLayer(2)'
-                          buttonimagesource = "ticket.png"/>
 
       <!-- SETTINGS BUTTON -->
       <SettingsButton v-if = "show_second_layer_buttons"

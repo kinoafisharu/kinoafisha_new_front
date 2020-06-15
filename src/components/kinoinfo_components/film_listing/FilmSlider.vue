@@ -76,20 +76,13 @@ export default {
   },
   props: {
     defaultapiaction: String,
-    showSliderMenu: Boolean
+    showSliderMenu: Boolean,
+    defaultordering: String,
   },
   data() {
     return {
-      ordering: '-imdb_votes',
+      ordering: this.defaultordering,
       showMenu: false,
-      items: [
-        { title: 'На этой неделе в кинотеатрах' },
-        { title: 'На этой неделе онлайн' },
-        { title: 'Лучшее в кинотеатрах' },
-        { title: 'Лучшее онлайн' },
-        { title: 'Бокс-офис уикенда'},
-        { title: 'Топ 250'},
-      ],
     }
   },
   methods: {

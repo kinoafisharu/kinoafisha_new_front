@@ -125,50 +125,52 @@
           <v-list-item-title>Stories</v-list-item-title>
         </v-list-item>
       </v-list-item-group>
-      <v-expansion-panels>
-        <v-expansion-panel>
-          <v-expansion-panel-header>В кинотеатрах</v-expansion-panel-header>
-          <v-expansion-panel-content>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-      <v-expansion-panels>
-        <v-expansion-panel>
-          <v-expansion-panel-header>Скоро</v-expansion-panel-header>
-          <v-expansion-panel-content>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-      <v-expansion-panels>
-        <v-expansion-panel>
-          <v-expansion-panel-header>Рекомендации</v-expansion-panel-header>
-          <v-expansion-panel-content>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-      <v-expansion-panels>
-        <v-expansion-panel>
-          <v-expansion-panel-header>Бокс-Офис</v-expansion-panel-header>
-          <v-expansion-panel-content>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-      <v-expansion-panels>
-        <v-expansion-panel>
-          <v-expansion-panel-header>Обзоры, мнения и комментарии</v-expansion-panel-header>
-          <v-expansion-panel-content>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-      <v-expansion-panels>
-        <v-expansion-panel>
-          <v-expansion-panel-header>
-             Мегакритик
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
+      <div v-if = "toggleData == 'Films'">
+        <v-expansion-panels>
+          <v-expansion-panel>
+            <v-expansion-panel-header>В кинотеатрах</v-expansion-panel-header>
+            <v-expansion-panel-content>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+        <v-expansion-panels>
+          <v-expansion-panel>
+            <v-expansion-panel-header>Скоро</v-expansion-panel-header>
+            <v-expansion-panel-content>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+        <v-expansion-panels>
+          <v-expansion-panel>
+            <v-expansion-panel-header>Рекомендации</v-expansion-panel-header>
+            <v-expansion-panel-content>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+        <v-expansion-panels>
+          <v-expansion-panel>
+            <v-expansion-panel-header>Бокс-Офис</v-expansion-panel-header>
+            <v-expansion-panel-content>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+        <v-expansion-panels>
+          <v-expansion-panel>
+            <v-expansion-panel-header>Обзоры, мнения и комментарии</v-expansion-panel-header>
+            <v-expansion-panel-content>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+        <v-expansion-panels>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+               Мегакритик
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </div>
 
 
 
@@ -196,7 +198,7 @@ export default {
       menu: false,
       overlay: false,
       toggleData: 'Films',
-      filmdefaultordering: '-imdb_rate',
+      filmdefaultordering: '-imdb_votes',
       storydefaultordering: 'id',
 
     }
