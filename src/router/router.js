@@ -33,7 +33,7 @@ const routes = [
   {
     path: '/slide',
     component: () => import('@/views/global_views/SlideView.vue'),
-    name: 'stories-slide',
+    name: 'slide',
   },
   {
     path: '/filmslide',

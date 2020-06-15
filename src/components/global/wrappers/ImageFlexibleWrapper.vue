@@ -5,7 +5,7 @@
     <!-- Отображение постера елемента если такой есть -->
     <img ref ='img' v-if = 'imgsrc && !imgErr' class="poster-image" :src="imgsrc" @error = 'onErrorImage' @load = 'onLoadImage'>
     <div v-else>
-      <img class="poster-image" src = 'https://source.unsplash.com/random/350x540'/>
+      <img class="poster-image" :src = 'randomSrc'/>
       <div v-if ='!imgsrc || imgErr' id = 'exttitle'>
         <transition name = 'fade'>
         <h1 id = 'exttitle'>{{title}}</h1>
@@ -32,7 +32,7 @@ export default {
   data () {
   return {
     imgerrored: false,
-    publicPath: process.env.BASE_URL
+    publicPath: process.env.BASE_URL,
   }
 },
 methods: {
@@ -41,8 +41,14 @@ methods: {
   },
   onLoadImage: function() {
     console.log('sucess');
-  }
+  },
 },
+computed: {
+  randomSrc: function() {
+    let src = `https://source.unsplash.com/350x540?nature,water`
+    return src
+  }
+}
 }
 </script>
 

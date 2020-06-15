@@ -1,5 +1,5 @@
 <template>
-  <div class="info-place">
+  <div class="info-place" title = 'Инфо'>
     <img id = 'info-place-icon' :src = "`${publicPath}images/info.png`">
   </div>
 </template>

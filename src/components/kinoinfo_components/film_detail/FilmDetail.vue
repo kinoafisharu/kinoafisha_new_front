@@ -1,12 +1,5 @@
 <template>
   <div class = 'poster-block'>
-          <div class="zoom-button">
-            <div class="my-2">
-              <v-btn fab x-small dark @click.native = 'onClickZoomButton'>
-                <v-icon>mdi-television</v-icon>
-              </v-btn>
-            </div>
-          </div>
           <ActionPosterImage
           v-if = "obj"
           :kid = 'obj.kid'
