@@ -45,8 +45,6 @@ methods: {
 },
 computed: {
   randomSrc: function() {
-    let randint = Math.floor(Math.random() * (999999 - 800000 + 1)) + 800000
-    console.log(randint);
     let src = `https://source.unsplash.com/350x540?nature,water`
     return src
   }
