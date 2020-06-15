@@ -1,14 +1,14 @@
-# Фронтенд - Проект экосистемы IKar
+# Фронтенд - Проект экосистемы I-Kar
 
 ## Технологии
 
-Фреймворк Vue.js, язык JavaScript, сервер Node.js, ?? - Vuex, Vue-Router, SCSS,
+Vue.js, JavaScript, Vuex, Vue-Router, SCSS
 
-## Структура проекта (создать, используя в качестве примера: https://www.internet-technologies.ru/articles/razrabotka-masshtabnogo-prilozheniya-vue-js.html#header-7)
+## Структура проекта (использовать: https://www.internet-technologies.ru/articles/razrabotka-masshtabnogo-prilozheniya-vue-js.html#header-7)
 
         
 
-Проект представляет собой фронтэнд-платформу для создания виджетов, интерфейсов, библиотек и фронтенд частей, с использованием базы данных (пока [Киноинфо](http://kinoinfo.ru/), затем открытой БД в облачном сервисе) и [API](https://new-new-api.herokuapp.com/).
+Проект представляет собой фронтэнд-платформу для создания виджетов, интерфейсов, библиотек и фронтенд частей, с использованием базы данных [Киноинфо](http://kinoinfo.ru/) и его [API](https://new-new-api.herokuapp.com/).
 
 
 # Логика работы Views
