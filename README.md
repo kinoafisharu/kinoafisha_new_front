@@ -2,7 +2,7 @@
 
 ## Технологии
 
-Фреймворк Vue.js, язык JavaScript, сервер Node.js, ?? - Vuex, Vue-Router, SCSS
+Фреймворк Vue.js, язык JavaScript, сервер Node.js, ?? - Vuex, Vue-Router, SCSS,
 
 ## Структура проекта (создать, используя в качестве примера: https://www.internet-technologies.ru/articles/razrabotka-masshtabnogo-prilozheniya-vue-js.html#header-7)
 
