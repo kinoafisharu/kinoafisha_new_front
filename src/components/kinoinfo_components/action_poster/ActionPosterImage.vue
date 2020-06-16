@@ -1,6 +1,5 @@
 <template>
 
-
 <ImageFlexibleWrapper ref='ifw' :imgsrc = 'imgsrc' :title = 'title' @imgerr = 'onErrorImage' @imgload = 'onLoadImage'>
     <ActionElementsLayer   :description='description'
                             :title='title'
@@ -71,8 +70,8 @@ export default {
     }
   },
   computed: {
-    imgsrc:{
-      get: function() {
+    imgsrc() {
+      if (!this.imgErr) {
         if (this.kid) {
           let kid = this.kid
           let thousand = Math.trunc(Number(kid) / 1000) + 1 // какая тысяча. используется в URL.
@@ -82,21 +81,23 @@ export default {
         } else {
           return null
         }
-    },
-    set: function() {
-
-    }
+      } else {
+        return 'https://source.unsplash.com/350x540?nature,water'
+      }
     }
 },
   methods: {
-     onErrorImage: async function() {
-        if (this.errcount == 0) this.imgTail = '-000.jpg'
-        else if (this.errcount == 1) this.imgTail = '-001.png'
-        else if (this.errcount == 2) this.imgTail = '-000.png'
-        else if (this.errcount == 3) this.imgTail = '-008.jpg'
-        else if (this.errcount == 4) this.imgTail = '-005.jpg'
-        else if (this.errcount == 5) this.imgTail = '-020.jpg'
-        else if (this.errcount == 6) this.imgTail = '-002.jpg'
+     onErrorImage: function() {
+        if (this.errcount == 0  & !this.imgLoaded) this.imgTail = '-002.jpg'
+        else if (this.errcount == 1 & !this.imgLoaded) this.imgTail = '-000.jpg'
+        else if (this.errcount == 2 & !this.imgLoaded) this.imgTail = '-000.png'
+        else if (this.errcount == 3 & !this.imgLoaded) this.imgTail = '-001.png'
+        else if (this.errcount == 4 & !this.imgLoaded) this.imgTail = '-003.jpg'
+        else if (this.errcount == 5 & !this.imgLoaded) this.imgTail = '-004.jpg'
+        else if (this.errcount == 6 & !this.imgLoaded) this.imgTail = '-005.jpg'
+        else if (this.errcount == 7 & !this.imgLoaded) this.imgTail = '-006.jpg'
+        else if (this.errcount == 8 & !this.imgLoaded) this.imgTail = '-008.jpg'
+        else if (this.errcount == 9 & !this.imgLoaded) this.imgTail = '-020.jpg'
         else this.imgErr = true
         console.log(this.errcount);
         this.errcount ++

@@ -36,11 +36,13 @@ export default {
   }
 },
 methods: {
-  onErrorImage: async function() {
-    await this.$emit('imgerr')
+  onErrorImage: function() {
+      this.$emit('imgerr')
+      console.log('emitting');
   },
   onLoadImage: function() {
     console.log('sucess');
+    this.$emit('imgload')
   },
 },
 computed: {
