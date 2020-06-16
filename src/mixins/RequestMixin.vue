@@ -7,11 +7,12 @@ export default {
     }
   },
   methods: {
-    makeRequest: async function(dispatcher, currentPage, fieldvalues, apiaction, itemordering) {
+    makeRequest: async function(dispatcher, currentPage, fieldvalues, apiaction, itemordering, datetime) {
        await this.$store.dispatch(dispatcher, {currentPage: currentPage,
                                                              values: fieldvalues,
                                                              action: apiaction,
-                                                             ordering: itemordering})
+                                                             ordering: itemordering,
+                                                              datetime: datetime})
       let objarr = null
       if (dispatcher == 'getFilms') { objarr = await this.$store.getters.films}
       else if (dispatcher == 'getStories') { objarr = await this.$store.getters.stories }

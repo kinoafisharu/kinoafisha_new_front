@@ -55,17 +55,22 @@
     </div>
   <AbsSlider  @zoom = 'onClickZoomButton'
               ref = 'AbsSlider'
-              component = 'FilmDetail'
               defaultdispatcher = 'getFilms'
               :defaultordering = 'ordering'
               :defaultapiaction = 'defaultapiaction'
-              defaultfields = 'id,name,genre,description,votes,kid,country,year,limits,imdb_votes,imdb_rate,persons'/>
+              defaultfields = 'id,name,genre,description,votes,kid,country,year,limits,imdb_votes,imdb_rate,persons'>
+
+    <template v-slot:default="slotProps">
+        <FilmDetail :obj = 'slotProps.obj'/>
+    </template>
+  </AbsSlider>
 </div>
 </template>
 
 
 <script>
 import AbsSlider from "@/components/global/sliders/AbsSlider"
+import FilmDetail from "@/components/kinoinfo_components/film_detail/FilmDetail"
 import 'swiper/css/swiper.css'
 
 export default {
@@ -73,31 +78,27 @@ export default {
   title: 'Fraction pagination',
   components: {
     AbsSlider,
+    FilmDetail
   },
   props: {
     defaultapiaction: String,
-    showSliderMenu: Boolean
+    showSliderMenu: Boolean,
+    defaultordering: String,
   },
   data() {
     return {
-      ordering: 'id',
+      ordering: this.defaultordering,
       showMenu: false,
-      items: [
-        { title: 'На этой неделе в кинотеатрах' },
-        { title: 'На этой неделе онлайн' },
-        { title: 'Лучшее в кинотеатрах' },
-        { title: 'Лучшее онлайн' },
-        { title: 'Бокс-офис уикенда'},
-        { title: 'Топ 250'},
-      ],
+      datetime: null,
     }
   },
   methods: {
     onClickToggleSortButton: function(value) {
       this.currentPage = 1
-      if (value == 'New') {this.ordering = '-year'}
+      if (value == 'New') {this.ordering = '-release__release,year'}
       else if (value == 'Popular') {this.ordering = '-imdb_votes'}
-      this.$refs.AbsSlider.update(this.ordering)
+      else if (value == 'ThisWeek') {this.datetime = 'laterbackfromnow,7'}
+      this.$refs.AbsSlider.update(this.ordering, this.datetime)
     },
     onClickZoomButton: function() {
       this.$emit('zoom')

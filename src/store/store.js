@@ -18,7 +18,7 @@ const store = new Vuex.Store({
         story: state => {
             return state.story
         },
-        film: state => {
+        filmbyimdb: state => {
           return state.film
         },
         stories: state => {
@@ -30,19 +30,22 @@ const store = new Vuex.Store({
             return service.get(`kinoinfo/films/${payload.action}/`, {params: {page: payload.currentPage,
                                                                               page_size: payload.page_size,
                                                                               values: payload.values,
-                                                                              ordering: payload.ordering}})
+                                                                              ordering: payload.ordering,
+                                                                              search: payload.search,
+                                                                              datetime: payload.datetime}})
                 .then((res) => {
                     let films = res.data.results
                     console.log(films);
                     commit('setFilms', films)
                 })
         },
-        getFilm ({commit}, payload) {
-          return service.get(`kinoinfo/films/${payload.id}/`)
+        getFilmByImdb ({commit}, payload) {
+          return service.get(`kinoinfo/films/getval/?values=${payload.values}&imdb_id=${payload.id}`)
             .then((res) => {
-              let film = res.data
+              console.log(res);
+              let film = res.data.results[0]
               console.log(film)
-              commit('setFilm', film)
+              commit('setFilmByImdb', film)
             })
         },
         getStory ({commit}, payload) {
@@ -72,7 +75,7 @@ const store = new Vuex.Store({
           console.log(story)
           state.story = story
         },
-        setFilm (state, film) {
+        setFilmByImdb (state, film) {
           state.film = film
         },
         setStories (state, stories) {

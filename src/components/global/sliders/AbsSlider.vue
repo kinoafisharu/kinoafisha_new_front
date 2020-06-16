@@ -2,8 +2,7 @@
   <div v-if = '!loading' class='swipercontainer'>
   <swiper ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd'>
       <swiper-slide v-for = 'obj in objarr' :key = 'obj.id'>
-        <FilmDetail v-if = "currentComp == 'FilmDetail'" :obj = 'obj' @zoom = 'onClickZoomButton'/>
-        <Story v-if = "currentComp == 'Story'" :obj = 'obj'/>
+        <slot v-bind:obj = 'obj'></slot>
       </swiper-slide>
       <swiper-slide>
         <div class = 'absslider-loading-slide'>
@@ -26,16 +25,12 @@
 
 <script>
 import RequestMixin from "@/mixins/RequestMixin"
-import FilmDetail from "@/components/kinoinfo_components/film_detail/FilmDetail"
-import Story from "@/components/stories_components/Story"
 import 'swiper/css/swiper.css'
 
 export default {
   name: 'abstract-slider',
   mixins: [RequestMixin,],
   components: {
-    FilmDetail,
-    Story,
   },
   async created() {
     await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering)
@@ -46,7 +41,7 @@ export default {
     defaultdispatcher: String,
     defaultfields: String,
     defaultapiaction: String,
-    component: String,
+    defaultordering: String,
   },
   data() {
     return {
@@ -55,8 +50,9 @@ export default {
       currentComp: this.component,
       apiaction: this.defaultapiaction,
       fields: this.defaultfields,
-      ordering: 'id',
+      ordering: this.defaultordering,
       dispatcher: this.defaultdispatcher,
+      datetime: 'all',
       objarr: null,
       swiperOption: {
         slidesPerView: 1,
@@ -78,11 +74,11 @@ export default {
           }
         },
         breakpoints: {
-            1100: {
+            900: {
               slidesPerView: 3,
-              spaceBetween: 20
+              spaceBetween: 30
             },
-            768: {
+            800: {
               slidesPerView: 2,
               spaceBetween: 20
             },
@@ -109,25 +105,27 @@ export default {
   methods: {
     onReachEnd: async function() {
         this.currentPage ++
-        await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering)
+        await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering, this.datetime)
         this.swiper.slideTo(0, 0, false);
     },
-    update: async function(ordering) {
+    update: async function(ordering, datetime) {
       this.currentPage = 1
+      this.datetime = datetime
       this.ordering = ordering
-      await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering)
+      await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering, this.datetime)
     }
-  },
-  onClickZoomButton: function() {
-    this.$emit('zoom')
   },
 }
 
 </script>
 
 <style scoped lang ='scss'>
+@media (max-width: 20%) {
+
+}
+
 ::v-deep .postercontainer {
-  width: 340px;
+  width: 363px;
   height: 520px;
   max-width: 100% !important;
 }
