@@ -35,11 +35,6 @@
     props: {
       obj: Object,
     },
-    methods: {
-      onClickZoomButton: function (){
-        this.$emit('zoom')
-      }
-    },
 }
 
 </script>

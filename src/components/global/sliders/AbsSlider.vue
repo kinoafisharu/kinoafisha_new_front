@@ -2,8 +2,7 @@
   <div v-if = '!loading' class='swipercontainer'>
   <swiper ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd'>
       <swiper-slide v-for = 'obj in objarr' :key = 'obj.id'>
-        <FilmDetail v-if = "currentComp == 'FilmDetail'" :obj = 'obj' @zoom = 'onClickZoomButton'/>
-        <Story v-if = "currentComp == 'Story'" :obj = 'obj'/>
+        <slot v-bind:obj = 'obj'></slot>
       </swiper-slide>
       <swiper-slide>
         <div class = 'absslider-loading-slide'>
@@ -26,19 +25,15 @@
 
 <script>
 import RequestMixin from "@/mixins/RequestMixin"
-import FilmDetail from "@/components/kinoinfo_components/film_detail/FilmDetail"
-import Story from "@/components/stories_components/Story"
 import 'swiper/css/swiper.css'
 
 export default {
   name: 'abstract-slider',
   mixins: [RequestMixin,],
   components: {
-    FilmDetail,
-    Story,
   },
   async created() {
-    await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering)
+    await this.makeRequest(this.dispatcher, this.requestObject)
     this.loading = false
     console.log('req done')
   },
@@ -47,18 +42,17 @@ export default {
     defaultfields: String,
     defaultapiaction: String,
     defaultordering: String,
-    component: String,
   },
   data() {
     return {
       loading: true,
       toggleData: null,
-      currentComp: this.component,
       apiaction: this.defaultapiaction,
       fields: this.defaultfields,
       ordering: this.defaultordering,
+      pagesize: null,
       dispatcher: this.defaultdispatcher,
-      objarr: null,
+      datetime: 'all',
       swiperOption: {
         slidesPerView: 1,
         mousewheel: true,
@@ -105,22 +99,32 @@ export default {
   computed: {
     swiper() {
       return this.$refs.mySwiper.$swiper
+    },
+    requestObject:function() {
+      let obj = {
+          currentPage: this.currentPage,
+          values: this.fields,
+          action: this.apiaction,
+          ordering: this.ordering,
+          datetime: this.datetime,
+          page_size: this.pagesize,
+      }
+      return this.lodash.omitBy(obj, this.lodash.isNil)
     }
   },
   methods: {
     onReachEnd: async function() {
         this.currentPage ++
-        await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering)
+        await this.makeRequest(this.dispatcher, this.requestObject)
         this.swiper.slideTo(0, 0, false);
     },
-    update: async function(ordering) {
+    update: async function(ordering, datetime, pagesize) {
       this.currentPage = 1
+      this.datetime = datetime
       this.ordering = ordering
-      await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering)
-    }
-  },
-  onClickZoomButton: function() {
-    this.$emit('zoom')
+      this.pagesize = pagesize
+      await this.makeRequest(this.dispatcher, this.requestObject)
+    },
   },
 }
 

@@ -4,18 +4,6 @@
     class="overflow-hidden"
     style="position: relative;"
   >
-  <v-overlay
-    :z-index="3"
-    :value="overlay"
-  >
-    <v-btn
-      class="white--text"
-      color="teal"
-      @click="overlay = false"
-    >
-      Hide Overlay
-    </v-btn>
-  </v-overlay>
     <v-container>
       <div class = 'slide-view-wrapper'>
 
@@ -65,16 +53,29 @@
                          <v-expansion-panel-content>
                            <v-col class="d-flex" cols="20" sm="16">
                             <v-select
-                               v-model = 'e1'
-                              :items="['Новые', 'Популярные', 'Личности']"
+                               v-model = 'filter'
+                              :items="filterItems"
+                              item-value = 'value'
+                              item-text = 'text'
                               solo
                               label="Фильтр"
                               dense
                             ></v-select>
                           </v-col>
                           <v-col class="d-flex" cols="20" sm="16">
+                            <v-select
+                               v-if = "toggleData == 'Films'"
+                               v-model = 'filter'
+                              :items="timeItems"
+                              solo
+                              label="Время"
+                              dense
+                            ></v-select>
+                          </v-col>
+                          <v-col class="d-flex" cols="20" sm="16">
                            <v-select
                               v-if = "toggleData == 'Films'"
+                              v-model = 'filter'
                              :items="['На этой неделе в кинотеатрах', 'На этой неделе онлайн', 'Лучшее в кинотеатрах', 'Лучшее онлайн', 'Бокс-офис уикенда', 'Топ 250']"
                              solo
                              label="Подборки"
@@ -94,7 +95,7 @@
                </v-card>
              </v-menu>
            </v-toolbar>
-          <FilmSlider ref = 'obj' :defaultordering = 'filmdefaultordering' defaultapiaction = 'getval' v-if = "toggleData == 'Films'" @zoom = 'onClickZoomButton'/>
+          <FilmSlider ref = 'obj' :defaultordering = 'filmdefaultordering' defaultapiaction = 'getval' v-if = "toggleData == 'Films'"/>
           <StorySlider ref = 'obj' :defaultordering = 'storydefaultordering' defaultapiaction = 'getval' v-if = "toggleData == 'Stories'"/>
         </div>
       </v-container>
@@ -192,11 +193,19 @@ export default {
   },
   data () {
     return {
-      e1: null,
-      links: ['Home', 'Contacts', 'Settings'],
+      filterItems: [
+        {text: 'Новые', value: 'New'},
+        {text: 'Популярные', value: 'Popular'},
+        {text: 'Личности', value: 'No'},
+      ],
+      timeItems: [
+        {text: 'Эта неделя', value: 'ThisWeek'},
+        {text: 'Этот месяц', value: 'ThisMonth'},
+        {text: 'Скоро выйдут', value: 'MonthForward'}
+      ],
+      filter: null,
       drawer: null,
       menu: false,
-      overlay: false,
       toggleData: 'Films',
       filmdefaultordering: '-imdb_votes',
       storydefaultordering: 'id',
@@ -204,18 +213,8 @@ export default {
     }
   },
   watch: {
-    e1(value) {
-      let query = null
-      if (value == 'Популярные') {query = 'Popular'}
-      else if (value == 'Новые') {query = 'New'}
-      else if (value == 'Личности') {query = 'New'}
-      this.$refs.obj.onClickToggleSortButton(query)
-
-      }
-    },
-  methods: {
-    onClickZoomButton: function() {
-      this.overlay = !this.overlay
+    filter(val) {
+      this.$refs.obj.onClickToggleSortButton(val)
     }
   }
 }

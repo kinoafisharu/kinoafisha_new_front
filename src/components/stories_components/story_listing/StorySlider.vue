@@ -29,17 +29,22 @@
           </div>
     </div>
   <AbsSlider  ref = 'AbsSlider'
-              component = 'Story'
               defaultdispatcher = 'getStories'
               :defaultordering = 'computeordering'
               :defaultapiaction = 'defaultapiaction'
-              defaultfields = 'id,text,title,dtime'/>
+              defaultfields = 'id,text,title,dtime'>
+
+    <template v-slot:default="slotProps">
+      <Story :obj = 'slotProps.obj'/>
+    </template>
+  </AbsSlider>
 </div>
 </template>
 
 
 <script>
 import AbsSlider from "@/components/global/sliders/AbsSlider"
+import Story from "@/components/stories_components/Story"
 import 'swiper/css/swiper.css'
 
 export default {
@@ -47,6 +52,7 @@ export default {
   title: 'Fraction pagination',
   components: {
     AbsSlider,
+    Story
   },
   props: {
     defaultapiaction: String,

@@ -27,10 +27,13 @@ const store = new Vuex.Store({
     },
     actions: {
          getFilms ({commit}, payload) {
+           console.log(payload);
             return service.get(`kinoinfo/films/${payload.action}/`, {params: {page: payload.currentPage,
                                                                               page_size: payload.page_size,
                                                                               values: payload.values,
-                                                                              ordering: payload.ordering}})
+                                                                              ordering: payload.ordering,
+                                                                              search: payload.search,
+                                                                              datetime: payload.datetime}})
                 .then((res) => {
                     let films = res.data.results
                     console.log(films);
