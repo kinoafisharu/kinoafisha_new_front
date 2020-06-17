@@ -1,9 +1,12 @@
 <template>
+  <!-- Абстракция для отображения контейнера с меню, поиском, навдрайвером и футером -->
   <v-sheet
     height="inherit"
     class="overflow-hidden"
     style="position: relative;"
   >
+    <slot name="window"></slot>
+    <slot name="overlay"></slot>
     <v-container>
       <div class = 'slide-view-wrapper'>
 
@@ -57,10 +60,7 @@
              </v-menu>
            </v-toolbar>
         </div>
-        <slot
-        v-bind:defaultapiaction = 'defaultapiaction'
-        v-bind:defaultordering = 'defaultordering'
-         name="component-slot"></slot>
+        <slot name="component-slot"></slot>
       </v-container>
 
     <v-navigation-drawer
@@ -125,8 +125,6 @@ export default {
       drawer: null,
       menu: false,
       toggleData: 'Films',
-      filmdefaultordering: '-imdb_votes',
-      storydefaultordering: 'id',
 
     }
   },

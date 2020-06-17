@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+//Плагин Vuetify
 
 Vue.use(Vuetify)
 
@@ -9,7 +10,7 @@ const opts = {
     iconfont: 'mdiSvg',
   },
   theme: {
-    dark: true, 
+    dark: true,
   },
 }
 

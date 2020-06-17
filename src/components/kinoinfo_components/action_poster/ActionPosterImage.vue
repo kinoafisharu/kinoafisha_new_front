@@ -112,67 +112,10 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-@media (orientation: portrait) and (max-width: 600px) {
-    .postercontainer {
-        max-width: 100vw !important;
-        max-height: 100vh !important;
-        position: relative !important;
-    }
-    .poster {
-        width: 100% !important;
-        height: 100% !important;
-        text-align: center !important;
-    }
-    .poster-image {
-        max-width: 100% !important;
-        max-height: 100% !important;
-    }
-    img {
-        max-width: 100% !important;
-        max-height: 100% !important;
-        vertical-align: top !important;
-    }
-}
 
 #image-flexible-wrapper {
   z-index: -1;
 }
-
-
-::v-deep .postercontainer {
-    max-width: 25%;
-    max-height: 50%;
-    margin: 0 auto;
-    align-items: stretch;
-    position: relative;
-    .poster {
-        max-width: 100%;
-        max-height: 100%;
-        img {
-            display: flex;
-            flex-direction: column;
-        }
-
-    }
-}
-
-
-
-::v-deep .poster {
-    position: relative;
-    text-align: center;
-    flex: 1;
-    height: 100%;
-    .poster-image {
-        height: 100%;
-        width: 100%;
-        img {
-            width: 100%;
-            height: 100%;
-        }
-    }
-  }
-
 
 .fade-enter-active,
 .fade-leave-active {

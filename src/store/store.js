@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 import service from "@/api/base.js"
 Vue.use(Vuex)
 
-// Самый главный компонент, тут же хранилище Vuex
+// Хранилище Vuex, глобальная шина событий
+// Используется для взаимодействия с АПИ и хранения полученной информации
 const store = new Vuex.Store({
     state: {
         films: [],
