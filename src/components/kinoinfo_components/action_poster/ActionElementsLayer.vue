@@ -38,12 +38,11 @@
                           buttonimagesource = "ticket.png"
                           title = 'Купить билеты'/>
 
-      <!-- SETTINGS BUTTON -->
-      <SettingsButton v-if = "show_second_layer_buttons"
-                          class = 'settings-little-button'
-                          @click.native = 'chooseLayer(2)'
-                          buttonimagesource = "settings.png"/>
-
+      <div v-if = 'show_second_layer_buttons' class = 'settings-button'>
+          <v-btn icon @click = 'chooseLayer(2)'>
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+      </div>
 
       <!-- ================================================================== -->
 
@@ -163,11 +162,6 @@ export default {
     }
   },
   methods: {
-    closeLayer: function() {
-      this.flushSections()
-      this.flushLayers()
-      this.selectRateButtons()
-    },
   }
 
 }

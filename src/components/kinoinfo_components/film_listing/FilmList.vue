@@ -7,7 +7,7 @@
 </template>
 
 <script>
-// Ренерит список из компонентов FilmListSingleItem, берет список обьектов фильмов из Vuex хранилища
+// Ренерит список из компонентов FilmListSingleItem
 import FilmListSingleItem from '@/components/kinoinfo_components/film_listing/FilmListSingleItem'
 export default {
   //we need component to know what we send to it

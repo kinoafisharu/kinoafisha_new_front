@@ -1,4 +1,5 @@
 <template>
+ <!-- Оборачивает в себя картинку, если картинки нет, вызывает родительский метод ошибки -->
 <div class='postercontainer'>
 
   <div class="poster">
@@ -36,17 +37,17 @@ export default {
   }
 },
 methods: {
-  onErrorImage: async function() {
-    await this.$emit('imgerr')
+  onErrorImage: function() {
+      this.$emit('imgerr')
+      console.log('emitting');
   },
   onLoadImage: function() {
     console.log('sucess');
+    this.$emit('imgload')
   },
 },
 computed: {
   randomSrc: function() {
-    let randint = Math.floor(Math.random() * (999999 - 800000 + 1)) + 800000
-    console.log(randint);
     let src = `https://source.unsplash.com/350x540?nature,water`
     return src
   }
@@ -55,39 +56,11 @@ computed: {
 </script>
 
 <style scoped lang='scss'>
-@media (orientation: portrait) and (max-width: 600px) {
-    .postercontainer {
-        max-width: 100vw !important;
-        max-height: 100vh !important;
-        position: relative !important;
-    }
-    .poster {
-        width: 100% !important;
-        height: 100% !important;
-        text-align: center !important;
-    }
-
-    .poster-image {
-        height: 100% !important;
-        width: 100% !important;
-        img {
-            width: 100%;
-            height: 100%;
-        }
-      }
-    img {
-        max-width: 100% !important;
-        max-height: 100% !important;
-        vertical-align: top !important;
-    }
-  }
-
-
 
 
 .postercontainer {
-    max-width: 25%;
-    max-height: 50%;
+    max-width: 100%;
+    max-height: 100%;
     margin: 0 auto;
     align-items: stretch;
     position: relative;

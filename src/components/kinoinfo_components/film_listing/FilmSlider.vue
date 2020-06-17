@@ -1,4 +1,5 @@
 <template>
+<!-- Слайдер фильмов, рендерит AbsSlider c компонентами Фильма -->
 <div class = 'film-slider-container'>
   <div v-if = 'showSliderMenu' class='toggle-sort-component'>
         <div class="text-center">
@@ -97,12 +98,12 @@ export default {
       this.currentPage = 1
       if (value == 'New') {this.ordering = '-release__release,year'}
       else if (value == 'Popular') {this.ordering = '-imdb_votes'}
-      else if (value == 'ThisWeek') {this.datetime = 'laterbackfromnow,7'}
+      else if (value == 'ThisWeek') {this.datetime = 'backfromnow,7'}
+      else if (value == 'WeekForward') {this.datetime = 'forwardfromnow,7'}
+      else if (value == 'ThisMonth') {this.datetime = 'backfromnow,30'}
+      else if (value == 'MonthForward') {this.datetime = 'forwardfromnow,30'}
       this.$refs.AbsSlider.update(this.ordering, this.datetime)
     },
-    onClickZoomButton: function() {
-      this.$emit('zoom')
-    }
   },
   computed: {
   }

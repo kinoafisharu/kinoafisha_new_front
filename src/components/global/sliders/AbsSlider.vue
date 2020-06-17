@@ -1,4 +1,7 @@
 <template>
+<!-- Абстрактная модель слайдера
+несет в себе логику слайдера и основные методы
+оборачивает компонент, который необходимо отобразить в слайдах -->
   <div v-if = '!loading' class='swipercontainer'>
   <swiper ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd'>
       <swiper-slide v-for = 'obj in objarr' :key = 'obj.id'>
@@ -33,7 +36,7 @@ export default {
   components: {
   },
   async created() {
-    await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering)
+    await this.makeRequest(this.dispatcher, this.requestObject)
     this.loading = false
     console.log('req done')
   },
@@ -47,13 +50,12 @@ export default {
     return {
       loading: true,
       toggleData: null,
-      currentComp: this.component,
       apiaction: this.defaultapiaction,
       fields: this.defaultfields,
       ordering: this.defaultordering,
+      pagesize: null,
       dispatcher: this.defaultdispatcher,
       datetime: 'all',
-      objarr: null,
       swiperOption: {
         slidesPerView: 1,
         mousewheel: true,
@@ -76,7 +78,7 @@ export default {
         breakpoints: {
             900: {
               slidesPerView: 3,
-              spaceBetween: 30
+              spaceBetween: 10,
             },
             800: {
               slidesPerView: 2,
@@ -85,9 +87,6 @@ export default {
             640: {
               slidesPerView: 2,
               spaceBetween: 20,
-              navigation: {
-
-              }
             },
             320: {
               slidesPerView: 1,
@@ -100,33 +99,48 @@ export default {
   computed: {
     swiper() {
       return this.$refs.mySwiper.$swiper
+    },
+    requestObject:function() {
+      let obj = {
+          currentPage: this.currentPage,
+          values: this.fields,
+          action: this.apiaction,
+          ordering: this.ordering,
+          datetime: this.datetime,
+          page_size: this.pagesize,
+      }
+      return this.lodash.omitBy(obj, this.lodash.isNil)
     }
   },
   methods: {
     onReachEnd: async function() {
         this.currentPage ++
-        await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering, this.datetime)
+        await this.makeRequest(this.dispatcher, this.requestObject)
         this.swiper.slideTo(0, 0, false);
     },
-    update: async function(ordering, datetime) {
+    update: async function(ordering, datetime, pagesize) {
       this.currentPage = 1
       this.datetime = datetime
       this.ordering = ordering
-      await this.makeRequest(this.dispatcher, this.currentPage, this.fields, this.apiaction, this.ordering, this.datetime)
-    }
+      this.pagesize = pagesize
+      await this.makeRequest(this.dispatcher, this.requestObject)
+    },
   },
 }
-
 </script>
 
 <style scoped lang ='scss'>
-@media (max-width: 20%) {
-
+@media (orientation: portrait) {
+  ::v-deep .postercontainer {
+    width: 338px !important;
+    max-width: 100% !important;
+    height: 495px !important;
+  }
 }
 
 ::v-deep .postercontainer {
-  width: 363px;
-  height: 520px;
+  width: 380px;
+  height: 545px;
   max-width: 100% !important;
 }
 
@@ -148,6 +162,4 @@ export default {
   margin-top: 1.24%;
   margin-left: 1%;
 }
-
-
 </style>

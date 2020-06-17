@@ -1,6 +1,5 @@
 <template>
 
-
 <ImageFlexibleWrapper ref='ifw' :imgsrc = 'imgsrc' :title = 'title' @imgerr = 'onErrorImage' @imgload = 'onLoadImage'>
     <ActionElementsLayer   :description='description'
                             :title='title'
@@ -71,8 +70,8 @@ export default {
     }
   },
   computed: {
-    imgsrc:{
-      get: function() {
+    imgsrc() {
+      if (!this.imgErr) {
         if (this.kid) {
           let kid = this.kid
           let thousand = Math.trunc(Number(kid) / 1000) + 1 // какая тысяча. используется в URL.
@@ -82,21 +81,23 @@ export default {
         } else {
           return null
         }
-    },
-    set: function() {
-
-    }
+      } else {
+        return 'https://source.unsplash.com/350x540?nature,water'
+      }
     }
 },
   methods: {
-     onErrorImage: async function() {
-        if (this.errcount == 0) this.imgTail = '-000.jpg'
-        else if (this.errcount == 1) this.imgTail = '-001.png'
-        else if (this.errcount == 2) this.imgTail = '-000.png'
-        else if (this.errcount == 3) this.imgTail = '-008.jpg'
-        else if (this.errcount == 4) this.imgTail = '-005.jpg'
-        else if (this.errcount == 5) this.imgTail = '-020.jpg'
-        else if (this.errcount == 6) this.imgTail = '-002.jpg'
+     onErrorImage: function() {
+        if (this.errcount == 0  & !this.imgLoaded) this.imgTail = '-002.jpg'
+        else if (this.errcount == 1 & !this.imgLoaded) this.imgTail = '-000.jpg'
+        else if (this.errcount == 2 & !this.imgLoaded) this.imgTail = '-000.png'
+        else if (this.errcount == 3 & !this.imgLoaded) this.imgTail = '-001.png'
+        else if (this.errcount == 4 & !this.imgLoaded) this.imgTail = '-003.jpg'
+        else if (this.errcount == 5 & !this.imgLoaded) this.imgTail = '-004.jpg'
+        else if (this.errcount == 6 & !this.imgLoaded) this.imgTail = '-005.jpg'
+        else if (this.errcount == 7 & !this.imgLoaded) this.imgTail = '-006.jpg'
+        else if (this.errcount == 8 & !this.imgLoaded) this.imgTail = '-008.jpg'
+        else if (this.errcount == 9 & !this.imgLoaded) this.imgTail = '-020.jpg'
         else this.imgErr = true
         console.log(this.errcount);
         this.errcount ++
@@ -111,67 +112,10 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-@media (orientation: portrait) and (max-width: 600px) {
-    .postercontainer {
-        max-width: 100vw !important;
-        max-height: 100vh !important;
-        position: relative !important;
-    }
-    .poster {
-        width: 100% !important;
-        height: 100% !important;
-        text-align: center !important;
-    }
-    .poster-image {
-        max-width: 100% !important;
-        max-height: 100% !important;
-    }
-    img {
-        max-width: 100% !important;
-        max-height: 100% !important;
-        vertical-align: top !important;
-    }
-}
 
 #image-flexible-wrapper {
   z-index: -1;
 }
-
-
-::v-deep .postercontainer {
-    max-width: 25%;
-    max-height: 50%;
-    margin: 0 auto;
-    align-items: stretch;
-    position: relative;
-    .poster {
-        max-width: 100%;
-        max-height: 100%;
-        img {
-            display: flex;
-            flex-direction: column;
-        }
-
-    }
-}
-
-
-
-::v-deep .poster {
-    position: relative;
-    text-align: center;
-    flex: 1;
-    height: 100%;
-    .poster-image {
-        height: 100%;
-        width: 100%;
-        img {
-            width: 100%;
-            height: 100%;
-        }
-    }
-  }
-
 
 .fade-enter-active,
 .fade-leave-active {
