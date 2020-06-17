@@ -1,4 +1,5 @@
 <script>
+// Миксин логики активного слоя элементов
 export default {
   name: 'action-elements-layer-mixin',
   data () {

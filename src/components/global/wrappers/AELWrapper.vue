@@ -1,4 +1,6 @@
 <template>
+<!-- Враппер активных элементов, оборачивает активные елементы
+и рендерит в себе сообщения об ошибках -->
   <div id="action-elements-layer">
     <div class = 'rate-alert'>
         <v-alert

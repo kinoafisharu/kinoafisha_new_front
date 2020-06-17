@@ -1,4 +1,5 @@
 <template>
+ <!-- Оборачивает в себя картинку, если картинки нет, вызывает родительский метод ошибки -->
 <div class='postercontainer'>
 
   <div class="poster">
@@ -58,8 +59,8 @@ computed: {
 
 
 .postercontainer {
-    max-width: 25%;
-    max-height: 50%;
+    max-width: 100%;
+    max-height: 100%;
     margin: 0 auto;
     align-items: stretch;
     position: relative;

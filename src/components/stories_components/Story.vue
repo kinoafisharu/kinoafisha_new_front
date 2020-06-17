@@ -1,4 +1,5 @@
 <template>
+<!-- Компонент истории, отображает обьект истории в виде постера с акт. елементами -->
   <div class = 'poster-block'>
     <ImageFlexibleWrapper>
       <transition name = 'fade'>

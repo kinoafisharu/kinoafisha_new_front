@@ -1,4 +1,5 @@
 <template>
+<!-- Карточка продукта либо сайта -->
 <v-card
     class="mx-auto"
     max-width="400"

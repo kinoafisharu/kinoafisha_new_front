@@ -1,4 +1,5 @@
 <template>
+<!-- Слайдер историй, рендерит в себе компонент абстрактного слайдера с постерами историй -->
 <div class = 'story-slider-wrapper'>
   <div class='toggle-sort-component'>
         <div v-if = 'showSliderMenu' class="text-center">

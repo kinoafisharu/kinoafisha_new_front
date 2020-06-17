@@ -1,4 +1,7 @@
 <template>
+<!-- Абстрактная модель слайдера
+несет в себе логику слайдера и основные методы
+оборачивает компонент, который необходимо отобразить в слайдах -->
   <div v-if = '!loading' class='swipercontainer'>
   <swiper ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd'>
       <swiper-slide v-for = 'obj in objarr' :key = 'obj.id'>
@@ -137,7 +140,7 @@ export default {
 
 ::v-deep .postercontainer {
   width: 380px;
-  height: 550px;
+  height: 545px;
   max-width: 100% !important;
 }
 

@@ -1,4 +1,5 @@
 <template>
+<!-- Активный слой историй, для отображения слоев кнопок итд -->
   <AELWrapper>
     <transition name = 'fade'>
       <component  :is = 'currentLayer'
@@ -67,7 +68,7 @@
 </template>
 
 <script>
-// Слой активных элементов для постера kinoinfo
+// Слой активных элементов для историй
 // Берет описанные ниже пропсы, список слоев необходимо описать в Data (layers) в порядке их переключения
 // Используются динамические компоненты (слои)
 import SettingsButton from "@/components/global/buttons/SettingsButton"

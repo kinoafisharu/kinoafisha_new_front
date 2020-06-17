@@ -162,11 +162,6 @@ export default {
     }
   },
   methods: {
-    closeLayer: function() {
-      this.flushSections()
-      this.flushLayers()
-      this.selectRateButtons()
-    },
   }
 
 }

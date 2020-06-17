@@ -1,5 +1,10 @@
 <template>
   <MainLayout>
+    <template v-slot:overlay>
+      <InfoOverlay  v-if = 'currentObj'
+                    :title = "currentObj.name[0] ? currentObj.name[0].name : 'No title'"
+                    :text = "currentObj.description ? currentObj.description : 'No text'"/>
+    </template>
     <template v-slot:filter-expansion-menu>
       <v-expansion-panels>
         <v-expansion-panel>
@@ -25,7 +30,7 @@
                dense
              ></v-select>
            </v-col>
-           <v-col class="d-flex" cols="20" sm="16">
+           <v-col class="d-flex" cols="20" sm="16" v-if = 'showSelections'>
             <v-select
                v-model = 'filter'
               :items="['На этой неделе в кинотеатрах', 'На этой неделе онлайн', 'Лучшее в кинотеатрах', 'Лучшее онлайн', 'Бокс-офис уикенда', 'Топ 250']"
@@ -41,7 +46,7 @@
     <template v-slot:component-slot>
       <FilmSlider ref='obj' defaultapiaction = 'getval' :defaultordering = 'filmdefaultordering'/>
     </template>
-    <template v-slot:expansion-menu>
+    <template v-slot:expansion-menu v-if = 'showExpMenu'>
       <div v-for = 'element in expMenuElements' :key = 'element.value'>
         <v-expansion-panels>
           <v-expansion-panel>
@@ -57,11 +62,21 @@
 <script>
 import FilmSlider from "@/components/kinoinfo_components/film_listing/FilmSlider"
 import MainLayout from "@/components/global/layouts/MainLayout"
+import InfoOverlay from "@/components/global/overlays/InfoOverlay"
+import { bus } from "@/bus/bus.js"
 export default {
   name: 'slide-view',
   components: {
     FilmSlider,
     MainLayout,
+    InfoOverlay,
+  },
+  mounted() {
+    bus.$on('overlay', (obj) => {
+      this.overlay = !this.overlay
+      this.currentObj = obj
+      console.log(this.currentObj);
+    })
   },
   data () {
     return {
@@ -90,8 +105,12 @@ export default {
         {text: "Мегакритик", value: '6'},
       ],
       filter: null,
+      overlay: false,
       drawer: null,
       menu: false,
+      length: 3,
+      window: 0,
+      currentObj: null,
       filmdefaultordering: '-imdb_votes',
     }
   },
@@ -99,7 +118,7 @@ export default {
     filter(val) {
       this.$refs.obj.onClickToggleSortButton(val)
     }
-  }
+  },
 }
 
 </script>

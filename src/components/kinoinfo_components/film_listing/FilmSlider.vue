@@ -1,4 +1,5 @@
 <template>
+<!-- Слайдер фильмов, рендерит AbsSlider c компонентами Фильма -->
 <div class = 'film-slider-container'>
   <div v-if = 'showSliderMenu' class='toggle-sort-component'>
         <div class="text-center">
