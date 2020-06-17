@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import StorySlider from '@/components/stories_components/story_listing/StorySlider'
 Vue.use(VueRouter)
 // Router takes one component defined in views to display the path page
 // Роутер берет по компоненту из views для отображения его при соответствующем GET запросе
@@ -10,7 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import("@/views/Home.vue")
+    component: () => import("@/views/global_views/Home.vue")
 
   },
   {
@@ -31,32 +30,16 @@ const routes = [
     props: true,
   },
   {
-    path: '/slide',
-    component: () => import('@/views/global_views/SlideView.vue'),
-    name: 'slide',
+    path: '/kinoafisha',
+    component: () => import('@/views/kinoinfo_views/FilmSlideView'),
+    props: {routeName: 'Films'},
+    name: 'kinoafisha',
   },
   {
-    path: '/filmslide',
-    component: () => import('@/components/kinoinfo_components/film_listing/FilmSlider.vue'),
-    props: {defaultapiaction: 'getval'},
-    name: 'film-slide',
-  },
-  {
-    path: '/storyslide/',
-    component: StorySlider,
-    props: {defaultapiaction: 'getval'},
-  },
-  {
-    path: '/filmslide/popular',
-    component: () => import('@/components/kinoinfo_components/film_listing/FilmSlider.vue'),
-    props: {defaultapiaction: 'getval', defaultordering: '-imdb_rate'},
-    root: true,
-  },
-  {
-    path: '/filmslide/new',
-    component: () => import('@/components/kinoinfo_components/film_listing/FilmSlider.vue'),
-    props: {defaultapiaction: 'getval', defaultordering: '-year'},
-    root: true,
+    path: '/stories',
+    component: () => import('@/views/stories_views/StorySlideView'),
+    props: {routeName: 'Stories'},
+    name: 'stories',
   },
 
 

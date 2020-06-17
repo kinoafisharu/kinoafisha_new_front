@@ -75,7 +75,7 @@ export default {
         breakpoints: {
             900: {
               slidesPerView: 3,
-              spaceBetween: 30
+              spaceBetween: 10,
             },
             800: {
               slidesPerView: 2,
@@ -84,9 +84,6 @@ export default {
             640: {
               slidesPerView: 2,
               spaceBetween: 20,
-              navigation: {
-
-              }
             },
             320: {
               slidesPerView: 1,
@@ -127,17 +124,20 @@ export default {
     },
   },
 }
-
 </script>
 
 <style scoped lang ='scss'>
-@media (max-width: 20%) {
-
+@media (orientation: portrait) {
+  ::v-deep .postercontainer {
+    width: 338px !important;
+    max-width: 100% !important;
+    height: 495px !important;
+  }
 }
 
 ::v-deep .postercontainer {
-  width: 363px;
-  height: 520px;
+  width: 380px;
+  height: 550px;
   max-width: 100% !important;
 }
 
@@ -159,6 +159,4 @@ export default {
   margin-top: 1.24%;
   margin-left: 1%;
 }
-
-
 </style>

@@ -32,11 +32,11 @@
                           title="Авторизация"/>
 
 
-      <!-- SETTINGS BUTTON -->
-      <SettingsButton v-if = "show_second_layer_buttons"
-                          class = 'settings-button'
-                          @click.native = 'chooseLayer(2)'
-                          buttonimagesource = "settings.png"/>
+      <div v-if = 'show_second_layer_buttons' class = 'settings-button'>
+          <v-btn icon @click = 'chooseLayer(2)'>
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+      </div>
 
 
       <!-- ================================================================== -->
@@ -165,14 +165,9 @@ export default {
     bottom: 1.1%;
   }
 }
-.settings-little-button {
-  cursor: pointer;
-  width: 11.1%;
-  height: 102%;
-  margin-right: 10%;
-  ::v-deep img {
-    width: 99%;
-  }
+.settings-button {
+  margin-right: 13%;
+  margin-left: 22%;
 }
 
 ::v-deep .little-round-button-span-text {

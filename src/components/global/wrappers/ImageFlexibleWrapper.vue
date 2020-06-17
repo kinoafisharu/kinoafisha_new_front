@@ -55,34 +55,6 @@ computed: {
 </script>
 
 <style scoped lang='scss'>
-@media (orientation: portrait) and (max-width: 600px) {
-    .postercontainer {
-        max-width: 100vw !important;
-        max-height: 100vh !important;
-        position: relative !important;
-    }
-    .poster {
-        width: 100% !important;
-        height: 100% !important;
-        text-align: center !important;
-    }
-
-    .poster-image {
-        height: 100% !important;
-        width: 100% !important;
-        img {
-            width: 100%;
-            height: 100%;
-        }
-      }
-    img {
-        max-width: 100% !important;
-        max-height: 100% !important;
-        vertical-align: top !important;
-    }
-  }
-
-
 
 
 .postercontainer {
