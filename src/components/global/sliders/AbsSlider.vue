@@ -3,12 +3,23 @@
 несет в себе логику слайдера и основные методы
 оборачивает компонент, который необходимо отобразить в слайдах -->
   <div v-if = '!loading' class='swipercontainer'>
-  <swiper ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd'>
+  <swiper ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd' @reachBeginning = 'onReachBeginning'>
+      <swiper-slide v-if = 'currentPage > 1'>
+        <div class = 'absslider-loading-slide'>
+          <v-progress-circular
+            :size="150"
+            :width="14"
+            color="primary"
+            indeterminate
+          ></v-progress-circular>
+        </div>
+
+      </swiper-slide>
       <swiper-slide v-for = 'obj in objarr' :key = 'obj.id'>
         <slot v-bind:obj = 'obj'></slot>
       </swiper-slide>
       <swiper-slide>
-        <div class = 'absslider-loading-slide'>
+        <div class = 'absslider-loading-slide' v-if = 'this.objarr.length == 5'>
           <v-progress-circular
             :size="150"
             :width="14"
@@ -59,6 +70,7 @@ export default {
       swiperOption: {
         slidesPerView: 1,
         mousewheel: true,
+        allowSlidePrev: true,
         keyboard: {
              enabled: true,
            },
@@ -116,7 +128,12 @@ export default {
     onReachEnd: async function() {
         this.currentPage ++
         await this.makeRequest(this.dispatcher, this.requestObject)
-        this.swiper.slideTo(0, 0, false);
+        this.swiper.slideTo(1, 0, false);
+    },
+    onReachBeginning: async function() {
+      this.currentPage --
+      await this.makeRequest(this.dispatcher, this.requestObject)
+      this.swiper.slideTo(5, 0, false);
     },
     update: async function(ordering, datetime, pagesize) {
       this.currentPage = 1
@@ -130,20 +147,31 @@ export default {
 </script>
 
 <style scoped lang ='scss'>
-@media (orientation: portrait) {
+@media (max-width: 1263px) {
   ::v-deep .postercontainer {
-    width: 338px !important;
+    height: 404px !important;
+  }
+}
+@media (orientation: portrait) and (max-width: 396px) {
+  ::v-deep .postercontainer {
+    width: 340px !important;
     max-width: 100% !important;
     height: 495px !important;
   }
 }
 
-::v-deep .postercontainer {
-  width: 380px;
-  height: 545px;
-  max-width: 100% !important;
+@media (orientation: portrait) and (max-width: 330px) {
+  ::v-deep .postercontainer {
+    width: 333px !important;
+    max-width: 100% !important;
+    height: 415px !important;
+  }
 }
 
+::v-deep .postercontainer {
+  width: 378px;
+  height: 533px;
+}
 
 .absslider-loading-slide {
   margin: 0 auto;

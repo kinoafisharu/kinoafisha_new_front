@@ -56,7 +56,7 @@
                           v-if = 'show_rate_layer_buttons'/>
 
       <!-- AGE RESTRICTION IF EXISTS -->
-      <p v-if = 'ageRestriction' id="age-restriction">{{ageRestriction}}</p>
+      <p v-if = 'ageRestriction | show_rate_layer_buttons' id="age-restriction">{{ageRestriction}}</p>
     </AELBottomSectionWrapper>
 
 
