@@ -72,6 +72,7 @@
 <script>
 import AbsSlider from "@/components/global/sliders/AbsSlider"
 import FilmDetail from "@/components/kinoinfo_components/film_detail/FilmDetail"
+import { bus } from '@/bus/bus.js'
 import 'swiper/css/swiper.css'
 
 export default {
@@ -80,6 +81,13 @@ export default {
   components: {
     AbsSlider,
     FilmDetail
+  },
+  mounted() {
+    bus.$on('clean', ()=> {
+      this.$refs.AbsSlider.update('-imdb_votes', null, {currentPage: 1})
+      this.ordering = '-imdb_votes'
+      this.datetime = null
+    })
   },
   props: {
     defaultapiaction: String,
@@ -91,17 +99,21 @@ export default {
       ordering: this.defaultordering,
       showMenu: false,
       datetime: null,
+      infoValue: 'Киноафиша',
     }
   },
   methods: {
     onClickToggleSortButton: function(value) {
-      this.currentPage = 1
       if (value == 'New') {this.ordering = '-release__release,year'}
       else if (value == 'Popular') {this.ordering = '-imdb_votes'}
       else if (value == 'ThisWeek') {this.datetime = 'backfromnow,7'}
       else if (value == 'WeekForward') {this.datetime = 'forwardfromnow,7'}
       else if (value == 'ThisMonth') {this.datetime = 'backfromnow,30'}
       else if (value == 'MonthForward') {this.datetime = 'forwardfromnow,30'}
+      else if (value == null) {
+        this.datetime = null
+        this.ordering = '-imdb_votes'
+      }
       this.$refs.AbsSlider.update(this.ordering, this.datetime)
     },
   },
