@@ -89,6 +89,10 @@ export default {
 
 <style scoped lang ='scss'>
 
+::v-deep .postercontainer {
+  max-width: 100% !important;
+  max-height: 100% !important;  
+}
 .toggle-component {
   display: flex;
   flex-direction: row;

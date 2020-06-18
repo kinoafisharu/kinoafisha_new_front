@@ -2,24 +2,14 @@
 <!-- Абстрактная модель слайдера
 несет в себе логику слайдера и основные методы
 оборачивает компонент, который необходимо отобразить в слайдах -->
-  <div v-if = '!loading' class='swipercontainer'>
-  <swiper ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd' @reachBeginning = 'onReachBeginning'>
-      <swiper-slide v-if = 'currentPage > 1'>
-        <div class = 'absslider-loading-slide'>
-          <v-progress-circular
-            :size="150"
-            :width="14"
-            color="primary"
-            indeterminate
-          ></v-progress-circular>
-        </div>
-
-      </swiper-slide>
+  <div class='swipercontainer'>
+  <transition name = 'fade'>
+  <swiper v-if = '!loading' ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd' @reachBeginning = 'onReachBeginning'>
       <swiper-slide v-for = 'obj in objarr' :key = 'obj.id'>
         <slot v-bind:obj = 'obj'></slot>
       </swiper-slide>
       <swiper-slide>
-        <div class = 'absslider-loading-slide' v-if = 'this.objarr.length == 5'>
+        <div class = 'absslider-loading-slide'>
           <v-progress-circular
             :size="150"
             :width="14"
@@ -33,7 +23,24 @@
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
   </swiper>
+  </transition>
+    <div v-if = 'loading'>
+      <v-row>
+          <v-col
+            cols="12"
+            md="5"
+            sm='10'
+          >
+        <v-skeleton-loader
+          height="200"
+          type="card"
+        >
+        </v-skeleton-loader>
+      </v-col>
+    </v-row>
+  </div>
 </div>
+
 </template>
 
 
@@ -64,7 +71,8 @@ export default {
       apiaction: this.defaultapiaction,
       fields: this.defaultfields,
       ordering: this.defaultordering,
-      pagesize: null,
+      pagesize: 50,
+      scelets: 2,
       dispatcher: this.defaultdispatcher,
       datetime: 'all',
       swiperOption: {
@@ -189,5 +197,14 @@ export default {
 .text-center {
   margin-top: 1.24%;
   margin-left: 1%;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 2s;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>

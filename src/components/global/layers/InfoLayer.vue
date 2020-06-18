@@ -1,6 +1,6 @@
 <template>
   <!-- Главный блок -->
-  <div class = 'infolayer'>
+  <div v-once class = 'infolayer'>
 
     <!-- Блок заголовков -->
     <div class = 'title-block'>
@@ -41,7 +41,7 @@
           <v-btn
             dark
             fab
-            x-small
+            small
             color="secondary"
             @click = 'showMainLayoutOverlay'
           >
@@ -100,7 +100,12 @@ import { bus } from '@/bus/bus.js'
 <style scoped lang = 'scss'>
 
 
-
+  .zoom-button {
+    position: absolute;
+    left: 0;
+    top: 2%;
+    opacity: 0.4;
+  }
 
   .infolayer {
     width: inherit;
