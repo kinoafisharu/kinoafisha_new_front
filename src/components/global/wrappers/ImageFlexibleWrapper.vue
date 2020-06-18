@@ -1,20 +1,20 @@
 <template>
  <!-- Оборачивает в себя картинку, если картинки нет, вызывает родительский метод ошибки -->
 <div class='postercontainer'>
-
+  <transition name= "fade">
   <div class="poster">
     <!-- Отображение постера елемента если такой есть -->
-    <img ref ='img' v-if = 'imgsrc && !imgErr' class="poster-image" :src="imgsrc" @error = 'onErrorImage' @load = 'onLoadImage'>
+      <img ref ='img' v-if = 'imgsrc && !imgErr' class="poster-image" :src="imgsrc" @error = 'onErrorImage' @load = 'onLoadImage'>
+
     <div v-else>
       <img class="poster-image" :src = 'randomSrc'/>
       <div v-if ='!imgsrc || imgErr' id = 'exttitle'>
-        <transition name = 'fade'>
         <h1 id = 'exttitle'>{{title}}</h1>
-        </transition>
       </div>
     </div>
     <slot></slot>
   </div>
+  </transition>
 </div>
 
 </template>

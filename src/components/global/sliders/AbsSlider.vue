@@ -4,7 +4,7 @@
 оборачивает компонент, который необходимо отобразить в слайдах -->
   <div class='swipercontainer'>
   <transition name = 'fade'>
-  <swiper v-if = '!loading' ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd' @reachBeginning = 'onReachBeginning'>
+  <swiper v-if = '!loading' ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd'>
       <swiper-slide v-for = 'obj in objarr' :key = 'obj.id'>
         <slot v-bind:obj = 'obj'></slot>
       </swiper-slide>
@@ -71,7 +71,7 @@ export default {
       apiaction: this.defaultapiaction,
       fields: this.defaultfields,
       ordering: this.defaultordering,
-      pagesize: 50,
+      pagesize: 25,
       scelets: 2,
       dispatcher: this.defaultdispatcher,
       datetime: 'all',
@@ -136,18 +136,12 @@ export default {
     onReachEnd: async function() {
         this.currentPage ++
         await this.makeRequest(this.dispatcher, this.requestObject)
-        this.swiper.slideTo(1, 0, false);
+        this.swiper.slideTo(0, 0, false);
     },
-    onReachBeginning: async function() {
-      this.currentPage --
-      await this.makeRequest(this.dispatcher, this.requestObject)
-      this.swiper.slideTo(5, 0, false);
-    },
-    update: async function(ordering, datetime, pagesize) {
+    update: async function(ordering, datetime) {
       this.currentPage = 1
       this.datetime = datetime
       this.ordering = ordering
-      this.pagesize = pagesize
       await this.makeRequest(this.dispatcher, this.requestObject)
     },
   },
@@ -155,11 +149,7 @@ export default {
 </script>
 
 <style scoped lang ='scss'>
-@media (max-width: 1263px) {
-  ::v-deep .postercontainer {
-    height: 404px !important;
-  }
-}
+
 @media (orientation: portrait) and (max-width: 396px) {
   ::v-deep .postercontainer {
     width: 340px !important;
@@ -168,7 +158,7 @@ export default {
   }
 }
 
-@media (orientation: portrait) and (max-width: 330px) {
+@media (orientation: portrait) and (max-width: 323px) {
   ::v-deep .postercontainer {
     width: 333px !important;
     max-width: 100% !important;

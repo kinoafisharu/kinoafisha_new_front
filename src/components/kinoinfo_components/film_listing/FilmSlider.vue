@@ -84,7 +84,7 @@ export default {
   },
   mounted() {
     bus.$on('clean', ()=> {
-      this.$refs.AbsSlider.update('-imdb_votes', null, {currentPage: 1})
+      this.$refs.AbsSlider.update('-imdb_votes', null, {currentPage: 1, page_size: 25})
       this.ordering = '-imdb_votes'
       this.datetime = null
     })
