@@ -78,12 +78,14 @@ export default {
   },
   data () {
     return {
+      // Иконки соц сетей для футера
       icons: [
         'mdi-facebook',
         'mdi-twitter',
         'mdi-linkedin',
         'mdi-instagram',
       ],
+      //
       filterItems: [
         {text: 'Новые', value: 'New'},
         {text: 'Популярные', value: 'Popular'},
@@ -102,26 +104,24 @@ export default {
         {text: "Обзоры, мнения и комментарии", value: '5'},
         {text: "Мегакритик", value: '6'},
       ],
-      filter: 'Popular',
-      timeFilter: null,
-      overlay: false,
-      drawer: null,
-      menu: false,
-      length: 3,
-      window: 0,
-      currentTitle: 'Киноафиша',
-      currentObj: null,
+      filter: 'Popular', //   Значение фильтра по рейтингам и прочему
+      timeFilter: null,  // Значение фильтра по времени
+      overlay: false, // Значение оверлея, меняется через шину
+      currentTitle: 'Киноафиша', // Текущий заголовк в меню
+      currentObj: null, // Обьект полученный для overlay
       filmdefaultordering: '-imdb_votes',
     }
   },
   watch: {
+    // Следит за значением сортировки, оповещает слайер фильмов при изменении
     filter(val) {
       this.$refs.obj.onClickToggleSortButton(val)
       let title = this.lodash.find(this.filterItems, function (item){
-  return item.value === val;
-});
+      return item.value === val;
+    });
       this.currentTitle = title.text
     },
+    // Cледит за значением выборки по времени
     timeFilter(val) {
       this.$refs.obj.onClickToggleSortButton(val)
     }

@@ -57,6 +57,7 @@
   <AbsSlider  @zoom = 'onClickZoomButton'
               ref = 'AbsSlider'
               defaultdispatcher = 'getFilms'
+              :objs = 'objs'
               :defaultordering = 'ordering'
               :defaultapiaction = 'defaultapiaction'
               defaultfields = 'id,name,genre,description,votes,kid,country,year,limits,imdb_votes,imdb_rate,persons'>
@@ -83,16 +84,18 @@ export default {
     FilmDetail
   },
   mounted() {
+    // Метод вызывается каждый раз когда происходит событие clean
+    // clean - переход на начальную точку, очистка всех фильтров
     bus.$on('clean', ()=> {
-      this.$refs.AbsSlider.update('-imdb_votes', null, {currentPage: 1, page_size: 25})
+      this.$refs.AbsSlider.update('-imdb_votes', null)
       this.ordering = '-imdb_votes'
       this.datetime = null
     })
   },
   props: {
-    defaultapiaction: String,
-    showSliderMenu: Boolean,
-    defaultordering: String,
+    defaultapiaction: String, //метод в апи
+    showSliderMenu: Boolean, //Включить Отключить встроенное меню слайдер
+    defaultordering: String, //  Сортировка по умолчанию
   },
   data() {
     return {
@@ -103,8 +106,9 @@ export default {
     }
   },
   methods: {
+    //  Обновляет слайдер с новыми праметрами сортировки
     onClickToggleSortButton: function(value) {
-      if (value == 'New') {this.ordering = '-release__release,year'}
+      if (value == 'New') {this.ordering = '-release__release,-year'}
       else if (value == 'Popular') {this.ordering = '-imdb_votes'}
       else if (value == 'ThisWeek') {this.datetime = 'backfromnow,7'}
       else if (value == 'WeekForward') {this.datetime = 'forwardfromnow,7'}
@@ -118,6 +122,9 @@ export default {
     },
   },
   computed: {
+    objs: function() {
+      return this.$store.getters.films
+    }
   }
 }
 </script>

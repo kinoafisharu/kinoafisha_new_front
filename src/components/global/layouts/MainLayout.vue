@@ -103,7 +103,7 @@
 
 </template>
 <script>
-import { bus } from "@/bus/bus.js"
+import { bus } from '@/bus/bus.js'
 export default {
   name: 'slide-view',
   components: {
@@ -130,24 +130,16 @@ export default {
         {text: 'Этот месяц', value: 'ThisMonth'},
         {text: 'Скоро выйдут', value: 'MonthForward'}
       ],
-      filter: null,
       drawer: null,
       menu: false,
-      toggleData: 'Films',
       search: false,
       publicPath: process.env.BASE_URL,
 
     }
   },
-  watch: {
-    filter(val) {
-      this.$refs.obj.onClickToggleSortButton(val)
-    }
-  },
   methods: {
     clean: function() {
       bus.$emit('clean')
-      console.log('cleaning');
     }
   }
 }

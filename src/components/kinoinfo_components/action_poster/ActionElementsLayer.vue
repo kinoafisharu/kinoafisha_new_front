@@ -1,4 +1,5 @@
 <template>
+  <!-- Слой активных елементов постера фильма -->
   <AELWrapper ref = 'AELWrapper'>
     <transition name = 'fade'>
       <component  :is = 'currentLayer'
@@ -77,7 +78,6 @@
 // Слой активных элементов для постера kinoinfo
 // Берет описанные ниже пропсы, список слоев необходимо описать в Data (layers) в порядке их переключения
 // Используются динамические компоненты (слои)
-import SettingsButton from "@/components/global/buttons/SettingsButton"
 import SettingsModal from "@/components/global/layers/SettingsModal"
 import ThirdLayer from "@/components/global/layers/ThirdLayer"
 import DislikeSectionTwoChoices from "@/components/global/buttons/button_sections/DislikeSectionTwoChoices"
@@ -94,7 +94,6 @@ import ActionElementsLayerMixin from "@/mixins/ActionElementsLayerMixin"
 export default {
   name: 'action-elements-layer',
   components: {
-    SettingsButton,
     LikeSectionThreeChoices,
     DislikeSectionTwoChoices,
     LittleRoundButton,
@@ -128,12 +127,15 @@ export default {
     }
   },
   computed: {
+    //  Рассчитывает текущие пропы для слоев
     currentProperties: function() {
         return { title: this.title, genre: this.genre, year: this.year, description: this.description, country: this.country, tohtml: this.tohtml, }
     },
+    // Рассчитывает пропы для секций
     sectionProperties: function() {
         return {sectionConfig: this.sectionConfig}
       },
+    // Фильтрация возраста на основе регулярного выражения
     ageRestriction: function() {
       let numberPattern = /\d+/g;
       if (this.limit) {
@@ -148,6 +150,7 @@ export default {
       }
 
     },
+    // Интегральный рейтинг (временная модель)
     ratecalced: function() {
       if (this.rate) {
         let r = this.rate
@@ -162,6 +165,7 @@ export default {
     }
   },
   methods: {
+    
   }
 
 }

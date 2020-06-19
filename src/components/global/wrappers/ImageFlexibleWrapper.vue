@@ -5,7 +5,7 @@
   <div class="poster">
     <!-- Отображение постера елемента если такой есть -->
       <img ref ='img' v-if = 'imgsrc && !imgErr' class="poster-image" :src="imgsrc" @error = 'onErrorImage' @load = 'onLoadImage'>
-
+    <!-- Выполняется если постера нет или изображение выдало ошибку -->
     <div v-else>
       <img class="poster-image" :src = 'randomSrc'/>
       <div v-if ='!imgsrc || imgErr' id = 'exttitle'>
@@ -37,10 +37,14 @@ export default {
   }
 },
 methods: {
+  // Реагирует на событие ошибки
+  // Если изображение выдает ошибку, генерирует событие imgerr
+  // imgerr используется в ActionPosterImage 
   onErrorImage: function() {
       this.$emit('imgerr')
       console.log('emitting');
   },
+  // Если картинка загрузилась - останавливает цикл в ActionPosterImage
   onLoadImage: function() {
     console.log('sucess');
     this.$emit('imgload')

@@ -30,6 +30,7 @@
           </div>
     </div>
   <AbsSlider  ref = 'AbsSlider'
+              :objs = 'objs'
               defaultdispatcher = 'getStories'
               :defaultordering = 'computeordering'
               :defaultapiaction = 'defaultapiaction'
@@ -82,6 +83,9 @@ export default {
     computeordering: function() {
       if (this.defaultordering) {return this.defaultordering}
       else {return this.ordering}
+    },
+    objs: function() {
+      return this.$store.getters.stories
     }
   }
 }
@@ -91,7 +95,7 @@ export default {
 
 ::v-deep .postercontainer {
   max-width: 100% !important;
-  max-height: 100% !important;  
+  max-height: 100% !important;
 }
 .toggle-component {
   display: flex;

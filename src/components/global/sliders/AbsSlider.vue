@@ -4,10 +4,14 @@
 оборачивает компонент, который необходимо отобразить в слайдах -->
   <div class='swipercontainer'>
   <transition name = 'fade'>
+  <!-- Сам слайдер, прогружается только тогда, когда получен массив обьектов
+      Получает массив с обьектами продуктов, отображает их в виде слайдера
+      Принцип работы - Data Iterator с динамическими запросами к API -->
   <swiper v-if = '!loading' ref = 'mySwiper' class="swiper" :options="swiperOption" @reachEnd = 'onReachEnd'>
-      <swiper-slide v-for = 'obj in objarr' :key = 'obj.id'>
+      <swiper-slide v-for = 'obj in objs' :key = 'obj.id'>
         <slot v-bind:obj = 'obj'></slot>
       </swiper-slide>
+      <!-- Слайд для зарузки в конце массива -->
       <swiper-slide>
         <div class = 'absslider-loading-slide'>
           <v-progress-circular
@@ -17,13 +21,13 @@
             indeterminate
           ></v-progress-circular>
         </div>
-
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div>
   </swiper>
   </transition>
+    <!-- Скелет слайдера при загрузке - Под Доделку!! WARNING-->
     <div v-if = 'loading'>
       <v-row>
           <v-col
@@ -40,14 +44,12 @@
     </v-row>
   </div>
 </div>
-
 </template>
 
 
 <script>
 import RequestMixin from "@/mixins/RequestMixin"
 import 'swiper/css/swiper.css'
-
 export default {
   name: 'abstract-slider',
   mixins: [RequestMixin,],
@@ -56,16 +58,17 @@ export default {
   async created() {
     await this.makeRequest(this.dispatcher, this.requestObject)
     this.loading = false
-    console.log('req done')
   },
   props: {
     defaultdispatcher: String,
     defaultfields: String,
     defaultapiaction: String,
     defaultordering: String,
+    objs: Array,
   },
   data() {
     return {
+      objarr: this.objs,
       loading: true,
       toggleData: null,
       apiaction: this.defaultapiaction,
@@ -120,6 +123,7 @@ export default {
     swiper() {
       return this.$refs.mySwiper.$swiper
     },
+    // Динамически обновляет информацию об обьекте для запроса
     requestObject:function() {
       let obj = {
           currentPage: this.currentPage,
@@ -133,18 +137,25 @@ export default {
     }
   },
   methods: {
+    // Событие - слайдер достиг конца, прогружается новый список обьектов
+    // Список прогружен - слайд к началу списка
     onReachEnd: async function() {
         this.currentPage ++
         await this.makeRequest(this.dispatcher, this.requestObject)
         this.swiper.slideTo(0, 0, false);
     },
+    // Метод принудительного обновления, принимает в качестве аргументов
+    // Тип сортировки, выборку по времени и обьект с параметрами
+    // Обновляет слайдер с новыми параметрами
     update: async function(ordering, datetime) {
       this.currentPage = 1
       this.datetime = datetime
       this.ordering = ordering
       await this.makeRequest(this.dispatcher, this.requestObject)
+      this.swiper.slideTo(0, 0, false);
     },
   },
+
 }
 </script>
 

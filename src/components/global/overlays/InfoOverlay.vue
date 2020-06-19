@@ -1,4 +1,5 @@
 <template>
+  <!-- Оверлей с пагинацией, может исопльзоваться для отображения различной информации -->
   <v-overlay z-index = 10 opacity = 0.80>
     <v-row justify = 'center'>
     <v-col sm='6'>
@@ -50,6 +51,7 @@ import { bus } from '@/bus/bus.js'
       }
     },
     computed: {
+      // Деление текста по регулярному выражению
       getTextItems: function() {
         let object = this.txtObj
         if (object.length >= 358) {
@@ -60,6 +62,7 @@ import { bus } from '@/bus/bus.js'
       }
     },
     methods: {
+      // Вызывает событие overlay в глобальной шине
       close() {
         bus.$emit('overlay')
       }

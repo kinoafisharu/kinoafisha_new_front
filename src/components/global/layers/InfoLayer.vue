@@ -36,7 +36,7 @@
     </div>
 
     <CrossButton class='cross-button' @click.native = 'close'/>
-
+    <!-- Кнопка отображения инфо в оверлее с горизонтальной пагинацией -->
     <div class = 'zoom-button'>
           <v-btn
             dark

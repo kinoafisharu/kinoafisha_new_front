@@ -1,4 +1,7 @@
 <template>
+  <!-- Набор кнопок лайков, 
+  принимает обьект с параметрами,
+  рендерит на их основе нужные кнопки -->
   <div id="like-section">
     <LittleRoundButton v-if = '!sectionConfig.excfirstOption' class = 'image' @click.native = 'emitParentLikeFunction(1, sectionConfig.likepath, sectionConfig.id)'
                         :buttonimagesource = 'sectionConfig.buttonimage1'

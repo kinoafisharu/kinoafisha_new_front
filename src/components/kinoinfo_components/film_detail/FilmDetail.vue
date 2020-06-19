@@ -1,4 +1,6 @@
 <template>
+  <!-- рендерит компонент ActionPosterImage, оборачивая его в доп. блок
+      в качестве данных о фильме принимает обьект obj -->
   <div class = 'poster-block'>
           <ActionPosterImage
           v-if = "obj"
@@ -21,9 +23,7 @@
 </template>
 
 <script>
-// Страница с детальным вывоом информации о фильме
-// На данный момент принимает обьект фильма
-// и рендерит компонент ActionPosterImage, оборачивая его в доп. блок
+
   import ActionPosterImage from "@/components/kinoinfo_components/action_poster/ActionPosterImage.vue"
 
   export default {
