@@ -13,43 +13,21 @@
     </template>
     <template v-slot:expansion-menu>
       <v-spacer></v-spacer>
-      <v-list>
-        <v-list-item-group>
-            <v-list-item>
-              <v-col class = "d-flex" cols="30" sm="16">
-               <v-select
-                  v-model = 'filter'
-                 :items="filterItems"
-                 item-value = 'value'
-                 item-text = 'text'
-
-                 label="Сортировка"
-
-               ></v-select>
-             </v-col>
-           </v-list-item>
-           <v-list-item>
-             <v-col class="d-flex" cols="20" sm="16">
-               <v-select
-                  v-model = 'timeFilter'
-                 :items="timeItems"
-
-                 label="Фильтры"
-
-               ></v-select>
-             </v-col>
-           </v-list-item>
-           <v-col class="d-flex" cols="20" sm="16" v-if = 'showSelections'>
-            <v-select
-               v-model = 'filter'
-              :items="['На этой неделе в кинотеатрах', 'На этой неделе онлайн', 'Лучшее в кинотеатрах', 'Лучшее онлайн', 'Бокс-офис уикенда', 'Топ 250']"
-
-              label="Подборки"
-              dense
-            ></v-select>
-          </v-col>
-        </v-list-item-group>
-      </v-list>
+      <div class = 'text-left'>
+        <v-list>
+          <v-list-item-group v-model="filter">
+            <v-list-item
+              v-for="one in filterItems"
+              :key="one.text"
+              :value = 'one.value'
+            >
+              <v-list-item-content>
+                <v-list-item-title v-text="one.text"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </div>
     </template>
   </MainLayout>
 </template>
@@ -89,12 +67,9 @@ export default {
       filterItems: [
         {text: 'Новые', value: 'New'},
         {text: 'Популярные', value: 'Popular'},
-      ],
-      timeItems: [
         {text: 'Фильмы этой недели', value: 'ThisWeek'},
         {text: 'Фильмы этого месяца', value: 'ThisMonth'},
         {text: 'Скоро на экранах', value: 'MonthForward'},
-        {text: 'Все', value: null},
       ],
       expMenuElements: [
         {text: "В кинотеатрах", value: '1'},
@@ -106,9 +81,9 @@ export default {
       ],
       filter: 'Popular', //   Значение фильтра по рейтингам и прочему
       timeFilter: null,  // Значение фильтра по времени
-      overlay: false, // Значение оверлея, меняется через шину
+      overlay: false, // Значение оверлея, изменяется событием в шине событий
       currentTitle: 'Киноафиша', // Текущий заголовк в меню
-      currentObj: null, // Обьект полученный для overlay
+      currentObj: null, // Обьект полученный для модалки инфо (горизонтальная пагинация)
       filmdefaultordering: '-imdb_votes',
     }
   },
@@ -116,15 +91,12 @@ export default {
     // Следит за значением сортировки, оповещает слайер фильмов при изменении
     filter(val) {
       this.$refs.obj.onClickToggleSortButton(val)
+      console.log(val);
       let title = this.lodash.find(this.filterItems, function (item){
       return item.value === val;
     });
       this.currentTitle = title.text
     },
-    // Cледит за значением выборки по времени
-    timeFilter(val) {
-      this.$refs.obj.onClickToggleSortButton(val)
-    }
   },
 }
 

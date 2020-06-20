@@ -61,7 +61,6 @@
               :defaultordering = 'ordering'
               :defaultapiaction = 'defaultapiaction'
               defaultfields = 'id,name,genre,description,votes,kid,country,year,limits,imdb_votes,imdb_rate,persons'>
-
     <template v-slot:default="slotProps">
         <FilmDetail :obj = 'slotProps.obj'/>
     </template>
@@ -83,7 +82,7 @@ export default {
     AbsSlider,
     FilmDetail
   },
-  mounted() {
+  async mounted() {
     // Метод вызывается каждый раз когда происходит событие clean
     // clean - переход на начальную точку, очистка всех фильтров
     bus.$on('clean', ()=> {
@@ -108,8 +107,14 @@ export default {
   methods: {
     //  Обновляет слайдер с новыми праметрами сортировки
     onClickToggleSortButton: function(value) {
-      if (value == 'New') {this.ordering = '-release__release,-year'}
-      else if (value == 'Popular') {this.ordering = '-imdb_votes'}
+      if (value == 'New') {
+        this.ordering = '-release__release,-year'
+        this.datetime = null
+      }
+      else if (value == 'Popular') {
+        this.ordering = '-imdb_votes'
+        this.datetime = null
+      }
       else if (value == 'ThisWeek') {this.datetime = 'backfromnow,7'}
       else if (value == 'WeekForward') {this.datetime = 'forwardfromnow,7'}
       else if (value == 'ThisMonth') {this.datetime = 'backfromnow,30'}
@@ -130,10 +135,6 @@ export default {
 </script>
 
 <style scoped lang ='scss'>
-
-
-
-
 ::v-deep #bottom-section {
   height: 6.5%;
 }
