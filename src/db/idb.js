@@ -35,7 +35,7 @@ export default {
 async deleteFilms(film) {
   const db = await this.getDb()
   return new Promise(resolve => {
-    const trans = db.transaction([STORAGE_NAME], window.webkitIDBTtransaction.READ_WRITE)
+    const trans = db.transaction([STORAGE_NAME], 'readwrite')
     trans.oncomplete = () => {
       resolve()
     }
@@ -61,7 +61,6 @@ async getFilms (page) {
           films = request.result.films
         } else {
           films = null
-          alert('err')
         }
       };
 
@@ -71,19 +70,17 @@ async getFilms (page) {
 async saveFilms (films, id) {
   let db = await this.getDb()
   return new Promise(resolve => {
-    let trans = db.transaction([STORAGE_NAME], window.webkitIDBTtransaction.READ_WRITE)
+    let trans = db.transaction([STORAGE_NAME], 'readwrite')
     trans.oncomplete = () => {
       resolve()
     }
     let store = trans.objectStore(STORAGE_NAME)
-    console.log('saving films');
-    console.log(films);
-    //for (let i = 0; i < films.length; i++) {
-    //  store.put(films[i])
-    let fms = {id: id, films: films}
-    console.log(fms);
-    store.put(fms)
-//}
+    if (id) {
+      let fms = {id: id, films: films}
+      console.log(fms);
+      store.put(fms)
+    }
+
 
   })
 }
