@@ -82,16 +82,7 @@
       absolute
       temporary
     >
-    <v-list-item>
-      <v-list-item-content>
-        <v-list-item-title class="title">
-          {{toggleData}}
-        </v-list-item-title>
-        <v-list-item-subtitle>
-          Меню в разработке
-        </v-list-item-subtitle>
-      </v-list-item-content>
-    </v-list-item>
+      <slot name='expansion-menu-head'></slot>
 
       <v-divider></v-divider>
 

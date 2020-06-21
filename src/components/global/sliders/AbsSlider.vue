@@ -61,6 +61,7 @@ export default {
   },
   props: {
     defaultdispatcher: String,
+    defaultdatetime: String,
     defaultfields: String,
     defaultapiaction: String,
     defaultordering: String,
@@ -75,9 +76,8 @@ export default {
       fields: this.defaultfields,
       ordering: this.defaultordering,
       pagesize: 25,
-      scelets: 2,
       dispatcher: this.defaultdispatcher,
-      datetime: null,
+      datetime: this.defaultdatetime,
       swiperOption: {
         slidesPerView: 1,
         mousewheel: true,
@@ -86,7 +86,6 @@ export default {
              enabled: true,
            },
         pagination: {
-
           clickable: true,
         },
         navigation: {

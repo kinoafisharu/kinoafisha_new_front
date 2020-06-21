@@ -1,5 +1,5 @@
 <template>
-  <MainLayout :title = 'currentTitle'>
+  <MainLayout :title = 'currentTitle' ref = 'ml'>
     <template v-slot:overlay>
       <InfoOverlay  v-if = 'currentObj'
                     :title = "currentObj.name ? currentObj.name : 'No title'"
@@ -9,14 +9,42 @@
 
     </template>
     <template v-slot:component-slot>
-      <FilmSlider ref='obj' defaultapiaction = 'getval' :defaultordering = 'filmdefaultordering'/>
+      <FilmSlider
+      ref='obj'
+      defaultapiaction = 'getval'
+      :sort_and_date = "filter"
+      />
+    </template>
+    <template v-slot:expansion-menu-head>
+      <div class = 'text-left'>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">
+            {{getTitle}}
+          </v-list-item-title>
+          <v-btn
+            absolute
+            x-small
+            fab
+            right
+            bottom
+            @click = 'onClickMenuSettings'>
+            <v-icon>mdi-tools</v-icon>
+          </v-btn>
+          <v-list-item-subtitle>
+            I-Kar
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+    </div>
     </template>
     <template v-slot:expansion-menu>
       <v-spacer></v-spacer>
       <div class = 'text-left'>
-        <v-list>
-          <v-list-item-group v-model="filter">
+        <v-list nav>
+          <v-list-item-group mandatory v-model="filter" v-if = '!settings'>
             <v-list-item
+              @click = '$refs.ml.drawer = false'
               v-for="one in filterItems"
               :key="one.text"
               :value = 'one.value'
@@ -24,6 +52,30 @@
               <v-list-item-content>
                 <v-list-item-title v-text="one.text"></v-list-item-title>
               </v-list-item-content>
+              <v-list-item-action>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list-item-group>
+          <v-list-item-group mandatory v-model="defaultFilter" v-if = 'settings'>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-subtitle>
+                  Выбор вкладки по умолчанию
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+            <v-divider></v-divider>
+            <v-list-item
+              @click = 'onClickToggleDefaults'
+              v-for="one in filterItems"
+              :key="one.text"
+              :value = 'one.value'
+            >
+              <v-list-item-content>
+                <v-list-item-title v-text="one.text"></v-list-item-title>
+              </v-list-item-content>
+              <v-list-item-action>
+              </v-list-item-action>
             </v-list-item>
           </v-list-item-group>
         </v-list>
@@ -34,6 +86,7 @@
 <script>
 import FilmSlider from "@/components/kinoinfo_components/film_listing/FilmSlider"
 import MainLayout from "@/components/global/layouts/MainLayout"
+//import utils from "@/utils/utils.js"
 import InfoOverlay from "@/components/global/overlays/InfoOverlay"
 import { bus } from "@/bus/bus.js"
 export default {
@@ -47,12 +100,17 @@ export default {
     bus.$on('overlay', (obj) => {
       this.overlay = !this.overlay
       this.currentObj = obj
-      console.log(this.currentObj)
     });
     bus.$on('clean', () => {
       this.filter = null
       this.currentTitle = 'Киноафиша'
     })
+    let item = localStorage.getItem('defaultFilter')
+    if (!item) {
+      localStorage.setItem('defaultFilter', '-imdb_votes')
+    }
+
+
   },
   data () {
     return {
@@ -65,11 +123,11 @@ export default {
       ],
       //
       filterItems: [
-        {text: 'Новые', value: 'New'},
-        {text: 'Популярные', value: 'Popular'},
-        {text: 'Фильмы этой недели', value: 'ThisWeek'},
-        {text: 'Фильмы этого месяца', value: 'ThisMonth'},
-        {text: 'Скоро на экранах', value: 'MonthForward'},
+        {text: 'Новые', value: '-release__release,-year'},
+        {text: 'Популярные', value: '-imdb_votes'},
+        {text: 'Фильмы этой недели', value: '-imdb_votes?backfromnow,7'},
+        {text: 'Фильмы этого месяца', value: '-imdb_votes?backfromnow,30'},
+        {text: 'Скоро на экранах', value: '-imdb_votes?forwardfromnow,30'},
       ],
       expMenuElements: [
         {text: "В кинотеатрах", value: '1'},
@@ -79,24 +137,36 @@ export default {
         {text: "Обзоры, мнения и комментарии", value: '5'},
         {text: "Мегакритик", value: '6'},
       ],
-      filter: 'Popular', //   Значение фильтра по рейтингам и прочему
-      timeFilter: null,  // Значение фильтра по времени
+      filter: localStorage.getItem('defaultFilter'), // Значение фильтра по рейтингам и прочему
+      defaultFilter: localStorage.getItem('defaultFilter'),
       overlay: false, // Значение оверлея, изменяется событием в шине событий
       currentTitle: 'Киноафиша', // Текущий заголовк в меню
       currentObj: null, // Обьект полученный для модалки инфо (горизонтальная пагинация)
-      filmdefaultordering: '-imdb_votes',
+      settings: false,
     }
   },
   watch: {
     // Следит за значением сортировки, оповещает слайер фильмов при изменении
     filter(val) {
-      this.$refs.obj.onClickToggleSortButton(val)
+      this.$refs.obj.updateOrderingAndFilters(val)
       console.log(val);
       let title = this.lodash.find(this.filterItems, function (item){
       return item.value === val;
     });
       this.currentTitle = title.text
     },
+    defaultFilter(val) {
+      localStorage.setItem('defaultFilter', val)
+    }
+  },
+  methods: {
+    onClickMenuSettings: function() {
+      this.settings = !this.settings
+    },
+    onClickToggleDefaults: function() {
+      this.$refs.ml.drawer = false
+      this.settings = !this.settings
+    }
   },
 }
 

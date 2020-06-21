@@ -5,7 +5,7 @@ import service from "@/api/base.js"
 //import lodash from 'lodash'
 Vue.use(Vuex)
 
-// Хранилище Vuex, глобальная шина событий
+// Хранилище Vuex
 // Используется для взаимодействия с АПИ и хранения полученной информации
 const store = new Vuex.Store({
     state: {
