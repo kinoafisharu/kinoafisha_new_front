@@ -71,7 +71,6 @@
 // Слой активных элементов для историй
 // Берет описанные ниже пропсы, список слоев необходимо описать в Data (layers) в порядке их переключения
 // Используются динамические компоненты (слои)
-import SettingsButton from "@/components/global/buttons/SettingsButton"
 import SettingsModal from "@/components/global/layers/SettingsModal"
 import ThirdLayer from "@/components/global/layers/ThirdLayer"
 import DislikeSectionTwoChoices from "@/components/global/buttons/button_sections/DislikeSectionTwoChoices"
@@ -88,7 +87,6 @@ import ActionElementsLayerMixin from "@/mixins/ActionElementsLayerMixin"
 export default {
   name: 'action-elements-layer',
   components: {
-    SettingsButton,
     LikeSectionThreeChoices,
     DislikeSectionTwoChoices,
     LittleRoundButton,

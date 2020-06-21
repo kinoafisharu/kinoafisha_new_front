@@ -15,7 +15,7 @@
                   Фильтр
                 </v-btn>
               </template>
-              <v-list>
+              <v-list nav>
                 <v-list-item  @click.native = "onClickToggleSortButton('New')">
                   <v-list-item-title>Новые</v-list-item-title>
                 </v-list-item>
@@ -57,10 +57,11 @@
   <AbsSlider  @zoom = 'onClickZoomButton'
               ref = 'AbsSlider'
               defaultdispatcher = 'getFilms'
+              :objs = 'objs'
               :defaultordering = 'ordering'
               :defaultapiaction = 'defaultapiaction'
-              defaultfields = 'id,name,genre,description,votes,kid,country,year,limits,imdb_votes,imdb_rate,persons'>
-
+              defaultfields = 'id,name,genre,description,votes,kid,country,year,limits,imdb_votes,imdb_rate,persons'
+              :defaultdatetime = 'datetime'>
     <template v-slot:default="slotProps">
         <FilmDetail :obj = 'slotProps.obj'/>
     </template>
@@ -72,6 +73,8 @@
 <script>
 import AbsSlider from "@/components/global/sliders/AbsSlider"
 import FilmDetail from "@/components/kinoinfo_components/film_detail/FilmDetail"
+import { bus } from '@/bus/bus.js'
+import utils from "@/utils/utils.js"
 import 'swiper/css/swiper.css'
 
 export default {
@@ -81,40 +84,49 @@ export default {
     AbsSlider,
     FilmDetail
   },
+  async mounted() {
+    // Метод вызывается каждый раз когда происходит событие clean
+    // clean - переход на начальную точку, очистка всех фильтров
+    bus.$on('clean', ()=> {
+      this.$refs.AbsSlider.update('-imdb_votes', null)
+      this.ordering = '-imdb_votes'
+      this.datetime = null
+    })
+    this.ordering = this.sort_and_date.split('?')[0]
+    this.datetime = this.sort_and_date.split('?')[1]
+    console.log(this.sort_and_date.split('?')[1]);
+  },
   props: {
-    defaultapiaction: String,
-    showSliderMenu: Boolean,
-    defaultordering: String,
+    defaultapiaction: String, //метод в апи
+    showSliderMenu: Boolean, //Включить Отключить встроенное меню слайдер
+    sort_and_date: String, //  Сортировка по умолчанию
   },
   data() {
     return {
-      ordering: this.defaultordering,
+      ordering: this.sort_and_date.split('?')[0],
       showMenu: false,
-      datetime: null,
+      datetime: this.sort_and_date.split('?')[1],
+      infoValue: 'Киноафиша',
     }
   },
   methods: {
-    onClickToggleSortButton: function(value) {
-      this.currentPage = 1
-      if (value == 'New') {this.ordering = '-release__release,year'}
-      else if (value == 'Popular') {this.ordering = '-imdb_votes'}
-      else if (value == 'ThisWeek') {this.datetime = 'backfromnow,7'}
-      else if (value == 'WeekForward') {this.datetime = 'forwardfromnow,7'}
-      else if (value == 'ThisMonth') {this.datetime = 'backfromnow,30'}
-      else if (value == 'MonthForward') {this.datetime = 'forwardfromnow,30'}
+    //  Обновляет слайдер с новыми праметрами сортировки
+    updateOrderingAndFilters: function(value) {
+      let items = utils.getOrderingAndDatetime(value)
+      this.ordering = items[0]
+      this.datetime = items[1]
       this.$refs.AbsSlider.update(this.ordering, this.datetime)
     },
   },
   computed: {
+    objs: function() {
+      return this.$store.getters.films
+    },
   }
 }
 </script>
 
 <style scoped lang ='scss'>
-
-
-
-
 ::v-deep #bottom-section {
   height: 6.5%;
 }

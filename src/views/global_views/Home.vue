@@ -1,4 +1,5 @@
 <template>
+  <!-- Домашняя страница -->
   <v-container>
     <v-row>
       <v-col>

@@ -1,5 +1,6 @@
 <script>
 // Миксин логики активного слоя элементов
+// Содержит функции кликов на кнопки
 export default {
   name: 'action-elements-layer-mixin',
   data () {

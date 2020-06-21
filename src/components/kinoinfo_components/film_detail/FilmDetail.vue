@@ -1,16 +1,7 @@
 <template>
+  <!-- рендерит компонент ActionPosterImage, оборачивая его в доп. блок
+      в качестве данных о фильме принимает обьект obj -->
   <div class = 'poster-block'>
-        <div class = 'zoom-button'>
-              <v-btn
-                dark
-                fab
-                x-small
-                color="secondary"
-                @click = 'showMainLayoutOverlay'
-              >
-            <v-icon>mdi-magnify</v-icon>
-              </v-btn>
-          </div>
           <ActionPosterImage
           v-if = "obj"
           :kid = 'obj.kid'
@@ -32,11 +23,9 @@
 </template>
 
 <script>
-// Страница с детальным вывоом информации о фильме
-// На данный момент принимает обьект фильма
-// и рендерит компонент ActionPosterImage, оборачивая его в доп. блок
+
   import ActionPosterImage from "@/components/kinoinfo_components/action_poster/ActionPosterImage.vue"
-  import { bus } from "@/bus/bus.js"
+
   export default {
     name: 'filmdetail',
     components: {
@@ -49,17 +38,8 @@
 
     data() {
       return {
-        overlay: false,
       }
     },
-    methods: {
-      showMainLayoutOverlay: function() {
-        bus.$emit('overlay', this.obj)
-      },
-      activateButton: function() {
-        this.zoomActive = !this.zoomActive
-      }
-    }
 }
 
 </script>

@@ -10,16 +10,30 @@
     <v-container>
       <div class = 'slide-view-wrapper'>
 
-          <v-toolbar dense flat>
+          <v-toolbar flat>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
+             <v-toolbar-title v-if = '!search'>{{title}}</v-toolbar-title>
 
-             <v-toolbar-title>IKar Studio</v-toolbar-title>
 
              <v-spacer></v-spacer>
 
-             <v-btn icon>
+              <v-col cols="6  " sm="6" md="8" v-if = 'search'>
+                <v-text-field
+                placeholder = 'Поиск'
+                ></v-text-field>
+              </v-col>
+
+             <v-spacer></v-spacer>
+             <v-btn icon @click = 'search = !search'>
                <v-icon>mdi-magnify</v-icon>
+             </v-btn>
+
+             <v-btn x-large width='200' @click = 'clean' v-if = '!search'>
+               <v-img :aspect-ratio="16/9"
+                      :src="`${publicPath}images/logo.jpg`"
+                      height = '45'>
+               </v-img>
              </v-btn>
 
              <v-menu
@@ -27,7 +41,7 @@
                :close-on-content-click="false"
                offset-x
              >
-               <template v-slot:activator="{ on, attrs }">
+               <template v-slot:activator="{ on, attrs }" v-if = 'showDotsMenu'>
                  <v-btn icon v-bind = 'attrs' v-on = 'on'>
                    <v-icon>mdi-dots-vertical</v-icon>
                  </v-btn>
@@ -68,27 +82,10 @@
       absolute
       temporary
     >
-    <v-list-item>
-      <v-list-item-content>
-        <v-list-item-title class="title">
-          {{toggleData}}
-        </v-list-item-title>
-        <v-list-item-subtitle>
-          Меню в разработке
-        </v-list-item-subtitle>
-      </v-list-item-content>
-    </v-list-item>
+      <slot name='expansion-menu-head'></slot>
 
       <v-divider></v-divider>
 
-      <v-list-item-group class="grow">
-        <v-list-item to = '/kinoafisha' value = 'Films'>
-          <v-list-item-title>Films</v-list-item-title>
-        </v-list-item>
-        <v-list-item to = '/stories' value = 'Stories'>
-          <v-list-item-title>Stories</v-list-item-title>
-        </v-list-item>
-      </v-list-item-group>
       <slot name="expansion-menu"></slot>
 
     </v-navigation-drawer>
@@ -97,11 +94,14 @@
 
 </template>
 <script>
-
+import { bus } from '@/bus/bus.js'
 export default {
   name: 'slide-view',
   components: {
 
+  },
+  props: {
+    title: String,
   },
   data () {
     return {
@@ -121,16 +121,16 @@ export default {
         {text: 'Этот месяц', value: 'ThisMonth'},
         {text: 'Скоро выйдут', value: 'MonthForward'}
       ],
-      filter: null,
       drawer: null,
       menu: false,
-      toggleData: 'Films',
+      search: false,
+      publicPath: process.env.BASE_URL,
 
     }
   },
-  watch: {
-    filter(val) {
-      this.$refs.obj.onClickToggleSortButton(val)
+  methods: {
+    clean: function() {
+      bus.$emit('clean')
     }
   }
 }

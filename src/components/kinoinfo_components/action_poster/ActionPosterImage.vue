@@ -1,5 +1,4 @@
 <template>
-
 <ImageFlexibleWrapper ref='ifw' :imgsrc = 'imgsrc' :title = 'title' @imgerr = 'onErrorImage' @imgload = 'onLoadImage'>
     <ActionElementsLayer   :description='description'
                             :title='title'
@@ -14,10 +13,7 @@
                             :id = 'id'
                             :sectionConfig = 'sectionConfig'
                             :tohtml = "true"/>
-
-
 </ImageFlexibleWrapper>
-
 </template>
 
 <script>
@@ -25,9 +21,6 @@
 // Принимает в себя описанные пропсы без каких либо особенностей
 import ActionElementsLayer from "@/components/kinoinfo_components/action_poster/ActionElementsLayer"
 import ImageFlexibleWrapper from "@/components/global/wrappers/ImageFlexibleWrapper"
-
-
-
 export default {
   components: {
     ActionElementsLayer,
@@ -70,6 +63,7 @@ export default {
     }
   },
   computed: {
+    // Вычисляет URL изображения
     imgsrc() {
       if (!this.imgErr) {
         if (this.kid) {
@@ -87,6 +81,12 @@ export default {
     }
 },
   methods: {
+    // WARNING
+    // Ловит событие imgerr, инкрементирует счетчик ошибок
+    // На основе условных операторов перебирает возможные оконачния URL постеров
+    // Затем свойство imgsrc реагирует на изменение URL и Динамически обновляет
+    // Картинку в ImageFlexibleWrapper на что та в свою очередь снова выдает ошибку
+    // Либо загружается и цикл останавливается
      onErrorImage: function() {
         if (this.errcount == 0  & !this.imgLoaded) this.imgTail = '-002.jpg'
         else if (this.errcount == 1 & !this.imgLoaded) this.imgTail = '-000.jpg'
@@ -102,6 +102,7 @@ export default {
         console.log(this.errcount);
         this.errcount ++
     },
+  // Если картинка загужена - цикл останавливается
   onLoadImage: function() {
       this.imgLoaded = true
     }
