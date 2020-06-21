@@ -77,7 +77,7 @@ export default {
       pagesize: 25,
       scelets: 2,
       dispatcher: this.defaultdispatcher,
-      datetime: 'all',
+      datetime: null,
       swiperOption: {
         slidesPerView: 1,
         mousewheel: true,
