@@ -22,15 +22,53 @@
           <v-list-item-title class="title">
             {{getTitle}}
           </v-list-item-title>
-          <v-btn
-            absolute
-            x-small
-            fab
-            right
-            bottom
-            @click = 'onClickMenuSettings'>
-            <v-icon>mdi-tools</v-icon>
-          </v-btn>
+          <div class="text-center">
+            <v-menu
+              v-model="settings"
+              :close-on-content-click="false"
+              offset-x
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  absolute
+                  x-small
+                  fab
+                  right
+                  bottom
+                  v-bind="attrs"
+                  v-on="on">
+                  <v-icon>mdi-tools</v-icon>
+                </v-btn>
+              </template>
+
+              <v-card>
+                <v-list>
+                  <v-list-item-group mandatory v-model="defaultFilter">
+                    <v-list-item
+                      @click = '$refs.ml.drawer = false'
+                      v-for="one in filterItems"
+                      :key="one.text"
+                      :value = 'one.value'
+                    >
+                      <v-list-item-content>
+                        <v-list-item-title v-text="one.text"></v-list-item-title>
+                      </v-list-item-content>
+                      <v-list-item-action>
+                      </v-list-item-action>
+                    </v-list-item>
+                  </v-list-item-group>
+                </v-list>
+
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+
+                  <v-btn center text @click="settings = false">Cancel</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-menu>
+          </div>
           <v-list-item-subtitle>
             I-Kar
           </v-list-item-subtitle>
@@ -42,31 +80,9 @@
       <v-spacer></v-spacer>
       <div class = 'text-left'>
         <v-list nav>
-          <v-list-item-group mandatory v-model="filter" v-if = '!settings'>
+          <v-list-item-group mandatory v-model="filter">
             <v-list-item
               @click = '$refs.ml.drawer = false'
-              v-for="one in filterItems"
-              :key="one.text"
-              :value = 'one.value'
-            >
-              <v-list-item-content>
-                <v-list-item-title v-text="one.text"></v-list-item-title>
-              </v-list-item-content>
-              <v-list-item-action>
-              </v-list-item-action>
-            </v-list-item>
-          </v-list-item-group>
-          <v-list-item-group mandatory v-model="defaultFilter" v-if = 'settings'>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-subtitle>
-                  Выбор вкладки по умолчанию
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider></v-divider>
-            <v-list-item
-              @click = 'onClickToggleDefaults'
               v-for="one in filterItems"
               :key="one.text"
               :value = 'one.value'

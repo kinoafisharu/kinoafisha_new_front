@@ -41,6 +41,10 @@ const routes = [
     props: {routeName: 'Stories'},
     name: 'stories',
   },
+  {
+    path: '/parsing',
+    component: () => import('@/views/ParseView')
+  }
 
 
 ]
