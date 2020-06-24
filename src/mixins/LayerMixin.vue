@@ -8,7 +8,7 @@
 export default {
   data() {
     return {
-      layers: [null, 'InfoLayer', 'ThirdLayer'],
+      layers:[null,'InfoLayer', 'ThirdLayer'],
       layercounter: 0,
       currentLayer: null,
     }
@@ -20,11 +20,6 @@ export default {
     flushLayers: function() {
       this.layercounter = 0
       this.currentLayer = null
-    },
-    closeLayer: function() {
-      this.flushSections()
-      this.flushLayers()
-      this.selectRateButtons()
     },
   },
 }

@@ -23,7 +23,7 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
 
-             <v-toolbar-title>IKar Studio</v-toolbar-title>
+             <v-toolbar-title>Title</v-toolbar-title>
 
              <v-spacer></v-spacer>
 
@@ -65,27 +65,16 @@
                          <v-expansion-panel-content>
                            <v-col class="d-flex" cols="20" sm="16">
                             <v-select
-                               v-model = 'filter'
-                              :items="filterItems"
-                              item-value = 'value'
-                              item-text = 'text'
+                               v-model = 'e1'
+                              :items="['Новые', 'Популярные', 'Личности']"
                               solo
                               label="Фильтр"
                               dense
                             ></v-select>
                           </v-col>
                           <v-col class="d-flex" cols="20" sm="16">
-                            <v-select
-                               v-if = "toggleData == 'Films'"
-                               v-model = 'filter'
-                              :items="[{text: 'Эта неделя', value: 'ThisWeek'}, {text: 'Две недели', value: 'none'}, {text: 'Месяц', value: 'none'}]"
-                              solo
-                              label="Время"
-                              dense
-                            ></v-select>
                            <v-select
                               v-if = "toggleData == 'Films'"
-                              v-model = 'filter'
                              :items="['На этой неделе в кинотеатрах', 'На этой неделе онлайн', 'Лучшее в кинотеатрах', 'Лучшее онлайн', 'Бокс-офис уикенда', 'Топ 250']"
                              solo
                              label="Подборки"
@@ -105,7 +94,7 @@
                </v-card>
              </v-menu>
            </v-toolbar>
-          <FilmSlider ref = 'obj' :defaultordering = 'filmdefaultordering' defaultapiaction = 'getval' v-if = "toggleData == 'Films'"/>
+          <FilmSlider ref = 'obj' :defaultordering = 'filmdefaultordering' defaultapiaction = 'getval' v-if = "toggleData == 'Films'" @zoom = 'onClickZoomButton'/>
           <StorySlider ref = 'obj' :defaultordering = 'storydefaultordering' defaultapiaction = 'getval' v-if = "toggleData == 'Stories'"/>
         </div>
       </v-container>
@@ -136,52 +125,50 @@
           <v-list-item-title>Stories</v-list-item-title>
         </v-list-item>
       </v-list-item-group>
-      <div v-if = "toggleData == 'Films'">
-        <v-expansion-panels>
-          <v-expansion-panel>
-            <v-expansion-panel-header>В кинотеатрах</v-expansion-panel-header>
-            <v-expansion-panel-content>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-        <v-expansion-panels>
-          <v-expansion-panel>
-            <v-expansion-panel-header>Скоро</v-expansion-panel-header>
-            <v-expansion-panel-content>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-        <v-expansion-panels>
-          <v-expansion-panel>
-            <v-expansion-panel-header>Рекомендации</v-expansion-panel-header>
-            <v-expansion-panel-content>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-        <v-expansion-panels>
-          <v-expansion-panel>
-            <v-expansion-panel-header>Бокс-Офис</v-expansion-panel-header>
-            <v-expansion-panel-content>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-        <v-expansion-panels>
-          <v-expansion-panel>
-            <v-expansion-panel-header>Обзоры, мнения и комментарии</v-expansion-panel-header>
-            <v-expansion-panel-content>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-        <v-expansion-panels>
-          <v-expansion-panel>
-            <v-expansion-panel-header>
-               Мегакритик
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </div>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>В кинотеатрах</v-expansion-panel-header>
+          <v-expansion-panel-content>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>Скоро</v-expansion-panel-header>
+          <v-expansion-panel-content>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>Рекомендации</v-expansion-panel-header>
+          <v-expansion-panel-content>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>Бокс-Офис</v-expansion-panel-header>
+          <v-expansion-panel-content>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>Обзоры, мнения и комментарии</v-expansion-panel-header>
+          <v-expansion-panel-content>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header>
+             Мегакритик
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
 
 
 
@@ -203,24 +190,24 @@ export default {
   },
   data () {
     return {
-      filterItems: [
-        {text: 'Новые', value: 'New'},
-        {text: 'Популярные', value: 'Popular'},
-        {text: 'Личности', value: 'No'},
-      ],
-      filter: null,
+      e1: null,
+      links: ['Home', 'Contacts', 'Settings'],
       drawer: null,
       menu: false,
       overlay: false,
       toggleData: 'Films',
-      filmdefaultordering: '-imdb_votes',
+      filmdefaultordering: 'id',
       storydefaultordering: 'id',
 
     }
   },
   watch: {
-    filter(value) {
-      this.$refs.obj.onClickToggleSortButton(value)
+    e1(value) {
+      let query = null
+      if (value == 'Популярные') {query = 'Popular'}
+      else if (value == 'Новые') {query = 'New'}
+      else if (value == 'Личности') {query = 'New'}
+      this.$refs.obj.onClickToggleSortButton(query)
 
       }
     },

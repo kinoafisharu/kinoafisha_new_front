@@ -1,7 +1,12 @@
 <template>
-  <!-- рендерит компонент ActionPosterImage, оборачивая его в доп. блок
-      в качестве данных о фильме принимает обьект obj -->
   <div class = 'poster-block'>
+          <div class="zoom-button">
+            <div class="my-2">
+              <v-btn fab x-small dark @click.native = 'onClickZoomButton'>
+                <v-icon>mdi-television</v-icon>
+              </v-btn>
+            </div>
+          </div>
           <ActionPosterImage
           v-if = "obj"
           :kid = 'obj.kid'
@@ -19,13 +24,15 @@
           :genre = 'obj.genre'
           :id = 'obj.id'
           />
+
   </div>
 </template>
 
 <script>
-
+// Страница с детальным вывоом информации о фильме
+// На данный момент просто принимает id фильма из роутера
+// и рендерит компонент ActionPosterImage0, оборачивая его в доп. блок
   import ActionPosterImage from "@/components/kinoinfo_components/action_poster/ActionPosterImage.vue"
-
   export default {
     name: 'filmdetail',
     components: {
@@ -35,9 +42,9 @@
     props: {
       obj: Object,
     },
-
-    data() {
-      return {
+    methods: {
+      onClickZoomButton: function (){
+        this.$emit('zoom')
       }
     },
 }
@@ -47,10 +54,9 @@
 <style scoped lang='scss'>
 .zoom-button {
   position: absolute;
-  right: 3%;
-  opacity: 0.65;
-  bottom: 11.5%;
-  z-index: 4;
+  left: 5%;
+  top: 0;
+  z-index: 2;
 }
 .poster-block {
   width: 100%;

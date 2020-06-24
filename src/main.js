@@ -8,12 +8,10 @@ import vuetify from "@/plugins/vuetify.js"
 Vue.use(Vue2TouchEvents)
 import 'swiper/css/swiper.css'
 Vue.use(VueAwesomeSwiper)
-import VueLodash from 'vue-lodash'
-import lodash from 'lodash'
-Vue.use(VueLodash, { name: 'custom' , lodash: lodash })
 
-// Входная точка
+
 // ======================================================================================||||
+
 Vue.config.productionTip = false
 
 new Vue({

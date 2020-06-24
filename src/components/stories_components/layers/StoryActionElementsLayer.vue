@@ -1,5 +1,4 @@
 <template>
-<!-- Активный слой историй, для отображения слоев кнопок итд -->
   <AELWrapper>
     <transition name = 'fade'>
       <component  :is = 'currentLayer'
@@ -29,15 +28,19 @@
       <LittleRoundButton v-if = "show_second_layer_buttons"
                           class = 'auth-button'
                           @click.native = 'chooseLayer(2)'
-                          buttonimagesource = "key.png"
-                          title="Авторизация"/>
+                          buttonimagesource = "key.png"/>
 
+      <!-- TICKETS BUTTON -->
+      <LittleRoundButton v-if = "show_second_layer_buttons"
+                          class = 'tickets-button'
+                          @click.native = 'chooseLayer(2)'
+                          buttonimagesource = "ticket.png"/>
 
-      <div v-if = 'show_second_layer_buttons' class = 'settings-button'>
-          <v-btn icon @click = 'chooseLayer(2)'>
-            <v-icon>mdi-dots-vertical</v-icon>
-          </v-btn>
-      </div>
+      <!-- SETTINGS BUTTON -->
+      <SettingsButton v-if = "show_second_layer_buttons"
+                          class = 'settings-button'
+                          @click.native = 'chooseLayer(2)'
+                          buttonimagesource = "settings.png"/>
 
 
       <!-- ================================================================== -->
@@ -68,9 +71,10 @@
 </template>
 
 <script>
-// Слой активных элементов для историй
+// Слой активных элементов для постера kinoinfo
 // Берет описанные ниже пропсы, список слоев необходимо описать в Data (layers) в порядке их переключения
 // Используются динамические компоненты (слои)
+import SettingsButton from "@/components/global/buttons/SettingsButton"
 import SettingsModal from "@/components/global/layers/SettingsModal"
 import ThirdLayer from "@/components/global/layers/ThirdLayer"
 import DislikeSectionTwoChoices from "@/components/global/buttons/button_sections/DislikeSectionTwoChoices"
@@ -87,6 +91,7 @@ import ActionElementsLayerMixin from "@/mixins/ActionElementsLayerMixin"
 export default {
   name: 'action-elements-layer',
   components: {
+    SettingsButton,
     LikeSectionThreeChoices,
     DislikeSectionTwoChoices,
     LittleRoundButton,
@@ -164,9 +169,14 @@ export default {
     bottom: 1.1%;
   }
 }
-.settings-button {
-  margin-right: 13%;
-  margin-left: 22%;
+.settings-little-button {
+  cursor: pointer;
+  width: 11.1%;
+  height: 102%;
+  margin-right: 10%;
+  ::v-deep img {
+    width: 99%;
+  }
 }
 
 ::v-deep .little-round-button-span-text {

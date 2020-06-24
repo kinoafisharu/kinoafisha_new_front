@@ -1,5 +1,5 @@
 <template>
-  <LittleRoundButton class="cross-button" buttonimagesource = 'cross.png' title='Закрыть'/>
+  <LittleRoundButton class="cross-button" buttonimagesource = 'cross.png'/>
 </template>
 
 <script>

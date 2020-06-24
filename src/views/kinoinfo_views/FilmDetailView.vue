@@ -10,7 +10,7 @@
     //id receieved from router
     //id received from router CHAIN |- FIlmDetailView => FilmDetail => FilmPoster
     props: {
-      id: [String,Number]
+      id: String,
     },
     components: {
       FilmDetail,
@@ -24,12 +24,8 @@
    },
    //FETCH DATA FROM API USING GIVEN ID PROP
     async created() {
-      await this.$store.dispatch('getFilmByImdb',
-       {
-         id: this.id,
-         values: 'id,name,genre,description,votes,kid,country,year,limits,imdb_votes,imdb_rate,persons'
-       })
-      let obj = await this.$store.getters.filmbyimdb
+      await this.$store.dispatch('getFilm', {id: this.id})
+      let obj = await this.$store.getters.film
       console.log(obj);
       this.obj = obj
     },

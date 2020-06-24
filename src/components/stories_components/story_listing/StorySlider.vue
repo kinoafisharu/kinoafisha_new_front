@@ -1,5 +1,4 @@
 <template>
-<!-- Слайдер историй, рендерит в себе компонент абстрактного слайдера с постерами историй -->
 <div class = 'story-slider-wrapper'>
   <div class='toggle-sort-component'>
         <div v-if = 'showSliderMenu' class="text-center">
@@ -30,23 +29,17 @@
           </div>
     </div>
   <AbsSlider  ref = 'AbsSlider'
-              :objs = 'objs'
+              component = 'Story'
               defaultdispatcher = 'getStories'
               :defaultordering = 'computeordering'
               :defaultapiaction = 'defaultapiaction'
-              defaultfields = 'id,text,title,dtime'>
-
-    <template v-slot:default="slotProps">
-      <Story :obj = 'slotProps.obj'/>
-    </template>
-  </AbsSlider>
+              defaultfields = 'id,text,title,dtime'/>
 </div>
 </template>
 
 
 <script>
 import AbsSlider from "@/components/global/sliders/AbsSlider"
-import Story from "@/components/stories_components/Story"
 import 'swiper/css/swiper.css'
 
 export default {
@@ -54,7 +47,6 @@ export default {
   title: 'Fraction pagination',
   components: {
     AbsSlider,
-    Story
   },
   props: {
     defaultapiaction: String,
@@ -83,9 +75,6 @@ export default {
     computeordering: function() {
       if (this.defaultordering) {return this.defaultordering}
       else {return this.ordering}
-    },
-    objs: function() {
-      return this.$store.getters.stories
     }
   }
 }
@@ -93,10 +82,6 @@ export default {
 
 <style scoped lang ='scss'>
 
-::v-deep .postercontainer {
-  max-width: 100% !important;
-  max-height: 100% !important;
-}
 .toggle-component {
   display: flex;
   flex-direction: row;

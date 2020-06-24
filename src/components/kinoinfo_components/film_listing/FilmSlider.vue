@@ -1,5 +1,4 @@
 <template>
-<!-- Слайдер фильмов, рендерит AbsSlider c компонентами Фильма -->
 <div class = 'film-slider-container'>
   <div v-if = 'showSliderMenu' class='toggle-sort-component'>
         <div class="text-center">
@@ -15,7 +14,7 @@
                   Фильтр
                 </v-btn>
               </template>
-              <v-list nav>
+              <v-list>
                 <v-list-item  @click.native = "onClickToggleSortButton('New')">
                   <v-list-item-title>Новые</v-list-item-title>
                 </v-list-item>
@@ -56,25 +55,17 @@
     </div>
   <AbsSlider  @zoom = 'onClickZoomButton'
               ref = 'AbsSlider'
+              component = 'FilmDetail'
               defaultdispatcher = 'getFilms'
-              :objs = 'objs'
               :defaultordering = 'ordering'
               :defaultapiaction = 'defaultapiaction'
-              defaultfields = 'id,name,genre,description,votes,kid,country,year,limits,imdb_votes,imdb_rate,persons'
-              :defaultdatetime = 'datetime'>
-    <template v-slot:default="slotProps">
-        <FilmDetail :obj = 'slotProps.obj'/>
-    </template>
-  </AbsSlider>
+              defaultfields = 'id,name,genre,description,votes,kid,country,year,limits,imdb_votes,imdb_rate,persons'/>
 </div>
 </template>
 
 
 <script>
 import AbsSlider from "@/components/global/sliders/AbsSlider"
-import FilmDetail from "@/components/kinoinfo_components/film_detail/FilmDetail"
-import { bus } from '@/bus/bus.js'
-import utils from "@/utils/utils.js"
 import 'swiper/css/swiper.css'
 
 export default {
@@ -82,51 +73,46 @@ export default {
   title: 'Fraction pagination',
   components: {
     AbsSlider,
-    FilmDetail
-  },
-  async mounted() {
-    // Метод вызывается каждый раз когда происходит событие clean
-    // clean - переход на начальную точку, очистка всех фильтров
-    bus.$on('clean', ()=> {
-      this.$refs.AbsSlider.update('-imdb_votes', null)
-      this.ordering = '-imdb_votes'
-      this.datetime = null
-    })
-    this.ordering = this.sort_and_date.split('?')[0]
-    this.datetime = this.sort_and_date.split('?')[1]
-    console.log(this.sort_and_date.split('?')[1]);
   },
   props: {
-    defaultapiaction: String, //метод в апи
-    showSliderMenu: Boolean, //Включить Отключить встроенное меню слайдер
-    sort_and_date: String, //  Сортировка по умолчанию
+    defaultapiaction: String,
+    showSliderMenu: Boolean
   },
   data() {
     return {
-      ordering: this.sort_and_date.split('?')[0],
+      ordering: 'id',
       showMenu: false,
-      datetime: this.sort_and_date.split('?')[1],
-      infoValue: 'Киноафиша',
+      items: [
+        { title: 'На этой неделе в кинотеатрах' },
+        { title: 'На этой неделе онлайн' },
+        { title: 'Лучшее в кинотеатрах' },
+        { title: 'Лучшее онлайн' },
+        { title: 'Бокс-офис уикенда'},
+        { title: 'Топ 250'},
+      ],
     }
   },
   methods: {
-    //  Обновляет слайдер с новыми праметрами сортировки
-    updateOrderingAndFilters: function(value) {
-      let items = utils.getOrderingAndDatetime(value)
-      this.ordering = items[0]
-      this.datetime = items[1]
-      this.$refs.AbsSlider.update(this.ordering, this.datetime)
+    onClickToggleSortButton: function(value) {
+      this.currentPage = 1
+      if (value == 'New') {this.ordering = '-year'}
+      else if (value == 'Popular') {this.ordering = '-imdb_votes'}
+      this.$refs.AbsSlider.update(this.ordering)
     },
+    onClickZoomButton: function() {
+      this.$emit('zoom')
+    }
   },
   computed: {
-    objs: function() {
-      return this.$store.getters.films
-    },
   }
 }
 </script>
 
 <style scoped lang ='scss'>
+
+
+
+
 ::v-deep #bottom-section {
   height: 6.5%;
 }

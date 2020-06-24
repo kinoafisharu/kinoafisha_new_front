@@ -1,7 +1,4 @@
 <template>
-  <!-- Набор кнопок дизлайков,
-  принимает обьект с параметрами,
-  рендерит на их основе нужные кнопки -->
   <div id="dislike-section">
     <LittleRoundButton class='image'
          @click.native = 'emitParentLikeFunction(4, sectionConfig.likepath, sectionConfig.id)'

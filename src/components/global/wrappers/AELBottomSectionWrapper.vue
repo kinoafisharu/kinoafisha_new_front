@@ -5,9 +5,7 @@
 </template>
 
 <script>
-// Оборачивает элементы нижней части слоя активных елементов
-// вмещает в себя кнопки, находящиеся снизу
-// Содержит в себе основные стили кнопок и их положения
+//Обертка для нижней части слоя активных элементов, вмещает в себя кнопки, находящиеся снизу
 export default {
   name: 'bottom-section',
 }
@@ -93,6 +91,15 @@ export default {
             position: absolute;
             width: auto;
             bottom: 1.1%;
+          }
+        }
+        .settings-little-button {
+          cursor: pointer;
+          width: 11.1%;
+          height: 102%;
+          margin-left: 2%;
+          ::v-deep img {
+            width: 99%;
           }
         }
     }

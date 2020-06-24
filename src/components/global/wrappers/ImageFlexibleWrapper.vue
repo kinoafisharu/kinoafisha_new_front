@@ -1,20 +1,19 @@
 <template>
- <!-- Оборачивает в себя картинку, если картинки нет, вызывает родительский метод ошибки -->
 <div class='postercontainer'>
-  <transition name= "fade">
+
   <div class="poster">
     <!-- Отображение постера елемента если такой есть -->
-      <img ref ='img' v-if = 'imgsrc && !imgErr' class="poster-image" :src="imgsrc" @error = 'onErrorImage' @load = 'onLoadImage'>
-    <!-- Выполняется если постера нет или изображение выдало ошибку -->
+    <img ref ='img' v-if = 'imgsrc && !imgErr' class="poster-image" :src="imgsrc" @error = 'onErrorImage' @load = 'onLoadImage'>
     <div v-else>
-      <img class="poster-image" :src = 'randomSrc'/>
+      <img class="poster-image" src = 'https://source.unsplash.com/random/350x540'/>
       <div v-if ='!imgsrc || imgErr' id = 'exttitle'>
+        <transition name = 'fade'>
         <h1 id = 'exttitle'>{{title}}</h1>
+        </transition>
       </div>
     </div>
     <slot></slot>
   </div>
-  </transition>
 </div>
 
 </template>
@@ -33,38 +32,54 @@ export default {
   data () {
   return {
     imgerrored: false,
-    publicPath: process.env.BASE_URL,
+    publicPath: process.env.BASE_URL
   }
 },
 methods: {
-  // Реагирует на событие ошибки
-  // Если изображение выдает ошибку, генерирует событие imgerr
-  // imgerr используется в ActionPosterImage 
-  onErrorImage: function() {
-      this.$emit('imgerr')
-      console.log('emitting');
+  onErrorImage: async function() {
+    await this.$emit('imgerr')
   },
-  // Если картинка загрузилась - останавливает цикл в ActionPosterImage
   onLoadImage: function() {
     console.log('sucess');
-    this.$emit('imgload')
-  },
-},
-computed: {
-  randomSrc: function() {
-    let src = `https://source.unsplash.com/350x540?nature,water`
-    return src
   }
-}
+},
 }
 </script>
 
 <style scoped lang='scss'>
+@media (orientation: portrait) and (max-width: 600px) {
+    .postercontainer {
+        max-width: 100vw !important;
+        max-height: 100vh !important;
+        position: relative !important;
+    }
+    .poster {
+        width: 100% !important;
+        height: 100% !important;
+        text-align: center !important;
+    }
+
+    .poster-image {
+        height: 100% !important;
+        width: 100% !important;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+      }
+    img {
+        max-width: 100% !important;
+        max-height: 100% !important;
+        vertical-align: top !important;
+    }
+  }
+
+
 
 
 .postercontainer {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 25%;
+    max-height: 50%;
     margin: 0 auto;
     align-items: stretch;
     position: relative;
