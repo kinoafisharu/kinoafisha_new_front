@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import db from "@/db/idb"
 import service from "@/api/base.js"
+//import lodash from 'lodash'
 Vue.use(Vuex)
 
-// Самый главный компонент, тут же хранилище Vuex
+// Хранилище Vuex
+// Используется для взаимодействия с АПИ и хранения полученной информации
 const store = new Vuex.Store({
     state: {
         films: [],
@@ -18,7 +21,7 @@ const store = new Vuex.Store({
         story: state => {
             return state.story
         },
-        film: state => {
+        filmbyimdb: state => {
           return state.film
         },
         stories: state => {
@@ -26,23 +29,41 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-         getFilms ({commit}, payload) {
+         async getFilms ({dispatch, commit}, payload) {
+           var data = [];
+           let sorting = payload.ordering
+           if (!payload.datetime) {
+             for (var i = 0; i < sorting.length; i++){
+                  data.push(sorting.charCodeAt(i));
+              }
+              var id = payload.currentPage + data.join('')
+              var films = await db.getFilms(id)
+            }
+           if (films) {
+             commit('setFilms', films)
+             console.log('got from db');
+             console.log(films);
+           } else {
+           console.log(payload);
             return service.get(`kinoinfo/films/${payload.action}/`, {params: {page: payload.currentPage,
                                                                               page_size: payload.page_size,
                                                                               values: payload.values,
-                                                                              ordering: payload.ordering}})
+                                                                              ordering: payload.ordering,
+                                                                              search: payload.search,
+                                                                              datetime: payload.datetime}})
                 .then((res) => {
                     let films = res.data.results
-                    console.log(films);
-                    commit('setFilms', films)
+                    dispatch('addFilmsToDb', {id: id, films: films})
                 })
+              }
         },
-        getFilm ({commit}, payload) {
-          return service.get(`kinoinfo/films/${payload.id}/`)
+        getFilmByImdb ({commit}, payload) {
+          return service.get(`kinoinfo/films/getval/?values=${payload.values}&imdb_id=${payload.id}`)
             .then((res) => {
-              let film = res.data
+              console.log(res);
+              let film = res.data.results[0]
               console.log(film)
-              commit('setFilm', film)
+              commit('setFilmByImdb', film)
             })
         },
         getStory ({commit}, payload) {
@@ -61,6 +82,14 @@ const store = new Vuex.Store({
               console.log(stories)
               commit('setStories', stories)
             })
+
+        },
+        addFilmsToDb ({ commit }, payload) {
+          commit('setFilms', payload.films)
+          return db.saveFilms(payload.films, payload.id)
+        },
+        deleteFilmsFromDb ({ films }) {
+          return db.deletefilms(films)
         }
 
     },
@@ -72,12 +101,12 @@ const store = new Vuex.Store({
           console.log(story)
           state.story = story
         },
-        setFilm (state, film) {
+        setFilmByImdb (state, film) {
           state.film = film
         },
         setStories (state, stories) {
           state.stories = stories
-        }
+        },
     }
 })
 

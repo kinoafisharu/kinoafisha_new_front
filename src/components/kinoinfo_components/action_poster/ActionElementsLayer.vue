@@ -1,5 +1,6 @@
 <template>
-  <AELWrapper>
+  <!-- Слой активных елементов постера фильма -->
+  <AELWrapper ref = 'AELWrapper'>
     <transition name = 'fade'>
       <component  :is = 'currentLayer'
                   v-bind = 'currentProperties'
@@ -8,7 +9,7 @@
     </transition>
 
     <!--Кнопка рейтинга, включает модальное окно с настройками рейтинга-->
-    <RateButton :ratecalced = 'ratecalced' @click.native = 'onClickRateSettingsButton'/>
+    <RateButton :imdb_rate = 'rate' :ratecalced = 'ratecalced' @click.native = 'onClickRateSettingsButton'/>
 
     <!-- Uslovnoe otobrazhenie nizhney chasti -->
     <AELBottomSectionWrapper>
@@ -28,20 +29,21 @@
       <LittleRoundButton v-if = "show_second_layer_buttons"
                           class = 'auth-button'
                           @click.native = 'chooseLayer(2)'
-                          buttonimagesource = "key.png"/>
+                          buttonimagesource = "key.png"
+                          title = 'Авторизация'/>
 
       <!-- TICKETS BUTTON -->
       <LittleRoundButton v-if = "show_second_layer_buttons"
                           class="tickets-button"
                           @click.native = 'chooseLayer(2)'
-                          buttonimagesource = "ticket.png"/>
+                          buttonimagesource = "ticket.png"
+                          title = 'Купить билеты'/>
 
-      <!-- SETTINGS BUTTON -->
-      <SettingsButton v-if = "show_second_layer_buttons"
-                          class = 'settings-little-button'
-                          @click.native = 'chooseLayer(2)'
-                          buttonimagesource = "settings.png"/>
-
+      <div v-if = 'show_second_layer_buttons' class = 'settings-button'>
+          <v-btn icon @click = 'chooseLayer(2)'>
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+      </div>
 
       <!-- ================================================================== -->
 
@@ -55,7 +57,7 @@
                           v-if = 'show_rate_layer_buttons'/>
 
       <!-- AGE RESTRICTION IF EXISTS -->
-      <p v-if = 'ageRestriction' id="age-restriction">{{ageRestriction}}</p>
+      <p v-if = 'ageRestriction | show_rate_layer_buttons' id="age-restriction">{{ageRestriction}}</p>
     </AELBottomSectionWrapper>
 
 
@@ -76,7 +78,6 @@
 // Слой активных элементов для постера kinoinfo
 // Берет описанные ниже пропсы, список слоев необходимо описать в Data (layers) в порядке их переключения
 // Используются динамические компоненты (слои)
-import SettingsButton from "@/components/global/buttons/SettingsButton"
 import SettingsModal from "@/components/global/layers/SettingsModal"
 import ThirdLayer from "@/components/global/layers/ThirdLayer"
 import DislikeSectionTwoChoices from "@/components/global/buttons/button_sections/DislikeSectionTwoChoices"
@@ -93,7 +94,6 @@ import ActionElementsLayerMixin from "@/mixins/ActionElementsLayerMixin"
 export default {
   name: 'action-elements-layer',
   components: {
-    SettingsButton,
     LikeSectionThreeChoices,
     DislikeSectionTwoChoices,
     LittleRoundButton,
@@ -127,12 +127,15 @@ export default {
     }
   },
   computed: {
+    //  Рассчитывает текущие пропы для слоев
     currentProperties: function() {
         return { title: this.title, genre: this.genre, year: this.year, description: this.description, country: this.country, tohtml: this.tohtml, }
     },
+    // Рассчитывает пропы для секций
     sectionProperties: function() {
         return {sectionConfig: this.sectionConfig}
       },
+    // Фильтрация возраста на основе регулярного выражения
     ageRestriction: function() {
       let numberPattern = /\d+/g;
       if (this.limit) {
@@ -147,10 +150,11 @@ export default {
       }
 
     },
+    // Интегральный рейтинг (временная модель)
     ratecalced: function() {
       if (this.rate) {
         let r = this.rate
-        let rc = Math.round(r / 2 + 1)
+        let rc = Math.round(r / 2 + 0.3)
         if (rc > 5) rc = 5;
         else if (rc == 1) rc = 2;
         if (r == 0) return r;
@@ -161,18 +165,13 @@ export default {
     }
   },
   methods: {
-    closeLayer: function() {
-      this.flushSections()
-      this.flushLayers()
-      this.selectRateButtons()
-    }
+    
   }
 
 }
 </script>
 
 <style scoped lang='scss'>
-
 
 
 ::v-deep #bottom-section {

@@ -1,5 +1,5 @@
 <template>
-  <div class='rate' :class="'rate_color_'+ ratecalced" title = 'Show settings'>
+  <div class='rate' :class="'rate_color_'+ ratecalced" :title = 'title'>
     <!-- Отображение рейтинга если такой есть -->
     <p>{{ratecalced}}</p>
   </div>
@@ -11,6 +11,12 @@ export default {
   name: 'rate-button',
   props: {
     ratecalced: [String, Number],
+    imdb_rate: [String, Number],
+  },
+  computed: {
+    title: function() {
+      return `Репутация фильма на IMDB: ${this.imdb_rate}`
+    }
   }
 }
 </script>
@@ -18,18 +24,18 @@ export default {
 <style scoped lang='scss'>
 .rate {
     cursor: pointer;
-    display: flex;
     border-top-right-radius: 38%;
     border-bottom-right-radius: 38%;
-    padding-left: 4%;
-    padding-right: 7%;
     color: black !important;
     align-self: flex-start;
     margin-top: 14%;
-    font-size: 4em;
+    height: 14.5%;
+    font-size: 3.3em;
     padding: 2%;
-    color: black;
     font-weight: bold;
+    p {
+
+    }
 }
 .rate_color_0 {
     background: rgba(255, 250, 250, 0.8);

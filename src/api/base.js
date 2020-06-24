@@ -1,4 +1,4 @@
-
+// Главный обьект AXIOS, формирует запросы к API, импортируется как service
 import axios from 'axios'
 
 const service = axios.create({

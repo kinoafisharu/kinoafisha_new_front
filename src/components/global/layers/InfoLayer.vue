@@ -1,6 +1,6 @@
 <template>
   <!-- Главный блок -->
-  <div class = 'infolayer'>
+  <div v-once class = 'infolayer'>
 
     <!-- Блок заголовков -->
     <div class = 'title-block'>
@@ -36,8 +36,18 @@
     </div>
 
     <CrossButton class='cross-button' @click.native = 'close'/>
-
-
+    <!-- Кнопка отображения инфо в оверлее с горизонтальной пагинацией -->
+    <div class = 'zoom-button'>
+          <v-btn
+            dark
+            fab
+            small
+            color="secondary"
+            @click = 'showMainLayoutOverlay'
+          >
+        <v-icon>mdi-magnify</v-icon>
+          </v-btn>
+    </div>
   </div>
 
 </template>
@@ -46,6 +56,7 @@
 <script>
 // Слой информации принимает описанные пропсы и булевы пропсы: tohtml => Преобразовать html строку в код (true/false)
 import CrossButton from "@/components/global/buttons/CrossButton"
+import { bus } from '@/bus/bus.js'
   export default {
     name: 'infolayer',
     components: {
@@ -67,13 +78,21 @@ import CrossButton from "@/components/global/buttons/CrossButton"
     data() {
       return {
         show_settings_section: false,
+        text: this.description,
+        name: this.title,
       }
     },
     methods: {
       close: function() {
         this.$emit('close')
+      },
+      showMainLayoutOverlay: function() {
+        bus.$emit('overlay',  {text: this.description, name: this.name})
+      },
+      activateButton: function() {
+        this.zoomActive = !this.zoomActive
       }
-    }
+    },
   }
 </script>
 
@@ -81,7 +100,12 @@ import CrossButton from "@/components/global/buttons/CrossButton"
 <style scoped lang = 'scss'>
 
 
-
+  .zoom-button {
+    position: absolute;
+    left: 0;
+    top: 2%;
+    opacity: 0.4;
+  }
 
   .infolayer {
     width: inherit;

@@ -1,4 +1,5 @@
 <template>
+   <!-- Кнопка стрелка, на данный момент нигде не используется -->
   <div class = 'icon-arrow'>
     <img class = 'arrow-buttonimg' :src = "`${publicPath}images/arrow.png`">
   </div>
