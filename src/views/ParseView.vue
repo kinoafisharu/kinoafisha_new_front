@@ -99,19 +99,17 @@ export default {
 <style scoped lang='scss'>
   #form {
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    flex-direction: column;
     margin-top: 15%;
   }
   #inp {
-    margin: 0 auto;
-    margin-right: 2%;
     padding: 1%;
     border: 1px solid white;
   }
   #posterimg {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 85%;
+    max-height: 85%;
   }
   .params {
     margin-top: 2%;
