@@ -21,7 +21,7 @@
       </v-expansion-panels>
     </template>
     <template v-slot:component-slot>
-      <StorySlider ref='obj' defaultapiaction = 'getval' :defaultordering = 'storydefaultordering'/>
+      <StorySlider ref='obj' :defaultordering = 'storydefaultordering'/>
     </template>
     <template v-slot:expansion-menu>
     </template>

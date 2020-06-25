@@ -12,9 +12,10 @@
         <slot v-bind:obj = 'obj'></slot>
       </swiper-slide>
       <!-- Слайд для зарузки в конце массива -->
-      <swiper-slide>
+      <swiper-slide v-if= 'objs.length >= pagesize'>
         <div class = 'absslider-loading-slide'>
           <v-progress-circular
+
             :size="150"
             :width="14"
             color="primary"
@@ -63,19 +64,17 @@ export default {
     defaultdispatcher: String,
     defaultdatetime: String,
     defaultfields: String,
-    defaultapiaction: String,
     defaultordering: String,
     objs: Array,
   },
   data() {
     return {
-      objarr: this.objs,
+      //objarr: this.objs,
       loading: true,
       toggleData: null,
-      apiaction: this.defaultapiaction,
       fields: this.defaultfields,
       ordering: this.defaultordering,
-      pagesize: 25,
+      pagesize: 12,
       dispatcher: this.defaultdispatcher,
       datetime: this.defaultdatetime,
       swiperOption: {
@@ -127,7 +126,6 @@ export default {
       let obj = {
           currentPage: this.currentPage,
           values: this.fields,
-          action: this.apiaction,
           ordering: this.ordering,
           datetime: this.datetime,
           page_size: this.pagesize,
@@ -139,9 +137,11 @@ export default {
     // Событие - слайдер достиг конца, прогружается новый список обьектов
     // Список прогружен - слайд к началу списка
     onReachEnd: async function() {
+      if (this.objs.length >= this.pagesize) {
         this.currentPage ++
         await this.makeRequest(this.dispatcher, this.requestObject)
         this.swiper.slideTo(0, 0, false);
+      }
     },
     // Метод принудительного обновления, принимает в качестве аргументов
     // Тип сортировки, выборку по времени и обьект с параметрами

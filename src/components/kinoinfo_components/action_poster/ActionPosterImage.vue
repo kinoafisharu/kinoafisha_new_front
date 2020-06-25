@@ -1,5 +1,8 @@
 <template>
-<ImageFlexibleWrapper ref='ifw' :imgsrc = 'imgsrc' :title = 'title' @imgerr = 'onErrorImage' @imgload = 'onLoadImage'>
+<ImageFlexibleWrapper ref='ifw' :imgsrc = 'cposter ? cposter : imgsrc' 
+                                :title = 'title'
+                                @imgerr = 'onErrorImage'
+                                @imgload = 'onLoadImage'>
     <ActionElementsLayer   :description='description'
                             :title='title'
                             :rate='rate'
@@ -39,6 +42,7 @@ export default {
     likes: Number,
     dislikes: Number,
     id: Number,
+    poster: String,
   },
 
   data () {
@@ -63,6 +67,13 @@ export default {
     }
   },
   computed: {
+    cposter() {
+      if (this.poster) {
+        return this.poster
+      } else {
+        return null
+      }
+    },
     // Вычисляет URL изображения
     imgsrc() {
       if (!this.imgErr) {

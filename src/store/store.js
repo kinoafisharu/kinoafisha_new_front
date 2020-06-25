@@ -45,7 +45,7 @@ const store = new Vuex.Store({
              console.log(films);
            } else {
            console.log(payload);
-            return service.get(`kinoinfo/films/${payload.action}/`, {params: {page: payload.currentPage,
+            return service.get(`kinoinfo/films/`, {params: {page: payload.currentPage,
                                                                               page_size: payload.page_size,
                                                                               values: payload.values,
                                                                               ordering: payload.ordering,
@@ -58,7 +58,7 @@ const store = new Vuex.Store({
               }
         },
         getFilmByImdb ({commit}, payload) {
-          return service.get(`kinoinfo/films/getval/?values=${payload.values}&imdb_id=${payload.id}`)
+          return service.get(`kinoinfo/films/?values=${payload.values}&imdb_id=${payload.id}`)
             .then((res) => {
               console.log(res);
               let film = res.data.results[0]
@@ -74,9 +74,9 @@ const store = new Vuex.Store({
             })
         },
        getStories ({commit}, payload) {
-            return service.get(`texts/stories/${payload.action}/`, {params: {page: payload.currentPage,
-                                                                          ordering: payload.ordering,
-                                                                          values: payload.values}})
+            return service.get(`texts/stories/`, {params: {page: payload.currentPage,
+                                                          ordering: payload.ordering,
+                                                            values: payload.values}})
             .then(res => {
               let stories = res.data.results
               console.log(stories)

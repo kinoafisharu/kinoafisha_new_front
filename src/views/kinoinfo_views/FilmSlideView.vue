@@ -11,7 +11,6 @@
     <template v-slot:component-slot>
       <FilmSlider
       ref='obj'
-      defaultapiaction = 'getval'
       :sort_and_date = "filter"
       />
     </template>

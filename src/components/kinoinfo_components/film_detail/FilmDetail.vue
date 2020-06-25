@@ -18,6 +18,7 @@
           :release = 'obj.release'
           :genre = 'obj.genre'
           :id = 'obj.id'
+          :poster = 'obj.poster'
           />
   </div>
 </template>
