@@ -140,7 +140,7 @@ export default {
       //
       filterItems: [
       //  {text: 'Новые', value: '-release__release,-year'},
-      // {text: 'Популярные', value: '-imdb_votes'},
+        {text: 'Популярные', value: '-imdb_votes'},
         {text: 'Фильмы этой недели', value: '-imdb_votes?backfromnow,7'},
       //  {text: 'Фильмы этого месяца', value: '-imdb_votes?backfromnow,30'},
         {text: 'Скоро на экранах', value: '-imdb_votes?forwardfromnow,30'},
