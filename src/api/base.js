@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const service = axios.create({
     baseURL: 'https://new-new-api.herokuapp.com/', // url = base url + request url
-    timeout: 30000,
+    timeout: 300000,
     // withCredentials: true // send cookies when cross-domain requests
 })
 
