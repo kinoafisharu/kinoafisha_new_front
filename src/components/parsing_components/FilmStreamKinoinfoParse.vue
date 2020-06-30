@@ -113,7 +113,7 @@ export default {
     }
   },
   created() {
-      this.socket = new WebSocket('ws://new-new-api.herokuapp.com/ws/parse')
+      this.socket = new WebSocket('wss://new-new-api.herokuapp.com/ws/parse')
 
       this.socket.onmessage = (e) => {
           let data = JSON.parse(e.data);
