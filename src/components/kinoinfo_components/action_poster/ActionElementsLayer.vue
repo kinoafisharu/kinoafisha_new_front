@@ -143,10 +143,10 @@ export default {
             let age = this.limit.match(numberPattern)[0] + '+'
             return age
         } catch(err) {
-          return '0+'
+          return '99+'
         }
       } else {
-        return null
+        return '12+'
       }
 
     },
